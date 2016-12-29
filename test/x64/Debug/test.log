@@ -1,0 +1,10 @@
+﻿  Moc'ing bluetoothcontroller.h...
+  moc_bluetoothcontroller.cpp
+  bluetoothcontroller.cpp
+  Generating Code...
+bluetoothcontroller.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __cdecl QBluetoothDeviceDiscoveryAgent::QBluetoothDeviceDiscoveryAgent(class QObject *)" (__imp_??0QBluetoothDeviceDiscoveryAgent@@QEAA@PEAVQObject@@@Z) referenced in function "public: __cdecl BluetoothController::BluetoothController(class QObject *)" (??0BluetoothController@@QEAA@PEAVQObject@@@Z)
+bluetoothcontroller.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual __cdecl QBluetoothDeviceDiscoveryAgent::~QBluetoothDeviceDiscoveryAgent(void)" (__imp_??1QBluetoothDeviceDiscoveryAgent@@UEAA@XZ) referenced in function "public: virtual void * __cdecl QBluetoothDeviceDiscoveryAgent::`scalar deleting destructor'(unsigned int)" (??_GQBluetoothDeviceDiscoveryAgent@@UEAAPEAXI@Z)
+bluetoothcontroller.obj : error LNK2001: unresolved external symbol "public: virtual struct QMetaObject const * __cdecl QBluetoothDeviceDiscoveryAgent::metaObject(void)const " (?metaObject@QBluetoothDeviceDiscoveryAgent@@UEBAPEBUQMetaObject@@XZ)
+bluetoothcontroller.obj : error LNK2001: unresolved external symbol "public: virtual int __cdecl QBluetoothDeviceDiscoveryAgent::qt_metacall(enum QMetaObject::Call,int,void * *)" (?qt_metacall@QBluetoothDeviceDiscoveryAgent@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z)
+bluetoothcontroller.obj : error LNK2001: unresolved external symbol "public: virtual void * __cdecl QBluetoothDeviceDiscoveryAgent::qt_metacast(char const *)" (?qt_metacast@QBluetoothDeviceDiscoveryAgent@@UEAAPEAXPEBD@Z)
+debug\\test.exe : fatal error LNK1120: 5 unresolved externals

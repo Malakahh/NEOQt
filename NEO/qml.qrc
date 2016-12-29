@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Views/Bluetooth.qml</file>
+        <file>NEOControls/InfoButton.qml</file>
+    </qresource>
+</RCC>
