@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QtBluetooth/QBluetoothDeviceInfo>
+#include <QDebug>
+#include <QtBluetooth/QBluetoothAddress>
 
 class BluetoothDeviceDataObject : public QObject
 {
@@ -11,9 +13,10 @@ class BluetoothDeviceDataObject : public QObject
 
 public:
     explicit BluetoothDeviceDataObject(QObject *parent = 0);
-    BluetoothDeviceDataObject(const QBluetoothDeviceInfo& deviceInfo, QObject *parent = 0);
+    BluetoothDeviceDataObject(BluetoothDeviceDataObject& deviceObject);
+    BluetoothDeviceDataObject(QBluetoothDeviceInfo deviceInfo, QObject *parent = 0);
 
-    const QBluetoothDeviceInfo* btDeviceInfo;
+    QBluetoothDeviceInfo btDeviceInfo;
 
     QString deviceName() const;
 

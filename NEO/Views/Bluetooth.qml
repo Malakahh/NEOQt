@@ -1,12 +1,13 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "../NEOControls" as NEOControls
+//import com.neo 1.0
 
 Item {
     Component.onCompleted: bleController.setupBLE();
 
     NEOControls.InfoButton {
-        id: btnInfo
+        id: btnInfoBLE
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 25
@@ -15,12 +16,13 @@ Item {
     Text {
         id: txtBLEHeadline
         text: qsTr("Select NEO charger:")
-        anchors.horizontalCenter: btnInfo.horizontalCenter
-        anchors.top: btnInfo.bottom
+        anchors.horizontalCenter: btnInfoBLE.horizontalCenter
+        anchors.top: btnInfoBLE.bottom
         anchors.topMargin: 25
     }
 
     ListView {
+        id: listViewBLE
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: txtBLEHeadline.bottom
@@ -28,9 +30,25 @@ Item {
         anchors.bottom: parent.bottom
         model: bleController.devices
 
-        delegate: Text {
-            text: model.modelData.deviceName
-            anchors.horizontalCenter: parent.horizontalCenter
+        delegate: Rectangle {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 50
+            color: "palegreen"
+
+            Text {
+                text: model.modelData.deviceName
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    bleController.connect(index)
+                }
+            }
         }
+
     }
 }

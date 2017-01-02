@@ -6,6 +6,7 @@
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QLowEnergyController>
 #include "bluetoothdevicedataobject.h"
+#include <vector>
 
 class BLEController : public QObject
 {
@@ -18,7 +19,7 @@ public:
     ~BLEController();
 
     Q_INVOKABLE void setupBLE();
-    Q_INVOKABLE void connect(const BluetoothDeviceDataObject& device);
+    Q_INVOKABLE void connect(int index);
 
     QVariant getDevices() const;
 
@@ -42,7 +43,7 @@ private:
     QLowEnergyService* service;
     QLowEnergyCharacteristic writer, reader;
 
-    QList<QObject*> devices;
+    std::vector<BluetoothDeviceDataObject*> devices;
 
 };
 

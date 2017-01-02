@@ -19,8 +19,6 @@ BLEController::~BLEController()
 
 void BLEController::setupBLE()
 {
-    qDebug() << "Setup BLE called";
-
     if (this->deviceDiscoveryAgent != nullptr)
     {
         delete this->deviceDiscoveryAgent;
@@ -41,25 +39,21 @@ void BLEController::addDevice(const QBluetoothDeviceInfo &device)
     if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration) //Filter for BLE devices
     {
         qDebug() << "Discovered BLE device - name: " << device.name() << " Address: " << device.address().toString();
-        this->devices.append(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
         emit this->onDevicesChanged();
     }
 }
 
-void BLEController::connect(const BluetoothDeviceDataObject &device)
+void BLEController::connect(int index)
 {
-    if (device.btDeviceInfo == nullptr)
-    {
-        qWarning() << "Could not connect. No QBluetoothDeviceInfo found in data object.";
-        return;
-    }
+    QBluetoothDeviceInfo device = this->devices.at(index)->btDeviceInfo;
 
     if (this->leController != nullptr)
     {
         delete this->leController;
     }
 
-    this->leController = new QLowEnergyController(device.btDeviceInfo->address(), this);
+    this->leController = new QLowEnergyController(device.address(), this);
 
     QObject::connect(this->leController,
                      SIGNAL(connected()),
@@ -81,7 +75,14 @@ void BLEController::writeCharacteristic(QByteArray msg)
 
 QVariant BLEController::getDevices() const
 {
-    return QVariant::fromValue(this->devices);
+    QList<QObject*> list;
+
+    for (auto itr = this->devices.begin(); itr < this->devices.end(); itr++)
+    {
+        list.append(*itr);
+    }
+
+    return QVariant::fromValue(list);
 }
 
 void BLEController::onConnected()

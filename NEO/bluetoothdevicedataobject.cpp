@@ -5,15 +5,17 @@ BluetoothDeviceDataObject::BluetoothDeviceDataObject(QObject *parent) : QObject(
 
 }
 
-BluetoothDeviceDataObject::BluetoothDeviceDataObject(const QBluetoothDeviceInfo& deviceInfo, QObject* parent) : QObject(parent)
+BluetoothDeviceDataObject::BluetoothDeviceDataObject(BluetoothDeviceDataObject& deviceObject) : QObject(deviceObject.parent())
 {
-    this->btDeviceInfo = &deviceInfo;
+    this->btDeviceInfo = deviceObject.btDeviceInfo;
+}
+
+BluetoothDeviceDataObject::BluetoothDeviceDataObject(QBluetoothDeviceInfo deviceInfo, QObject* parent) : QObject(parent)
+{
+    this->btDeviceInfo = deviceInfo;
 }
 
 QString BluetoothDeviceDataObject::deviceName() const
 {
-    if (this->btDeviceInfo == nullptr)
-        return "";
-
-    return this->btDeviceInfo->name();
+    return this->btDeviceInfo.name();
 }
