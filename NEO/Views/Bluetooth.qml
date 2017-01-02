@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "../NEOControls" as NEOControls
-//import com.neo 1.0
 
 Item {
     Component.onCompleted: bleController.setupBLE();
