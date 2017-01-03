@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.1
 import "../NEOControls" as NEOControls
 
 Item {
@@ -45,9 +46,33 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     bleController.connect(index)
+                    popupBLEConnecting.open()
                 }
             }
         }
+    }
 
+    Popup {
+        id: popupBLEConnecting
+        modal: true
+        focus: true
+        x: parent.width / 2 - width / 2
+        y: parent.height / 2 - height / 2
+
+        background: Rectangle {
+        }
+
+        contentItem: RowLayout {
+            anchors.fill: parent
+
+            BusyIndicator {
+                id: busyIndicatorConnecting
+                running: image.status === Image.Loading
+            }
+
+            Text {
+                text: qsTr("Connecting...")
+            }
+        }
     }
 }

@@ -18,11 +18,12 @@ public:
     explicit BLEController(QObject *parent = 0);
     ~BLEController();
 
+
+
     Q_INVOKABLE void setupBLE();
     Q_INVOKABLE void connect(int index);
 
     QVariant getDevices() const;
-
     void writeCharacteristic(QByteArray msg);
 
 signals:

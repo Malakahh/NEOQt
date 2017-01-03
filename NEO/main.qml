@@ -5,8 +5,8 @@ import "Views" as Views
 
 ApplicationWindow {
     visible: true
-    width: 640
-    height: 480
+    width: 720
+    height: 1280
     title: qsTr("NEO")
 
     Views.Bluetooth {
