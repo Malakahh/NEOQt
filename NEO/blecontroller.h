@@ -16,15 +16,18 @@ class BLEController : public QObject
 
 public:
     explicit BLEController(QObject *parent = 0);
+    BLEController(BLEController const&) = delete;
     ~BLEController();
 
-
+    static BLEController& getInstance();
 
     Q_INVOKABLE void setupBLE();
     Q_INVOKABLE void connect(int index);
 
     QVariant getDevices() const;
     void writeCharacteristic(QByteArray msg);
+
+    void operator=(BLEController const&) = delete;
 
 signals:
     void onDevicesChanged();

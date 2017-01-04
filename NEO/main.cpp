@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
 //    qmlRegisterType<BluetoothDeviceDataObject>("com.neo", 1, 0, "BluetoothDeviceDataObject");
 
-    BLEController bleController;
+    BLEController& bleController = BLEController::getInstance();
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);

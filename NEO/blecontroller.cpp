@@ -6,6 +6,13 @@
 
 BLEController::BLEController(QObject *parent) : QObject(parent) {}
 
+BLEController& BLEController::getInstance()
+{
+    static BLEController instance;
+
+    return instance;
+}
+
 BLEController::~BLEController()
 {
     delete this->deviceDiscoveryAgent;
