@@ -9,9 +9,6 @@ T.Button {
     height: 100
     text: qsTr("Info")
 
-
-
-
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
                             contentItem.implicitWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(background ? background.implicitHeight : 0,

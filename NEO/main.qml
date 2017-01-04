@@ -4,10 +4,13 @@ import QtQuick.Layouts 1.0
 import "Views" as Views
 
 ApplicationWindow {
+    id: base
     visible: true
     width: 720
     height: 1280
     title: qsTr("NEO")
+
+    property var MARGIN: 25
 
     Views.Bluetooth {
         id: viewBLE
