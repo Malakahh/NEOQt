@@ -61,6 +61,7 @@ Item {
 
             Image {
                 id: iconBattery
+                source: "file"
             }
         }
 
