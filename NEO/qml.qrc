@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>Views/Bluetooth.qml</file>
         <file>NEOControls/InfoButton.qml</file>
+        <file>Views/UserPage.qml</file>
     </qresource>
 </RCC>

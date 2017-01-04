@@ -151,6 +151,7 @@ void BLEController::onStateChanged(QLowEnergyService::ServiceState newState)
 
         this->service->writeDescriptor(notification, QByteArray::fromHex("0100"));
 
+        qDebug() << "Connection Established";
         emit this->connectionEstablished();
     }
 }

@@ -10,7 +10,13 @@ ApplicationWindow {
     title: qsTr("NEO")
 
     Views.Bluetooth {
+        id: viewBLE
         anchors.fill: parent
     }
 
+    Views.UserPage {
+        id: viewUser
+        anchors.fill: parent
+        visible: false
+    }
 }

@@ -4,7 +4,18 @@ import QtQuick.Layouts 1.1
 import "../NEOControls" as NEOControls
 
 Item {
-    Component.onCompleted: bleController.setupBLE();
+    Component.onCompleted: {
+        bleController.setupBLE()
+    }
+
+    Connections {
+        target: bleController
+        onConnectionEstablished: {
+            viewBLE.visible = false;
+            popupBLEConnecting.close()
+            viewUser.visible = true;
+        }
+    }
 
     NEOControls.InfoButton {
         id: btnInfoBLE
