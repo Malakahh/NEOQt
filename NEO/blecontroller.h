@@ -31,6 +31,7 @@ public:
 
 signals:
     void onDevicesChanged();
+    void connectionEstablished();
 
 public slots:
     void addDevice(const QBluetoothDeviceInfo& device);
