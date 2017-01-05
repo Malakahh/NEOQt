@@ -1,4 +1,4 @@
-QT += qml quick
+QT += qml quick bluetooth
 
 CONFIG += c++11
 
@@ -20,4 +20,4 @@ HEADERS += \
     blecontroller.h \
     bluetoothdevicedataobject.h
 
-unix|win32: LIBS += -lQt5Bluetooth
+#unix|win32: LIBS += -lQt5Bluetooth
