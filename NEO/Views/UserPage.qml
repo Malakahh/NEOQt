@@ -6,39 +6,45 @@ Item {
 
     Image {
         id: powerchargeLogo
-        source: "file"
+        source: "../Assets/Power.png"
+        fillMode: Image.PreserveAspectFit
 
         anchors.left: parent.left
-        anchors.leftMargin: base.MARGIN
+        anchors.leftMargin: base.margin
         anchors.right: parent.right
-        anchors.rightMargin: base.MARGIN
+        anchors.rightMargin: base.margin
         anchors.top: parent.top
-        anchors.topMargin: base.MARGIN
+        anchors.topMargin: base.margin
     }
 
     AnimatedSprite {
         id: batteryIcon
-        source: "file"
+        source: "../Assets/BatterySheet.png"
+        frameCount: 1
+        frameRate: 1
 
-        anchors.top: powerchargeLogo.top
-        anchors.topMargin: base.MARGIN
+        width: 512
+        height: 256
+
+        anchors.top: powerchargeLogo.bottom
+        anchors.topMargin: base.margin
         anchors.horizontalCenter: powerchargeLogo.horizontalCenter
     }
 
     Row {
         id: ledRow
 
-        anchors.top: batteryIcon
-        anchors.topMargin: base.MARGIN
+        anchors.top: batteryIcon.bottom
+        anchors.topMargin: base.margin
         anchors.left: parent.left
-        anchors.leftMargin: base.MARGIN
+        anchors.leftMargin: base.margin
         anchors.right: parent.right
-        anchors.rightMargin: base.MARGIN
+        anchors.rightMargin: base.margin
 
-        spacing: base.MARGIN
+        spacing: base.margin
 
         Column {
-            spacing: base.MARGIN
+            spacing: base.margin
 
             Image {
                 id: ledGreen
@@ -52,7 +58,7 @@ Item {
         }
 
         Column {
-            spacing: base.MARGIN
+            spacing: base.margin
 
             Image {
                 id: ledYellow
@@ -66,7 +72,7 @@ Item {
         }
 
         Column {
-            spacing: base.MARGIN
+            spacing: base.margin
 
             Image {
                 id: ledRed
@@ -80,7 +86,7 @@ Item {
         }
 
         Column {
-            spacing: base.MARGIN
+            spacing: base.margin
 
             Image {
                 id: ledBlue
@@ -95,8 +101,8 @@ Item {
     }
 
     NEOControls.InfoButton {
-        anchors.top: ledRow
-        anchors.topMargin: base.MARGIN
+        anchors.top: ledRow.bottom
+        anchors.topMargin: base.margin
         anchors.horizontalCenter: parent.horizontalCenter
     }
 }

@@ -21,7 +21,7 @@ Item {
         id: btnInfoBLE
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: base.MARGIN
+        anchors.topMargin: base.margin
     }
 
     Text {
@@ -29,7 +29,7 @@ Item {
         text: qsTr("Select NEO charger:")
         anchors.horizontalCenter: btnInfoBLE.horizontalCenter
         anchors.top: btnInfoBLE.bottom
-        anchors.topMargin: base.MARGIN
+        anchors.topMargin: base.margin
     }
 
     ListView {
@@ -37,7 +37,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: txtBLEHeadline.bottom
-        anchors.topMargin: base.MARGIN
+        anchors.topMargin: base.margin
         anchors.bottom: parent.bottom
         model: bleController.devices
 

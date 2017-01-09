@@ -4,5 +4,8 @@
         <file>Views/Bluetooth.qml</file>
         <file>NEOControls/InfoButton.qml</file>
         <file>Views/UserPage.qml</file>
+
+        <file>Assets/Power.png</file>
+        <file>Assets/BatterySheet.png</file>
     </qresource>
 </RCC>
