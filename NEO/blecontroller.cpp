@@ -60,7 +60,8 @@ void BLEController::connect(int index)
         delete this->leController;
     }
 
-    this->leController = new QLowEnergyController(device.address(), this);
+    //this->leController = new QLowEnergyController(device.address(), this);
+    this->leController = QLowEnergyController::createCentral(device, this);
 
     QObject::connect(this->leController,
                      SIGNAL(connected()),

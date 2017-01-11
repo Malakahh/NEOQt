@@ -15,12 +15,12 @@ ApplicationWindow {
     Views.Bluetooth {
         id: viewBLE
         anchors.fill: parent
-        visible: false
+        visible: true
     }
 
     Views.UserPage {
         id: viewUser
         anchors.fill: parent
-        visible: true
+        visible: false
     }
 }
