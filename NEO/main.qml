@@ -10,7 +10,7 @@ ApplicationWindow {
     height: 1280
     title: qsTr("NEO")
 
-    property var margin: 25
+    property int margin: 25
 
     Views.Bluetooth {
         id: viewBLE
@@ -20,6 +20,12 @@ ApplicationWindow {
 
     Views.UserPage {
         id: viewUser
+        anchors.fill: parent
+        visible: false
+    }
+
+    Views.ServicePage {
+        id: viewService
         anchors.fill: parent
         visible: false
     }

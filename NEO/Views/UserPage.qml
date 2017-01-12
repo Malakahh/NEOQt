@@ -1,108 +1,168 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 import "../NEOControls" as NEOControls
 
-Item {
-    id: test
+Flickable {
+    ScrollBar.vertical: ScrollBar { }
+    focus: true
+    anchors.fill: parent
 
-    Image {
-        id: powerchargeLogo
-        source: "../Assets/Power.png"
-        fillMode: Image.PreserveAspectFit
+    height: parent.height
+    contentHeight: userScrollContent.height
 
-        anchors.left: parent.left
-        anchors.leftMargin: base.margin
-        anchors.right: parent.right
-        anchors.rightMargin: base.margin
-        anchors.top: parent.top
-        anchors.topMargin: base.margin
-    }
+    Item {
+        id: userScrollContent
 
-    AnimatedSprite {
-        id: batteryIcon
-        source: "../Assets/BatterySheet.png"
-        frameCount: 1
-        frameRate: 1
+        anchors.margins: base.margin
+        anchors.fill: parent
 
-        width: 512
-        height: 256
+        Image {
+            id: powerchargeLogo
+            source: "../Assets/Power.png"
+            fillMode: Image.PreserveAspectFit
 
-        anchors.top: powerchargeLogo.bottom
-        anchors.topMargin: base.margin
-        anchors.horizontalCenter: powerchargeLogo.horizontalCenter
-    }
+            anchors.left: parent.left
+            anchors.leftMargin: base.margin
+            anchors.right: parent.right
+            anchors.rightMargin: base.margin
+            anchors.top: parent.top
+            //anchors.topMargin: base.margin
 
-    Row {
-        id: ledRow
+            MouseArea {
+                anchors.fill: parent
+                onPressedChanged: {
+                    if (pressed) {
+                        powerchargeLogoLongClickTimer.running = true
+                    } else {
+                        powerchargeLogoLongClickTimer.running = false
+                    }
+                }
 
-        anchors.top: batteryIcon.bottom
-        anchors.topMargin: base.margin
-        anchors.left: parent.left
-        anchors.leftMargin: base.margin
-        anchors.right: parent.right
-        anchors.rightMargin: base.margin
-
-        spacing: base.margin
-
-        Column {
-            spacing: base.margin
-
-            Image {
-                id: ledGreen
-                source: "file"
-            }
-
-            Image {
-                id: iconPower
-                source: "file"
+                Timer {
+                    id: powerchargeLogoLongClickTimer
+                    interval: 3000
+                    repeat: false
+                    running: false
+                    onTriggered: {
+                        viewUser.visible = false
+                        viewService.visible = true
+                    }
+                }
             }
         }
 
-        Column {
+        AnimatedSprite {
+            id: batteryIcon
+            source: "../Assets/BatterySheet.png"
+            frameCount: 1
+            frameRate: 1
+
+            width: powerchargeLogo.width
+            height: powerchargeLogo.width / 2
+
+            anchors.top: powerchargeLogo.bottom
+            anchors.topMargin: base.margin
+            anchors.horizontalCenter: powerchargeLogo.horizontalCenter
+        }
+
+        Row {
+            id: ledRow
+
+            anchors.top: batteryIcon.bottom
+            anchors.topMargin: base.margin
+            anchors.horizontalCenter: parent.horizontalCenter
+
             spacing: base.margin
 
-            Image {
-                id: ledYellow
-                source: "file"
+            Column {
+                spacing: base.margin
+
+                Image {
+                    id: ledGreen
+                    source: "../Assets/led_blue.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 32
+                    height: width
+                    x: width / 2
+                }
+
+                Image {
+                    id: iconPower
+                    source: "../Assets/icon_connectivity.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 64
+                    height: width
+                }
             }
 
-            Image {
-                id: iconBattery
-                source: "file"
+            Column {
+                spacing: base.margin
+
+                Image {
+                    id: ledYellow
+                    source: "../Assets/led_blue.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 32
+                    height: width
+                    x: width / 2
+                }
+
+                Image {
+                    id: iconBattery
+                    source: "../Assets/icon_connectivity.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 64
+                    height: width
+                }
+            }
+
+            Column {
+                spacing: base.margin
+
+                Image {
+                    id: ledRed
+                    source: "../Assets/led_blue.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 32
+                    height: width
+                    x: width / 2
+                }
+
+                Image {
+                    id: iconError
+                    source: "../Assets/icon_connectivity.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 64
+                    height: width
+                }
+            }
+
+            Column {
+                spacing: base.margin
+
+                Image {
+                    id: ledBlue
+                    source: "../Assets/led_blue.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 32
+                    height: width
+                    x: width / 2
+                }
+
+                Image {
+                    id: iconBtConnected
+                    source: "../Assets/icon_connectivity.png"
+                    fillMode: Image.PreserveAspectFit
+                    width: 64
+                    height: width
+                }
             }
         }
 
-        Column {
-            spacing: base.margin
-
-            Image {
-                id: ledRed
-                source: "file"
-            }
-
-            Image {
-                id: iconError
-                source: "file"
-            }
+        NEOControls.InfoButton {
+            anchors.top: ledRow.bottom
+            anchors.topMargin: base.margin
+            anchors.horizontalCenter: parent.horizontalCenter
         }
-
-        Column {
-            spacing: base.margin
-
-            Image {
-                id: ledBlue
-                source: "file"
-            }
-
-            Image {
-                id: iconBtConnected
-                source: "file"
-            }
-        }
-    }
-
-    NEOControls.InfoButton {
-        anchors.top: ledRow.bottom
-        anchors.topMargin: base.margin
-        anchors.horizontalCenter: parent.horizontalCenter
     }
 }
