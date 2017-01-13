@@ -7,6 +7,7 @@
 #include <QtBluetooth/QLowEnergyController>
 #include "bluetoothdevicedataobject.h"
 #include <vector>
+#include "messagehelper.h"
 
 class BLEController : public QObject
 {
@@ -21,11 +22,14 @@ public:
 
     static BLEController& getInstance();
 
+    QLowEnergyService* service;
+
     Q_INVOKABLE void setupBLE();
     Q_INVOKABLE void connect(int index);
 
     QVariant getDevices() const;
     void writeCharacteristic(QByteArray msg);
+    bool isUUIDReader(QBluetoothUuid uuid);
 
     void operator=(BLEController const&) = delete;
 
@@ -38,14 +42,11 @@ public slots:
     void onConnected();
     void onServiceDiscovered(const QBluetoothUuid& gatt);
     void onStateChanged(QLowEnergyService::ServiceState newState);
-    void onCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& data);
-    void onCharacteristicRead(const QLowEnergyCharacteristic& characteristic, const QByteArray& data);
 
 private:
     QBluetoothDeviceDiscoveryAgent* deviceDiscoveryAgent;
     QLowEnergyController* leController;
 
-    QLowEnergyService* service;
     QLowEnergyCharacteristic writer, reader;
 
     std::vector<BluetoothDeviceDataObject*> devices;

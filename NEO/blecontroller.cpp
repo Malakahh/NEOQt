@@ -112,18 +112,13 @@ void BLEController::onServiceDiscovered(const QBluetoothUuid &gatt)
                          this,
                          SLOT(onStateChanged(QLowEnergyService::ServiceState)));
 
-        QObject::connect(this->service,
-                         SIGNAL(characteristicWritten(const QLowEnergyCharacteristic&, const QByteArray&)),
-                         this,
-                         SLOT(onCharacteristicWritten(const QLowEnergyCharacteristic&, const QByteArray&)));
-
-        QObject::connect(this->service,
-                         SIGNAL(characteristicRead(const QLowEnergyCharacteristic&, const QByteArray&)),
-                         this,
-                         SLOT(onCharacteristicRead(const QLowEnergyCharacteristic&, const QByteArray&)));
-
         this->service->discoverDetails();
     }
+}
+
+bool BLEController::isUUIDReader(QBluetoothUuid uuid)
+{
+    return uuid == this->reader.uuid();
 }
 
 void BLEController::onStateChanged(QLowEnergyService::ServiceState newState)
@@ -154,18 +149,5 @@ void BLEController::onStateChanged(QLowEnergyService::ServiceState newState)
 
         qDebug() << "Connection Established";
         emit this->connectionEstablished();
-    }
-}
-
-void BLEController::onCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& data)
-{
-    qDebug() << "Data written: " << data;
-}
-
-void BLEController::onCharacteristicRead(const QLowEnergyCharacteristic& characteristic, const QByteArray& data)
-{
-    if (characteristic.uuid() == this->reader.uuid())
-    {
-        qDebug() << "Charger reply: " << QString(data);
     }
 }
