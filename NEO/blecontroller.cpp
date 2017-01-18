@@ -18,7 +18,7 @@ BLEController::~BLEController()
     delete this->deviceDiscoveryAgent;
     delete this->leController;
 
-    for (auto itr = this->devices.begin(); itr < this->devices.end(); itr++)
+    for (auto itr = this->devices.begin(); itr < this->devices.end(); ++itr)
     {
         delete *itr;
     }
