@@ -30,13 +30,13 @@ void BluetoothController::addDevice(const QBluetoothDeviceInfo & device)
     if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
     {
         qWarning() << "Discovered LE Device name: " << device.name() << " Address: " << device.address().toString();
-        this->connect(device.address());
+        this->connect(device);
     }
 }
 
-void BluetoothController::connect(const QBluetoothAddress &address)
+void BluetoothController::connect(const QBluetoothDeviceInfo& device)
 {
-    this->leController = new QLowEnergyController(address, this);
+    this->leController = QLowEnergyController::createCentral(device, this);
     QObject::connect(this->leController, SIGNAL(connected()),
         this, SLOT(onConnected()));
     QObject::connect(this->leController, SIGNAL(serviceDiscovered(const QBluetoothUuid)),
@@ -121,10 +121,10 @@ void BluetoothController::onStateChanged(QLowEnergyService::ServiceState newStat
         const char msg[] = {
             0x7C,
             0x01,
-            0xC1,
+            (char)0xC1,
             0x6E,
             0x77,
-            0xDB,
+            (char)0xDB,
             0x18 //Step
         };
 

@@ -1,4 +1,4 @@
-QT += qml quick widgets
+QT += qml quick widgets bluetooth
 
 CONFIG += c++11
 
@@ -20,4 +20,4 @@ HEADERS += \
 
 TEMPLATE += app
 
-unix|win32: LIBS += -lQt5Bluetooth
+#unix|win32: LIBS += -lQt5Bluetooth

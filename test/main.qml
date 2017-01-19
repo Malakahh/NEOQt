@@ -33,9 +33,6 @@ ApplicationWindow {
             }
         }
 
-        PageControls {
-        }
-
         Page {
             Label {
                 text: "Third page"

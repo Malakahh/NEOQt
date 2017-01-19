@@ -63,16 +63,16 @@ void ChargerModel::updateChargeVoltage()
 
     std::function<void (const std::vector<char>)> f_high = [&](const std::vector<char> msg) {
         qDebug() << "ChargeVoltage - pre: " << this->chargeVoltage;
-        this->chargeVoltage = 0 | ((int)msg[0] << 8);
+        this->chargeVoltage = 0 | (((unsigned int)msg[0] & 0xFF) << 8);
 
-        qDebug() << "ChargeVoltage - high: " << (int)msg[0];
+        qDebug() << "ChargeVoltage - high: " << (unsigned int)msg[0];
         qDebug() << "ChargeVoltage - post: " << this->chargeVoltage;
     };
 
     std::function<void (const std::vector<char>)> f_low = [&](const std::vector<char> msg) {
-        this->chargeVoltage |= (int)msg[0];
+        this->chargeVoltage |= (unsigned int)msg[0] & 0xFF;
 
-        qDebug() << "ChargeVoltage - low: " << (int)msg[0];
+        qDebug() << "ChargeVoltage - low: " << (unsigned int)msg[0];
         qDebug() << "ChargeVoltage: " << this->chargeVoltage;
     };
 

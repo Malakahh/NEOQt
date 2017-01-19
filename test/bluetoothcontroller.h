@@ -39,7 +39,7 @@ private:
     QLowEnergyService* service;
     QLowEnergyCharacteristic writer, reader;
 
-    void connect(const QBluetoothAddress &address);
+    void connect(const QBluetoothDeviceInfo& device);
 };
 
 #endif // BLUETOOTHCONTROLLER_H

@@ -28,7 +28,7 @@ public slots:
 private:
     MessageHelper messageHelper;
 
-    int chargeVoltage;
+    unsigned int chargeVoltage;
 
 };
 
