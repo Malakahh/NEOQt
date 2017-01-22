@@ -16,6 +16,8 @@ BLEController& BLEController::getInstance()
 BLEController::~BLEController()
 {
     delete this->deviceDiscoveryAgent;
+
+    this->leController->disconnectFromDevice();
     delete this->leController;
 
     for (auto itr = this->devices.begin(); itr < this->devices.end(); ++itr)
