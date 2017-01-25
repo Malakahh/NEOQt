@@ -3,6 +3,7 @@
 
 #include <QVariant>
 #include <QObject>
+#include <QFileDialog>
 
 #include "messagehelper.h"
 
@@ -18,6 +19,7 @@ public:
     int getChargeVoltage() const;
 
     Q_INVOKABLE void updateChargeVoltage();
+    Q_INVOKABLE void fileDialogTest();
 
 signals:
     void chargeVoltageChanged();

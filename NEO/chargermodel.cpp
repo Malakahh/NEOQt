@@ -32,7 +32,6 @@
 #define EE_PROGRAM_SIZE 0x22
 #define EE_PROGRAM_AREA 0x23
 
-
 ChargerModel::ChargerModel(QObject* parent) : QObject(parent)
 {
     QObject::connect(&BLEController::getInstance(),
@@ -78,4 +77,11 @@ void ChargerModel::updateChargeVoltage()
 
     messageHelper.enqueueQuery(msg_high, 1, f_high);
     messageHelper.enqueueQuery(msg_low, 1, f_low);
+}
+
+void ChargerModel::fileDialogTest()
+{
+//    QFileDialog diag(this, Qt::Popup);
+//    diag.setFileMode(QFileDialog::AnyFile);
+//    diag.setViewMode(QFileDialog::Detail);
 }

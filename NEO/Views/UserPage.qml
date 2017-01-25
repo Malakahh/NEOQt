@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import Qt.labs.platform 1.0
 import "../NEOControls" as NEOControls
 
 Flickable {
@@ -165,7 +166,16 @@ Flickable {
             anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: {
-                chargerModel.updateChargeVoltage()
+                //chargerModel.updateChargeVoltage()
+                //chargerModel.fileDialogTest()
+                folderDialog.open()
+
+            }
+
+            FolderDialog {
+                id: folderDialog
+                currentFolder: viewer.folder
+                folder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
             }
         }
     }
