@@ -168,13 +168,17 @@ Flickable {
             onClicked: {
                 //chargerModel.updateChargeVoltage()
                 //chargerModel.fileDialogTest()
-                folderDialog.open()
+                diag.open()
 
             }
 
-            FileDialog {
-                id: folderDialog
-                folder: shortcuts.home
+//            FileDialog {
+//                id: diag
+//                folder: shortcuts.home
+//            }
+
+            NEOControls.FilePicker {
+                id: diag
             }
         }
     }

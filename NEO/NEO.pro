@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     blecontroller.cpp \
     bluetoothdevicedataobject.cpp \
     messagehelper.cpp \
-    chargermodel.cpp
+    chargermodel.cpp \
+    filebrowsermodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -204,7 +205,8 @@ HEADERS += \
     boost/detail/utf8_codecvt_facet.ipp \
     boost/detail/workaround.hpp \
     chargermodel.h \
-    callbackitem.h
+    callbackitem.h \
+    filebrowsermodel.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 

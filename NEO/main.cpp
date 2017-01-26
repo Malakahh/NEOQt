@@ -2,10 +2,12 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QApplication>
-#include <QFileSystemModel>
+#include <QStandardPaths>
+#include <QDirModel>
 
 #include "blecontroller.h"
 #include "chargermodel.h"
+#include "filebrowsermodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,13 +20,13 @@ int main(int argc, char *argv[])
 
     BLEController& bleController = BLEController::getInstance();
     ChargerModel chargerModel;
-    QFileSystemModel fsModel;
-    fsModel.setRootPath("/");
+    FileBrowserModel fbModel;
+    fbModel.setRootPath(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);
     engine.rootContext()->setContextProperty("chargerModel", &chargerModel);
-    engine.rootContext()->setContextProperty("fsModel", &fsModel);
+    engine.rootContext()->setContextProperty("fbModel", &fbModel);
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();
