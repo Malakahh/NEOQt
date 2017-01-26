@@ -172,10 +172,9 @@ Flickable {
 
             }
 
-            FolderDialog {
+            FileDialog {
                 id: folderDialog
-                currentFolder: viewer.folder
-                folder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+                folder: shortcuts.home
             }
         }
     }
