@@ -7,6 +7,6 @@ FileBrowserModel::FileBrowserModel()
 
 QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
 {
-    return QString("test");
-    //return QFileSystemModel::data(index, role);
+    //return QString("test");
+    return QFileSystemModel::data(index, role);
 }
