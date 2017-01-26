@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     BLEController& bleController = BLEController::getInstance();
     ChargerModel chargerModel;
     FileBrowserModel fbModel;
-    fbModel.setRootPath(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
+    //fbModel.setRootPath(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);

@@ -12,6 +12,8 @@ Dialog {
         TreeView {
             anchors.fill: parent
 
+
+
             TableViewColumn {
                 title: "Name"
                 role: "fileName"

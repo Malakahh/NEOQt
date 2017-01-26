@@ -2,6 +2,7 @@
 #define FILEBROWSERMODEL_H
 
 #include <QFileSystemModel>
+#include <QDebug>
 
 class FileBrowserModel : public QFileSystemModel
 {
