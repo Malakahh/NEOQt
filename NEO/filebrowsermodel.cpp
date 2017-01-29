@@ -3,6 +3,7 @@
 
 FileBrowserModel::FileBrowserModel()
 {
+    /*
     setRootPath(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
 
     for (int i = 0; i < rowCount(); i++)
@@ -11,6 +12,7 @@ FileBrowserModel::FileBrowserModel()
 
         qDebug() << "eh" << this->fileName(k);
     }
+    */
 }
 
 QVariant FileBrowserModel::data(const QModelIndex &index, int role) const

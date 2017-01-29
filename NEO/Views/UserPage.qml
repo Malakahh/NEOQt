@@ -164,22 +164,6 @@ Flickable {
             anchors.top: ledRow.bottom
             anchors.topMargin: base.margin
             anchors.horizontalCenter: parent.horizontalCenter
-
-            onClicked: {
-                //chargerModel.updateChargeVoltage()
-                //chargerModel.fileDialogTest()
-                diag.open()
-
-            }
-
-//            FileDialog {
-//                id: diag
-//                folder: shortcuts.home
-//            }
-
-            NEOControls.FilePicker {
-                id: diag
-            }
         }
     }
 }
