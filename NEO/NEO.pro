@@ -1,4 +1,4 @@
-QT += qml quick bluetooth widgets
+QT += qml quick bluetooth widgets network xml
 
 CONFIG += c++11
 
