@@ -1,4 +1,4 @@
-QT += qml quick bluetooth widgets network xml
+QT += qml quick bluetooth widgets
 
 CONFIG += c++11
 
@@ -7,14 +7,7 @@ SOURCES += main.cpp \
     bluetoothdevicedataobject.cpp \
     messagehelper.cpp \
     chargermodel.cpp \
-    filebrowsermodel.cpp \
-    lycis-QtDropbox-17ad007/src/qdropbox.cpp \
-    lycis-QtDropbox-17ad007/src/qdropboxaccount.cpp \
-    lycis-QtDropbox-17ad007/src/qdropboxdeltaresponse.cpp \
-    lycis-QtDropbox-17ad007/src/qdropboxfile.cpp \
-    lycis-QtDropbox-17ad007/src/qdropboxfileinfo.cpp \
-    lycis-QtDropbox-17ad007/src/qdropboxjson.cpp \
-    lycis-QtDropbox-17ad007/tests/qtdropboxtest.cpp
+    filebrowsermodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -213,37 +206,11 @@ HEADERS += \
     boost/detail/workaround.hpp \
     chargermodel.h \
     callbackitem.h \
-    filebrowsermodel.h \
-    lycis-QtDropbox-17ad007/src/qdropbox.h \
-    lycis-QtDropbox-17ad007/src/qdropboxaccount.h \
-    lycis-QtDropbox-17ad007/src/qdropboxdeltaresponse.h \
-    lycis-QtDropbox-17ad007/src/qdropboxfile.h \
-    lycis-QtDropbox-17ad007/src/qdropboxfileinfo.h \
-    lycis-QtDropbox-17ad007/src/qdropboxjson.h \
-    lycis-QtDropbox-17ad007/src/qtdropbox.h \
-    lycis-QtDropbox-17ad007/src/qtdropbox_global.h \
-    lycis-QtDropbox-17ad007/tests/qtdropboxtest.hpp
+    filebrowsermodel.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 
 DISTFILES += \
     Libs/qt-crc32-master/.gitignore \
     Libs/qt-crc32-master/LICENSE \
-    Libs/qt-crc32-master/README.md \
-    lycis-QtDropbox-17ad007/libqtdropbox.pri \
-    lycis-QtDropbox-17ad007/qtdropbox.config.pri \
-    lycis-QtDropbox-17ad007/qtdropbox.pri \
-    lycis-QtDropbox-17ad007/doc/design.uml \
-    lycis-QtDropbox-17ad007/QtDropbox-Info.plist \
-    lycis-QtDropbox-17ad007/doc/doxygen.conf \
-    lycis-QtDropbox-17ad007/GPL \
-    lycis-QtDropbox-17ad007/LICENCE \
-    lycis-QtDropbox-17ad007/doc/DEVELOPMENT.md \
-    lycis-QtDropbox-17ad007/tests/README.md \
-    lycis-QtDropbox-17ad007/AUTHORS.md \
-    lycis-QtDropbox-17ad007/INSTALL.md \
-    lycis-QtDropbox-17ad007/README.md
-
-SUBDIRS += \
-    lycis-QtDropbox-17ad007/tests/tests.pro \
-    lycis-QtDropbox-17ad007/qtdropbox.pro
+    Libs/qt-crc32-master/README.md

@@ -74,6 +74,11 @@ void loadTest()
     qDebug() << "Data read: " << str;
 }
 
+void dropboxTest()
+{
+    
+}
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
