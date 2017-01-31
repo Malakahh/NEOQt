@@ -1,4 +1,4 @@
-QT += qml quick bluetooth widgets
+QT += qml quick bluetooth widgets testlib
 
 CONFIG += c++11
 
@@ -7,7 +7,12 @@ SOURCES += main.cpp \
     bluetoothdevicedataobject.cpp \
     messagehelper.cpp \
     chargermodel.cpp \
-    filebrowsermodel.cpp
+    filebrowsermodel.cpp \
+    QtDropbox2/src/qdropbox2.cpp \
+    QtDropbox2/src/qdropbox2account.cpp \
+    QtDropbox2/src/qdropbox2entityinfo.cpp \
+    QtDropbox2/src/qdropbox2file.cpp \
+    QtDropbox2/src/qdropbox2folder.cpp
 
 RESOURCES += qml.qrc
 
@@ -206,7 +211,15 @@ HEADERS += \
     boost/detail/workaround.hpp \
     chargermodel.h \
     callbackitem.h \
-    filebrowsermodel.h
+    filebrowsermodel.h \
+    QtDropbox2/src/qdropbox2.h \
+    QtDropbox2/src/qdropbox2account.h \
+    QtDropbox2/src/qdropbox2common.h \
+    QtDropbox2/src/qdropbox2entity.h \
+    QtDropbox2/src/qdropbox2entityinfo.h \
+    QtDropbox2/src/qdropbox2file.h \
+    QtDropbox2/src/qdropbox2folder.h \
+    QtDropbox2/src/qdropbox2global.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 

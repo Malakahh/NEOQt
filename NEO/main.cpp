@@ -74,9 +74,39 @@ void loadTest()
     qDebug() << "Data read: " << str;
 }
 
+#include "QtDropbox2/src/qdropbox2.h"
+#include <QDesktopServices>
+
+#define APP_KEY QString("0crhqgwzoh9yymp")
+#define APP_SECRET QString("9qyidlxjfxk93tp")
+
 void dropboxTest()
 {
-    
+    QUrl url = QDropbox2::authorizeLink(APP_KEY);
+    qDebug() << url;
+    QDesktopServices::openUrl(url);
+
+    QDropbox2 db2(APP_KEY, APP_SECRET);
+
+    if (db2.error() != QDropbox2::NoError)
+    {
+        qDebug() << "Error! " << db2.error();
+        return;
+    }
+
+    QDropbox2User info;
+    db2.userInfo(info);
+
+    qDebug() << "\t            id: " << info.id();
+    qDebug() << "\t          type: " << info.type();
+    qDebug() << "\t          name: " << info.displayName();
+    qDebug() << "\t         email: " << info.email();
+    qDebug() << "\t emailVerified: " << (info.emailVerified() ? "true" : "false");
+    qDebug() << "\t    isDisabled: " << (info.isDisabled() ? "true" : "false");
+    qDebug() << "\t        locale: " << info.locale();
+    qDebug() << "\t  referralLink: " << info.referralLink().toString();
+    qDebug() << "\t      isPaired: " << (info.isPaired() ? "true" : "false");
+    qDebug() << "\t       country: " << info.country();
 }
 
 int main(int argc, char *argv[])
@@ -85,10 +115,12 @@ int main(int argc, char *argv[])
     //QGuiApplication app(argc, argv);
     QApplication app(argc, argv);
 
+    /*
     qDebug() << "pathfinder: " << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last();
     
     saveTest();
     loadTest();
+*/
 
     BLEController& bleController = BLEController::getInstance();
     ChargerModel chargerModel;
