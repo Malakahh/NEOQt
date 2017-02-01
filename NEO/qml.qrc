@@ -10,6 +10,5 @@
         <file>Assets/led_blue.png</file>
         <file>Views/ServicePage.qml</file>
         <file>NEOControls/FilePicker.qml</file>
-        <file>NEOControls/DropboxLinkDialog.qml</file>
     </qresource>
 </RCC>

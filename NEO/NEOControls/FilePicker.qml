@@ -1,26 +1,39 @@
 import QtQuick 2.0
-import QtQuick.Dialogs 1.2
-import QtQuick.Controls 1.4
-import QtQml.Models 2.2
+import QtQuick.Controls 2.1
+import QtQuick.Layouts 1.1
 
-Dialog {
-    contentItem: Item {
-
-        implicitWidth: 300
-        implicitHeight: 500
-
-        TreeView {
-            anchors.fill: parent
+Popup {
+    modal: true
 
 
+    width: 200
+    height: 200
 
-            TableViewColumn {
-                title: "Name"
-                role: "fileName"
-                width: parent.width
+    x: base.width / 2 - width / 2
+    y: base.height / 2 - height / 2
+
+    background: Rectangle {
+        color: "white"
+    }
+
+
+
+    ListView {
+        anchors.fill: parent
+        focus: true
+
+        model: fbModel.getData()
+
+        delegate: Rectangle {
+
+            height: 25
+            width: 100
+
+            Text {
+                text: model.modelData.fileName + "content"
             }
-
-            model: fbModel
         }
+
+
     }
 }

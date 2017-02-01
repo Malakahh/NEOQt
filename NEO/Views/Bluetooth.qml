@@ -24,10 +24,11 @@ Item {
         anchors.topMargin: base.margin
 
         onClicked: {
+            console.log(fbModel.getData())
             diag.open()
         }
 
-        NEOControls.DropboxLinkDialog {
+        NEOControls.FilePicker {
             id: diag
         }
     }
