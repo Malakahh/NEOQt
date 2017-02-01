@@ -2,14 +2,14 @@
 
 FileBrowser::FileBrowser(QObject* parent) : QObject(parent)
 {    
-    /*
+
     #ifdef Q_OS_ANDROID
-        this->dir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
-    #elif Q_OS_IOS
+        this->dir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
+    #endif
+    
+    #ifdef Q_OS_IOS
         this->dir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
     #endif
-*/
-    this->dir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
 
     qDebug() << "path set: " << this->dir.absolutePath();
 }
