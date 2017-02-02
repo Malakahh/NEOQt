@@ -27,7 +27,7 @@ public:
     void save(QString fileName, const char* data, const unsigned int len);
     void load(QString fileName, char*& data, unsigned int& len);
 
-    Q_INVOKABLE void test(QString fileName);
+    //Q_INVOKABLE void test(QString fileName);
 
     void operator=(FileHelper const&) = delete;
 

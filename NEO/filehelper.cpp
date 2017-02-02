@@ -66,6 +66,7 @@ void FileHelper::load(QString fileName, char*& data, unsigned int& len)
     ds.readBytes(data, len);
 }
 
+/*
 void FileHelper::test(QString fileName)
 {
     const char data[] = {
@@ -74,10 +75,8 @@ void FileHelper::test(QString fileName)
     };
 
     //Save Test
-    /*
+    //this->save(fileName, data, 6);
 
-    this->save(fileName, data, 6);
-    */
 
     //Load test
     char* data2;
@@ -94,3 +93,4 @@ void FileHelper::test(QString fileName)
 
     qDebug() << "Arrays are equal: " << correct;
 }
+*/

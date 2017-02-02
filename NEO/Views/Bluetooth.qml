@@ -28,15 +28,6 @@ Item {
         }
     }
 
-    NEOControls.FilePicker {
-        id: diag
-        writeMode: false
-
-        onFilePicked: {
-            fileHelper.test(fileName)
-        }
-    }
-
     Text {
         id: txtBLEHeadline
         text: qsTr("Select NEO charger:")
