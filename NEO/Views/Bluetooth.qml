@@ -24,12 +24,16 @@ Item {
         anchors.topMargin: base.margin
 
         onClicked: {
-            console.log(fbModel.getData())
             diag.open()
         }
+    }
 
-        NEOControls.FilePicker {
-            id: diag
+    NEOControls.FilePicker {
+        id: diag
+        writeMode: false
+
+        onFilePicked: {
+            fileHelper.test(fileName)
         }
     }
 

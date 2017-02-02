@@ -7,13 +7,15 @@
 
 #include "blecontroller.h"
 #include "chargermodel.h"
-#include "filebrowser.h"
+#include "filehelper.h"
 
 
 //For tests
+/*
 #include <QFile>
 #include <QDataStream>
 #include <QStandardPaths>
+*/
 
 /*
 void saveTest()
@@ -31,7 +33,7 @@ void saveTest()
     sf.commit();
 }
 */
-
+/*
 void saveTest()
 {
     QString filePath(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last() + "/testSaveFile.txt");
@@ -73,6 +75,7 @@ void loadTest()
 
     qDebug() << "Data read: " << str;
 }
+*/
 
 int main(int argc, char *argv[])
 {
@@ -80,21 +83,14 @@ int main(int argc, char *argv[])
     //QGuiApplication app(argc, argv);
     QApplication app(argc, argv);
 
-    /*
-    qDebug() << "pathfinder: " << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last();
-    
-    saveTest();
-    loadTest();
-*/
-
     BLEController& bleController = BLEController::getInstance();
     ChargerModel chargerModel;
-    FileBrowser fbModel;
+    FileHelper& fileHelper = FileHelper::getInstance();
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);
     engine.rootContext()->setContextProperty("chargerModel", &chargerModel);
-    engine.rootContext()->setContextProperty("fbModel", &fbModel);
+    engine.rootContext()->setContextProperty("fileHelper", &fileHelper);
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();

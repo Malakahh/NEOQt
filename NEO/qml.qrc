@@ -10,5 +10,6 @@
         <file>Assets/led_blue.png</file>
         <file>Views/ServicePage.qml</file>
         <file>NEOControls/FilePicker.qml</file>
+        <file>Assets/floppy.png</file>
     </qresource>
 </RCC>
