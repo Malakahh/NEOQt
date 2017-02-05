@@ -12,15 +12,6 @@
 #define LED_SLOW_BLINK 2
 #define LED_FAST_BLINK 3
 
-/*
- * To update at interval:
- *  [ ] LED status
- *  [x] Voltage
- *  [x] Current
- *  [x] Program Step
- */
-
-
 class ChargerModel : public QObject
 {
     Q_OBJECT
@@ -51,6 +42,16 @@ public:
     char getLEDRed() const;
     Q_INVOKABLE void updateLEDStatus();
 
+    Q_PROPERTY(QString programName READ getProgramName NOTIFY programNameChanged)
+    QString getProgramName() const;
+    Q_INVOKABLE void updateProgramName();
+
+
+
+
+    Q_INVOKABLE void enterProgMode();
+    Q_INVOKABLE void enterNormalMode();
+
 signals:
     void chargeVoltageChanged();
     void chargeCurrentChanged();
@@ -58,6 +59,7 @@ signals:
     void LEDGreenChanged();
     void LEDYellowChanged();
     void LEDRedChanged();
+    void programNameChanged();
 
 public slots:
     void onConnectionEstablished();
@@ -73,6 +75,7 @@ private:
     char LEDGreen;
     char LEDYellow;
     char LEDRed;
+    QString programName;
 };
 
 #endif // CHARGERMODEL_H

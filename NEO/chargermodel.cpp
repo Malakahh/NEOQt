@@ -223,3 +223,129 @@ void ChargerModel::updateLEDStatus()
 
     messageHelper.enqueueQuery(msg, 1, f);
 }
+
+QString ChargerModel::getProgramName() const
+{
+    return programName;
+}
+
+void ChargerModel::updateProgramName()
+{
+    programName.clear();
+
+    //Read ee_program_name_1_2
+    std::vector<unsigned char> msg_1_2a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_PROGRAM_NAME_1_2
+    };
+
+    std::vector<unsigned char> msg_1_2b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    //Read ee_program_name_3_4
+    std::vector<unsigned char> msg_3_4a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_PROGRAM_NAME_3_4
+    };
+
+    std::vector<unsigned char> msg_3_4b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    //Read ee_program_name_5_6
+    std::vector<unsigned char> msg_5_6a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_PROGRAM_NAME_5_6
+    };
+
+    std::vector<unsigned char> msg_5_6b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    //Read ee_program_name_7_8
+    std::vector<unsigned char> msg_7_8a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_PROGRAM_NAME_7_8
+    };
+
+    std::vector<unsigned char> msg_7_8b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->programName.append(response);
+    };
+
+    std::function<void (const std::vector<char>)> f_final = [&](const std::vector<char> response) {
+        this->programName.append(response);
+
+        emit this->programNameChanged();
+
+        qDebug() << "ProgramName: " << this->programName;
+    };
+
+    messageHelper.enqueueQuery(msg_1_2a);
+    messageHelper.enqueueQuery(msg_1_2b, 2, f);
+
+    messageHelper.enqueueQuery(msg_3_4a);
+    messageHelper.enqueueQuery(msg_3_4b, 2, f);
+
+    messageHelper.enqueueQuery(msg_5_6a);
+    messageHelper.enqueueQuery(msg_5_6b, 2, f);
+
+    messageHelper.enqueueQuery(msg_7_8a);
+    messageHelper.enqueueQuery(msg_7_8b, 2, f_final);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void enterProgMode()
+{
+    std::vector<unsigned char> msg = {
+        M_GBC_OPERATION_MODE | WRITE_REG,
+        0x20
+    };
+
+    MessageHelper.enqueueQuery(msg);
+}
+
+void enterNormalMode()
+{
+    std::vector<unsigned char> msg = {
+        M_GBC_OPERATION_MODE | WRITE_REG,
+        0x80
+    };
+
+    MessageHelper.enqueueQuery(msg);
+}
