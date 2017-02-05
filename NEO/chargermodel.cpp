@@ -1,5 +1,7 @@
 #include "chargermodel.h"
 
+#define UPDATER_INTERVAL 10000
+
 //Utility
 #define WRITE_REG 0x80
 #define READ_REG 0x00
@@ -38,6 +40,26 @@ ChargerModel::ChargerModel(QObject* parent) : QObject(parent)
                      SIGNAL(connectionEstablished()),
                      this,
                      SLOT(onConnectionEstablished()));
+
+    QObject::connect(&this->updateTimer,
+                     SIGNAL(timeout()),
+                     this,
+                     SLOT(timeoutResponse()));
+}
+
+void ChargerModel::startUpdateTimer()
+{
+    this->updateTimer.start(UPDATER_INTERVAL);
+}
+
+void ChargerModel::stopUpdateTimer()
+{
+    this->updateTimer.stop();
+}
+
+void ChargerModel::timeoutResponse()
+{
+    qDebug() << "Update live data";
 }
 
 void ChargerModel::onConnectionEstablished()
@@ -45,7 +67,7 @@ void ChargerModel::onConnectionEstablished()
     this->messageHelper.hookSignals();
 }
 
-int ChargerModel::getChargeVoltage() const
+unsigned int ChargerModel::getChargeVoltage() const
 {
     return chargeVoltage;
 }
@@ -79,9 +101,51 @@ void ChargerModel::updateChargeVoltage()
     messageHelper.enqueueQuery(msg_low, 1, f_low);
 }
 
-void ChargerModel::fileDialogTest()
+unsigned int ChargerModel::getChargeCurrent() const
 {
-//    QFileDialog diag(this, Qt::Popup);
-//    diag.setFileMode(QFileDialog::AnyFile);
-//    diag.setViewMode(QFileDialog::Detail);
+    return chargeCurrent;
+}
+
+void ChargerModel::updateChargeCurrent()
+{
+    std::vector<unsigned char> msg_high = {
+        C_CHARGE_CURR_MEAS_HIGH | READ_REG
+    };
+
+    std::vector<unsigned char> msg_low = {
+        C_CHARGE_CURR_MEAS_LOW | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f_high = [&](const std::vector<char> msg) {
+        this->chargeCurrent = ((unsigned int)msg[0] & 0xFF) << 8;
+    };
+
+    std::function<void (const std::vector<char>)> f_low = [&](const std::vector<char> msg) {
+        this->chargeCurrent |= (unsigned int)msg[0] & 0xFF;
+
+        qDebug() << "ChargeCurrent: " << this->chargeCurrent;
+    };
+
+    messageHelper.enqueueQuery(msg_high, 1, f_high);
+    messageHelper.enqueueQuery(msg_low, 1, f_low);
+}
+
+char ChargerModel::getChargeProgramStep() const
+{
+    return chargeProgramStep;
+}
+
+void ChargerModel::updateChargeProgramStep()
+{
+    std::vector<unsigned char> msg = {
+        C_CHARGE_PSTEP_NUMBER | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->chargeProgramStep = response[0] & 0xFF;
+
+        qDebug() << "Program Step: " << (unsigned int)this->chargeProgramStep;
+    };
+
+    messageHelper.enqueueQuery(msg, 1, f);
 }

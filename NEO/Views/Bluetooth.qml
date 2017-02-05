@@ -22,10 +22,6 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: base.margin
-
-        onClicked: {
-            diag.open()
-        }
     }
 
     Text {
