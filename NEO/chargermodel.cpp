@@ -59,7 +59,12 @@ void ChargerModel::stopUpdateTimer()
 
 void ChargerModel::timeoutResponse()
 {
-    qDebug() << "Update live data";
+    qDebug() << "Update data timeout";
+
+    this->updateChargeCurrent();
+    this->updateChargeProgramStep();
+    this->updateChargeVoltage();
+    this->updateLEDStatus();
 }
 
 void ChargerModel::onConnectionEstablished()
@@ -93,6 +98,8 @@ void ChargerModel::updateChargeVoltage()
     std::function<void (const std::vector<char>)> f_low = [&](const std::vector<char> msg) {
         this->chargeVoltage |= (unsigned int)msg[0] & 0xFF;
 
+        emit this->chargeVoltageChanged();
+
         qDebug() << "ChargeVoltage - low: " << (unsigned int)msg[0];
         qDebug() << "ChargeVoltage: " << this->chargeVoltage;
     };
@@ -123,6 +130,8 @@ void ChargerModel::updateChargeCurrent()
     std::function<void (const std::vector<char>)> f_low = [&](const std::vector<char> msg) {
         this->chargeCurrent |= (unsigned int)msg[0] & 0xFF;
 
+        emit this->chargeCurrentChanged();
+
         qDebug() << "ChargeCurrent: " << this->chargeCurrent;
     };
 
@@ -143,6 +152,8 @@ void ChargerModel::updateChargeProgramStep()
 
     std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
         this->chargeProgramStep = response[0] & 0xFF;
+
+        emit this->chargeProgramStepChanged();
 
         qDebug() << "Program Step: " << (unsigned int)this->chargeProgramStep;
     };
@@ -200,6 +211,10 @@ void ChargerModel::updateLEDStatus()
         else if (((bitmask >> 6) & 1) == 1) {
             this->LEDRed = LED_SLOW_BLINK;
         }
+
+        emit this->LEDGreenChanged();
+        emit this->LEDYellowChanged();
+        emit this->LEDRedChanged();
 
         qDebug() << "green: " << (int)this->LEDGreen;
         qDebug() << "yellow: " << (int)this->LEDYellow;
