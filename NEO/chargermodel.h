@@ -7,12 +7,17 @@
 
 #include "messagehelper.h"
 
+#define LED_OFF 0
+#define LED_ON 1
+#define LED_SLOW_BLINK 2
+#define LED_FAST_BLINK 3
+
 /*
  * To update at interval:
- *  LED status
- *  Voltage
- *  Current
- *  Program Step
+ *  [ ] LED status
+ *  [x] Voltage
+ *  [x] Current
+ *  [x] Program Step
  */
 
 
@@ -38,10 +43,21 @@ public:
     char getChargeProgramStep() const;
     Q_INVOKABLE void updateChargeProgramStep();
 
+    Q_PROPERTY(QVariant LEDGreen READ getLEDGreen NOTIFY LEDGreenChanged)
+    char getLEDGreen() const;
+    Q_PROPERTY(QVariant LEDYellow READ getLEDYellow NOTIFY LEDYellowChanged)
+    char getLEDYellow() const;
+    Q_PROPERTY(QVariant LEDRed READ getLEDRed NOTIFY LEDRedChanged)
+    char getLEDRed() const;
+    Q_INVOKABLE void updateLEDStatus();
+
 signals:
     void chargeVoltageChanged();
     void chargeCurrentChanged();
     void chargeProgramStepChanged();
+    void LEDGreenChanged();
+    void LEDYellowChanged();
+    void LEDRedChanged();
 
 public slots:
     void onConnectionEstablished();
@@ -54,6 +70,9 @@ private:
     unsigned int chargeVoltage;
     unsigned int chargeCurrent;
     char chargeProgramStep;
+    char LEDGreen;
+    char LEDYellow;
+    char LEDRed;
 };
 
 #endif // CHARGERMODEL_H

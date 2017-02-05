@@ -166,8 +166,7 @@ Flickable {
             anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: {
-                chargerModel.startUpdateTimer()
-                chargerModel.updateChargeProgramStep()
+                chargerModel.updateLEDStatus()
             }
         }
     }

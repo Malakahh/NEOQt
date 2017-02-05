@@ -149,3 +149,62 @@ void ChargerModel::updateChargeProgramStep()
 
     messageHelper.enqueueQuery(msg, 1, f);
 }
+
+char ChargerModel::getLEDGreen() const
+{
+    return LEDGreen;
+}
+
+char ChargerModel::getLEDYellow() const
+{
+    return LEDYellow;
+}
+
+char ChargerModel::getLEDRed() const
+{
+    return LEDRed;
+}
+
+void ChargerModel::updateLEDStatus()
+{
+    std::vector<unsigned char> msg = {
+        C_LED_MODE | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        char bitmask = response[0];
+        this->LEDGreen = LED_OFF;
+        this->LEDYellow = LED_OFF;
+        this->LEDRed = LED_OFF;
+
+        if ((bitmask & 1) == 1) {
+            this->LEDGreen = LED_ON;
+        }
+        else if (((bitmask >> 1) & 1) == 1) {
+            this->LEDGreen = LED_SLOW_BLINK;
+        }
+
+        if (((bitmask >> 2) & 1) == 1) {
+            this->LEDYellow = LED_ON;
+        }
+        else if (((bitmask >> 3) & 1) == 1) {
+            this->LEDYellow = LED_SLOW_BLINK;
+        }
+        else if (((bitmask >> 4) & 1) == 1) {
+            this->LEDYellow = LED_FAST_BLINK;
+        }
+
+        if (((bitmask >> 5) & 1) == 1) {
+            this->LEDRed = LED_ON;
+        }
+        else if (((bitmask >> 6) & 1) == 1) {
+            this->LEDRed = LED_SLOW_BLINK;
+        }
+
+        qDebug() << "green: " << (int)this->LEDGreen;
+        qDebug() << "yellow: " << (int)this->LEDYellow;
+        qDebug() << "red: " << (int)this->LEDRed;
+    };
+
+    messageHelper.enqueueQuery(msg, 1, f);
+}
