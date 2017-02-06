@@ -286,11 +286,13 @@ void ChargerModel::updateProgramName()
     };
 
     std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
-        this->programName.append(response);
+        this->programName.append(response[0]);
+        this->programName.append(response[1]);
     };
 
     std::function<void (const std::vector<char>)> f_final = [&](const std::vector<char> response) {
-        this->programName.append(response);
+        this->programName.append(response[0]);
+        this->programName.append(response[1]);
 
         emit this->programNameChanged();
 
@@ -330,22 +332,22 @@ void ChargerModel::updateProgramName()
 
 
 
-void enterProgMode()
+void ChargerModel::enterProgMode()
 {
     std::vector<unsigned char> msg = {
         M_GBC_OPERATION_MODE | WRITE_REG,
         0x20
     };
 
-    MessageHelper.enqueueQuery(msg);
+    messageHelper.enqueueQuery(msg);
 }
 
-void enterNormalMode()
+void ChargerModel::enterNormalMode()
 {
     std::vector<unsigned char> msg = {
         M_GBC_OPERATION_MODE | WRITE_REG,
         0x80
     };
 
-    MessageHelper.enqueueQuery(msg);
+    messageHelper.enqueueQuery(msg);
 }

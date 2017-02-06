@@ -166,7 +166,9 @@ Flickable {
             anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: {
-                chargerModel.updateLEDStatus()
+                chargerModel.enterProgMode()
+                chargerModel.updateProgramName()
+                chargerModel.enterNormalMode()
             }
         }
     }
