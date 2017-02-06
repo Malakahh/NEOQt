@@ -312,11 +312,92 @@ void ChargerModel::updateProgramName()
     messageHelper.enqueueQuery(msg_7_8b, 2, f_final);
 }
 
+unsigned int ChargerModel::getLogCounterCharges() const
+{
+    return logCounterCharges;
+}
 
+void ChargerModel::updateLogCounterCharges()
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_LOG_CNT_CHARG
+    };
 
+    std::vector<unsigned char> msg_b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
 
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->logCounterCharges = ((response[0] & 0xFF) << 8) | (response[1] & 0xFF);
 
+        emit this->logCounterChargesChanged();
+    };
 
+    messageHelper.enqueueQuery(msg_a);
+    messageHelper.enqueueQuery(msg_b, 2, f);
+}
+
+unsigned int ChargerModel::getLogCounterErrors() const
+{
+    return logCounterErrors;
+}
+
+void ChargerModel::updateLogCounterErrors()
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_LOG_CNT_ERROR
+    };
+
+    std::vector<unsigned char> msg_b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->logCounterErrors = ((response[0] & 0xFF) << 8) | (response[1] & 0xFF);
+
+        emit this->logCounterErrorsChanged();
+    };
+
+    messageHelper.enqueueQuery(msg_a);
+    messageHelper.enqueueQuery(msg_b, 2, f);
+}
+
+unsigned int ChargerModel::getLogCounterDepthDischarges() const
+{
+    return logCounterDepthDischarges;
+}
+
+void ChargerModel::updateLogCounterDepthDischarges()
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_LOG_CNT_DEPTH
+    };
+
+    std::vector<unsigned char> msg_b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->logCounterDepthDischarges = ((response[0] & 0xFF) << 8) | (response[1] & 0xFF);
+
+        emit this->logCounterDepthDischargesChanged();
+    };
+
+    messageHelper.enqueueQuery(msg_a);
+    messageHelper.enqueueQuery(msg_b, 2, f);
+}
 
 
 

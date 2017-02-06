@@ -46,6 +46,17 @@ public:
     QString getProgramName() const;
     Q_INVOKABLE void updateProgramName();
 
+    Q_PROPERTY(QVariant logCounterCharges READ getLogCounterCharges NOTIFY logCounterChargesChanged)
+    unsigned int getLogCounterCharges() const;
+    Q_INVOKABLE void updateLogCounterCharges();
+
+    Q_PROPERTY(QVariant logCounterErrors READ getLogCounterErrors NOTIFY logCounterErrorsChanged)
+    unsigned int getLogCounterErrors() const;
+    Q_INVOKABLE void updateLogCounterErrors();
+
+    Q_PROPERTY(QVariant logCounterDepthDischarges READ getLogCounterDepthDischarges NOTIFY logCounterDepthDischargesChanged)
+    unsigned int getLogCounterDepthDischarges() const;
+    Q_INVOKABLE void updateLogCounterDepthDischarges();
 
 
 
@@ -60,6 +71,9 @@ signals:
     void LEDYellowChanged();
     void LEDRedChanged();
     void programNameChanged();
+    void logCounterChargesChanged();
+    void logCounterErrorsChanged();
+    void logCounterDepthDischargesChanged();
 
 public slots:
     void onConnectionEstablished();
@@ -76,6 +90,9 @@ private:
     char LEDYellow;
     char LEDRed;
     QString programName;
+    unsigned int logCounterCharges;
+    unsigned int logCounterErrors;
+    unsigned int logCounterDepthDischarges;
 };
 
 #endif // CHARGERMODEL_H

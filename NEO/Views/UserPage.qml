@@ -167,8 +167,14 @@ Flickable {
 
             onClicked: {
                 chargerModel.enterProgMode()
-                chargerModel.updateProgramName()
+                chargerModel.updateLogCounterCharges()
+                chargerModel.updateLogCounterErrors()
+                chargerModel.updateLogCounterDepthDischarges()
                 chargerModel.enterNormalMode()
+
+                console.log("Charges: " + chargerModel.logCounterCharges)
+                console.log("Errors: " + chargerModel.logCounterErrors)
+                console.log("DepthDischarges: " + chargerModel.logCounterDepthDischarges)
             }
         }
     }
