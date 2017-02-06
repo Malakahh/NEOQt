@@ -463,9 +463,9 @@ void ChargerModel::writeProgramName(QString name)
 {
     std::vector<unsigned char> msg_1_2a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
-        name[0].toLatin1(),
+        static_cast<unsigned char>(name[0].toLatin1()),
         C_CMD_EE_DATA_LOW | WRITE_REG,
-        name[1].toLatin1()
+        static_cast<unsigned char>(name[1].toLatin1())
     };
 
     std::vector<unsigned char> msg_1_2b = {
@@ -477,9 +477,9 @@ void ChargerModel::writeProgramName(QString name)
 
     std::vector<unsigned char> msg_3_4a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
-        name[2].toLatin1(),
+        static_cast<unsigned char>(name[2].toLatin1()),
         C_CMD_EE_DATA_LOW | WRITE_REG,
-        name[3].toLatin1()
+        static_cast<unsigned char>(name[3].toLatin1())
     };
 
     std::vector<unsigned char> msg_3_4b = {
@@ -491,9 +491,9 @@ void ChargerModel::writeProgramName(QString name)
 
     std::vector<unsigned char> msg_5_6a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
-        name[4].toLatin1(),
+        static_cast<unsigned char>(name[4].toLatin1()),
         C_CMD_EE_DATA_LOW | WRITE_REG,
-        name[5].toLatin1()
+        static_cast<unsigned char>(name[5].toLatin1())
     };
 
     std::vector<unsigned char> msg_5_6b = {
@@ -505,9 +505,9 @@ void ChargerModel::writeProgramName(QString name)
 
     std::vector<unsigned char> msg_7_8a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
-        name[6].toLatin1(),
+        static_cast<unsigned char>(name[6].toLatin1()),
         C_CMD_EE_DATA_LOW | WRITE_REG,
-        name[7].toLatin1()
+        static_cast<unsigned char>(name[7].toLatin1())
     };
 
     std::vector<unsigned char> msg_7_8b = {
