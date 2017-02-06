@@ -399,6 +399,53 @@ void ChargerModel::updateLogCounterDepthDischarges()
     messageHelper.enqueueQuery(msg_b, 2, f);
 }
 
+void ChargerModel::updateProgramSize()
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_PROGRAM_SIZE
+    };
+
+    std::vector<unsigned char> msg_b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->programSize = ((response[0] & 0xFF) << 8) | (response[1] & 0xFF);
+
+        emit this->programSizeChanged();
+    };
+
+    messageHelper.enqueueQuery(msg_a);
+    messageHelper.enqueueQuery(msg_b, 2, f);
+}
+
+void ChargerModel::updateLogSize()
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        EE_LOG_EE_SIZE
+    };
+
+    std::vector<unsigned char> msg_b = {
+        C_CMD_EE_DATA_HIGH | READ_REG,
+        C_CMD_EE_DATA_LOW | READ_REG
+    };
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        this->logSize = ((response[0] & 0xFF) << 8) | (response[1] & 0xFF);
+
+        emit this->logSizeChanged();
+    };
+
+    messageHelper.enqueueQuery(msg_a);
+    messageHelper.enqueueQuery(msg_b, 2, f);
+}
 
 
 
@@ -412,6 +459,161 @@ void ChargerModel::updateLogCounterDepthDischarges()
 
 
 
+void ChargerModel::writeProgramName(QString name)
+{
+    std::vector<unsigned char> msg_1_2a = {
+        C_CMD_EE_DATA_HIGH | WRITE_REG,
+        name[0].toLatin1(),
+        C_CMD_EE_DATA_LOW | WRITE_REG,
+        name[1].toLatin1()
+    };
+
+    std::vector<unsigned char> msg_1_2b = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_PROGRAM_NAME_1_2
+    };
+
+    std::vector<unsigned char> msg_3_4a = {
+        C_CMD_EE_DATA_HIGH | WRITE_REG,
+        name[2].toLatin1(),
+        C_CMD_EE_DATA_LOW | WRITE_REG,
+        name[3].toLatin1()
+    };
+
+    std::vector<unsigned char> msg_3_4b = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_PROGRAM_NAME_3_4
+    };
+
+    std::vector<unsigned char> msg_5_6a = {
+        C_CMD_EE_DATA_HIGH | WRITE_REG,
+        name[4].toLatin1(),
+        C_CMD_EE_DATA_LOW | WRITE_REG,
+        name[5].toLatin1()
+    };
+
+    std::vector<unsigned char> msg_5_6b = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_PROGRAM_NAME_5_6
+    };
+
+    std::vector<unsigned char> msg_7_8a = {
+        C_CMD_EE_DATA_HIGH | WRITE_REG,
+        name[6].toLatin1(),
+        C_CMD_EE_DATA_LOW | WRITE_REG,
+        name[7].toLatin1()
+    };
+
+    std::vector<unsigned char> msg_7_8b = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_PROGRAM_NAME_7_8
+    };
+
+    messageHelper.enqueueQuery(msg_1_2a);
+    messageHelper.enqueueQuery(msg_1_2b);
+    messageHelper.enqueueQuery(msg_3_4a);
+    messageHelper.enqueueQuery(msg_3_4b);
+    messageHelper.enqueueQuery(msg_5_6a);
+    messageHelper.enqueueQuery(msg_5_6b);
+    messageHelper.enqueueQuery(msg_7_8a);
+    messageHelper.enqueueQuery(msg_7_8b);
+}
+
+void ChargerModel::writeProgramSizeInWords(std::vector<unsigned char> size)
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_DATA_HIGH | WRITE_REG,
+        size[0],
+        C_CMD_EE_ADDR_LOW | WRITE_REG,
+        size[1]
+    };
+
+    std::vector<unsigned char> msg_b = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_PROGRAM_SIZE
+    };
+
+    messageHelper.enqueueQuery(msg_a);
+    messageHelper.enqueueQuery(msg_b);
+}
+
+void ChargerModel::writeProgram(std::vector<unsigned char> program)
+{
+    for (int i = 0; i < program.size(); i += 2)
+    {
+        int fullAddr = EE_PROGRAM_AREA + i / 2;
+        unsigned char addrHigh = (fullAddr & 0xFF00) >> 8;
+        unsigned char addrLow = fullAddr & 0xFF;
+
+        std::vector<unsigned char> msg_a = {
+            C_CMD_EE_DATA_HIGH | WRITE_REG,
+            program[i],
+            C_CMD_EE_DATA_LOW | WRITE_REG,
+            program[i + 1]
+        };
+
+        std::vector<unsigned char> msg_b = {
+            C_CMD_EE_ADDR_HIGH | WRITE_REG,
+            addrHigh,
+            C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+            addrLow
+        };
+
+        messageHelper.enqueueQuery(msg_a);
+        messageHelper.enqueueQuery(msg_b);
+
+        this->programByteWritten(program[i]);
+        this->programByteWritten(program[i + 1]);
+    }
+}
+
+void ChargerModel::clearLogCounters()
+{
+    std::vector<unsigned char> msg_zero = {
+        C_CMD_EE_DATA_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_DATA_LOW | WRITE_REG,
+        0x00
+    };
+
+    std::vector<unsigned char> msg_charge = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_LOG_CNT_CHARG
+    };
+
+    std::vector<unsigned char> msg_error = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_LOG_CNT_ERROR
+    };
+
+    std::vector<unsigned char> msg_depthDischarge = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        0x00,
+        C_CMD_EE_ADDR_LOW | WRITE_REG | WRITE_EE_PROM,
+        EE_LOG_CNT_DEPTH
+    };
+
+    messageHelper.enqueueQuery(msg_zero);
+    messageHelper.enqueueQuery(msg_charge);
+    messageHelper.enqueueQuery(msg_zero);
+    messageHelper.enqueueQuery(msg_error);
+    messageHelper.enqueueQuery(msg_zero);
+    messageHelper.enqueueQuery(msg_depthDischarge);
+}
 
 void ChargerModel::enterProgMode()
 {

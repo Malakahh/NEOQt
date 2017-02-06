@@ -58,7 +58,17 @@ public:
     unsigned int getLogCounterDepthDischarges() const;
     Q_INVOKABLE void updateLogCounterDepthDischarges();
 
+    void updateProgramSize();
 
+    //This is actually EEprom size, but to keep with conventions of the charger, it is named log size
+    void updateLogSize();
+
+
+
+    Q_INVOKABLE void writeProgramName(QString name);
+    Q_INVOKABLE void writeProgramSizeInWords(std::vector<unsigned char> size);
+    Q_INVOKABLE void writeProgram(std::vector<unsigned char> program);
+    Q_INVOKABLE void clearLogCounters();
 
     Q_INVOKABLE void enterProgMode();
     Q_INVOKABLE void enterNormalMode();
@@ -74,6 +84,10 @@ signals:
     void logCounterChargesChanged();
     void logCounterErrorsChanged();
     void logCounterDepthDischargesChanged();
+    void programSizeChanged();
+    void logSizeChanged();
+
+    void programByteWritten(char byteWritten);
 
 public slots:
     void onConnectionEstablished();
@@ -93,6 +107,8 @@ private:
     unsigned int logCounterCharges;
     unsigned int logCounterErrors;
     unsigned int logCounterDepthDischarges;
+    unsigned int programSize;
+    unsigned int logSize;
 };
 
 #endif // CHARGERMODEL_H

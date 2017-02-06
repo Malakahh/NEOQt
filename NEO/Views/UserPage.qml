@@ -167,6 +167,7 @@ Flickable {
 
             onClicked: {
                 chargerModel.enterProgMode()
+                chargerModel.clearLogCounters()
                 chargerModel.updateLogCounterCharges()
                 chargerModel.updateLogCounterErrors()
                 chargerModel.updateLogCounterDepthDischarges()

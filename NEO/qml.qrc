@@ -11,5 +11,7 @@
         <file>Views/ServicePage.qml</file>
         <file>NEOControls/FilePicker.qml</file>
         <file>Assets/floppy.png</file>
+        <file>NEOControls/Button.qml</file>
+        <file>Assets/arrow.png</file>
     </qresource>
 </RCC>

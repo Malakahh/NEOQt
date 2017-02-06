@@ -24,6 +24,30 @@ Item {
         anchors.topMargin: base.margin
     }
 
+    NEOControls.Button {
+        id: leftBtnTest
+        text: "Test"
+        leftImageSrc: "../Assets/arrow.png"
+    }
+
+    NEOControls.Button {
+        id: rightBtnTest
+        text: "Test"
+        rightImageSrc: "../Assets/arrow.png"
+
+        anchors.top: leftBtnTest.bottom
+    }
+
+    NEOControls.Button {
+        anchors.top: rightBtnTest.bottom
+        text: "i"
+
+        width: 100
+        height: 100
+
+        radius: 90
+    }
+
     Text {
         id: txtBLEHeadline
         text: qsTr("Select NEO charger:")
