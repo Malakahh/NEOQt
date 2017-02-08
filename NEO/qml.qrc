@@ -1,17 +1,30 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Views/Bluetooth.qml</file>
+        <file>Views/BBluetooth.qml</file>
         <file>NEOControls/InfoButton.qml</file>
-        <file>Views/UserPage.qml</file>
-        <file>Assets/Power.png</file>
-        <file>Assets/BatterySheet.png</file>
-        <file>Assets/icon_connectivity.png</file>
-        <file>Assets/led_blue.png</file>
-        <file>Views/ServicePage.qml</file>
+        <file>Views/BUserPage.qml</file>
+        <file>Views/BServicePage.qml</file>
         <file>NEOControls/FilePicker.qml</file>
-        <file>Assets/floppy.png</file>
         <file>NEOControls/Button.qml</file>
-        <file>Assets/arrow.png</file>
+        <file>Assets/app_icon_large.png</file>
+        <file>Assets/app_icon_small.png</file>
+        <file>Assets/arrow_down.png</file>
+        <file>Assets/arrow_left.png</file>
+        <file>Assets/arrow_right.png</file>
+        <file>Assets/battery.png</file>
+        <file>Assets/diode_blue.png</file>
+        <file>Assets/diode_green.png</file>
+        <file>Assets/diode_red.png</file>
+        <file>Assets/diode_yellow.png</file>
+        <file>Assets/icon_battery.png</file>
+        <file>Assets/icon_bluetooth.png</file>
+        <file>Assets/icon_boobs.png</file>
+        <file>Assets/icon_warning.png</file>
+        <file>Assets/logo.png</file>
+        <file>Assets/neo_charger.png</file>
+        <file>Assets/wave.png</file>
+        <file>Views/BasePage.qml</file>
+        <file>Views/BluetoothPage.qml</file>
     </qresource>
 </RCC>

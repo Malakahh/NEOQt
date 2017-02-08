@@ -49,6 +49,19 @@ void BLEController::addDevice(const QBluetoothDeviceInfo &device)
     {
         qDebug() << "Discovered BLE device - name: " << device.name() << " Address: " << device.address().toString();
         this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+
         emit this->onDevicesChanged();
     }
 }

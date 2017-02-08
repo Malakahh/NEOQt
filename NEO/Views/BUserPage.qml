@@ -166,16 +166,7 @@ Flickable {
             anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: {
-                chargerModel.enterProgMode()
-                chargerModel.clearLogCounters()
-                chargerModel.updateLogCounterCharges()
-                chargerModel.updateLogCounterErrors()
-                chargerModel.updateLogCounterDepthDischarges()
-                chargerModel.enterNormalMode()
-
-                console.log("Charges: " + chargerModel.logCounterCharges)
-                console.log("Errors: " + chargerModel.logCounterErrors)
-                console.log("DepthDischarges: " + chargerModel.logCounterDepthDischarges)
+                chargerModel.updateChargeCurrent()
             }
         }
     }

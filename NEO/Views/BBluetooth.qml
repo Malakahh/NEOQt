@@ -24,6 +24,7 @@ Item {
         anchors.topMargin: base.margin
     }
 
+    /*
     NEOControls.Button {
         id: leftBtnTest
         text: "Test"
@@ -47,6 +48,7 @@ Item {
 
         radius: 90
     }
+    */
 
     Text {
         id: txtBLEHeadline
