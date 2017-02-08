@@ -46,7 +46,7 @@ Button {
             }
 
             text: btn.text
-            color: "#FF00A37D"
+            color: base.colorPrimary
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -73,8 +73,8 @@ Button {
             anchors.fill: parent
             radius: parent.radius
 
-            color: "#E6000000"
-            border.color: "#00A37D"
+            color: base.colorControlBackground
+            border.color: base.colorPrimary
             border.width: 3
         }
 }

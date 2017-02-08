@@ -49,7 +49,10 @@ ChargerModel::ChargerModel(QObject* parent) : QObject(parent)
 
 void ChargerModel::startUpdateTimer()
 {
-    this->updateTimer.start(UPDATER_INTERVAL);
+    if (!this->updateTimer.isActive())
+    {
+        this->updateTimer.start(UPDATER_INTERVAL);
+    }
 }
 
 void ChargerModel::stopUpdateTimer()
@@ -161,17 +164,17 @@ void ChargerModel::updateChargeProgramStep()
     messageHelper.enqueueQuery(msg, 1, f);
 }
 
-char ChargerModel::getLEDGreen() const
+unsigned int ChargerModel::getLEDGreen() const
 {
     return LEDGreen;
 }
 
-char ChargerModel::getLEDYellow() const
+unsigned int ChargerModel::getLEDYellow() const
 {
     return LEDYellow;
 }
 
-char ChargerModel::getLEDRed() const
+unsigned int ChargerModel::getLEDRed() const
 {
     return LEDRed;
 }

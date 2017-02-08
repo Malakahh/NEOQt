@@ -3,18 +3,11 @@ import QtQuick.Controls 2.1
 import "../NEOControls" as NEOControls
 
 BasePage {
-    Connections {
-        target: bleController
-        onConnectionEstablished: {
-            base.hidePages()
-        }
-    }
-
     Component.onCompleted: {
         bleController.setupBLE()
     }
 
-    header.text: "Select NEO Charger"
+    text: "Select NEO Charger"
     contents: Item {
         id: content
 
@@ -40,13 +33,13 @@ BasePage {
                 font.pixelSize: 25
 
                 text: "Tab to select"
-                color: "#00A37D"
+                color: base.colorPrimary
             }
 
             background: Rectangle {
                 anchors.fill: parent
 
-                color: "#E6000000"
+                color: base.colorControlBackground
             }
 
             indicator: Image {
@@ -68,13 +61,16 @@ BasePage {
 
                 height: 75
 
-                color: "#E6000000"
+                color: base.colorControlBackground
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
                         bleController.connect(index)
+                        base.hidePages()
+                        pageConnecting.visible = true
+                        dropdownPopup.close()
                     }
                 }
 
@@ -89,7 +85,7 @@ BasePage {
                     font.pixelSize: 25
 
                     text: model.modelData.deviceName
-                    color: "#00A37D"
+                    color: base.colorPrimary
                 }
             }
 
@@ -101,10 +97,12 @@ BasePage {
                 anchors.right: parent.right
                 height: 1
 
-                color: "#00A37D"
+                color: base.colorPrimary
             }
 
             popup: Popup {
+                id: dropdownPopup
+
                 y: selectDevice.height + splitter.height
                 width: selectDevice.width
                 implicitHeight: content.height - infoBtn.height - infoBtn.anchors.bottomMargin * 2 - parent.height - splitter.height
@@ -123,7 +121,7 @@ BasePage {
                         contentItem: Rectangle {
                             implicitWidth: 10
 
-                            color: "#00A37D"
+                            color: base.colorPrimary
                         }
                     }
                 }

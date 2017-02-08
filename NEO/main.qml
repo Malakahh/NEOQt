@@ -12,8 +12,14 @@ ApplicationWindow {
     height: 1280
     title: qsTr("NEO")
 
+    property string colorControlBackground: "#E6000000"
+    property string colorPrimary: "#FF00A37D"
+    property string colorSecondary: "#FF258267"
+
     function hidePages() {
         pageBT.visible = false
+        pageConnecting.visible = false
+        pageMain.visible = false
     }
 
     style: ApplicationWindowStyle {
@@ -24,6 +30,16 @@ ApplicationWindow {
 
     Views.BluetoothPage {
         id: pageBT
+    }
+
+    Views.ConnectingPage {
+        id: pageConnecting
+        visible: false
+    }
+
+    Views.MainPage {
+        id: pageMain
+        visible: false
     }
 
 

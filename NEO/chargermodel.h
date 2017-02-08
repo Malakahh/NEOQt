@@ -9,8 +9,8 @@
 
 #define LED_OFF 0
 #define LED_ON 1
-#define LED_SLOW_BLINK 2
-#define LED_FAST_BLINK 3
+#define LED_SLOW_BLINK 500
+#define LED_FAST_BLINK 250
 
 class ChargerModel : public QObject
 {
@@ -35,11 +35,11 @@ public:
     Q_INVOKABLE void updateChargeProgramStep();
 
     Q_PROPERTY(QVariant LEDGreen READ getLEDGreen NOTIFY LEDGreenChanged)
-    char getLEDGreen() const;
+    unsigned int getLEDGreen() const;
     Q_PROPERTY(QVariant LEDYellow READ getLEDYellow NOTIFY LEDYellowChanged)
-    char getLEDYellow() const;
+    unsigned int getLEDYellow() const;
     Q_PROPERTY(QVariant LEDRed READ getLEDRed NOTIFY LEDRedChanged)
-    char getLEDRed() const;
+    unsigned int getLEDRed() const;
     Q_INVOKABLE void updateLEDStatus();
 
     Q_PROPERTY(QString programName READ getProgramName NOTIFY programNameChanged)
@@ -100,9 +100,9 @@ private:
     unsigned int chargeVoltage;
     unsigned int chargeCurrent;
     char chargeProgramStep;
-    char LEDGreen;
-    char LEDYellow;
-    char LEDRed;
+    unsigned int LEDGreen;
+    unsigned int LEDYellow;
+    unsigned int LEDRed;
     QString programName;
     unsigned int logCounterCharges;
     unsigned int logCounterErrors;

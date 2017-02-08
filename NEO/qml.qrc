@@ -19,12 +19,14 @@
         <file>Assets/diode_yellow.png</file>
         <file>Assets/icon_battery.png</file>
         <file>Assets/icon_bluetooth.png</file>
-        <file>Assets/icon_boobs.png</file>
+        <file>Assets/icon_sine.png</file>
         <file>Assets/icon_warning.png</file>
         <file>Assets/logo.png</file>
         <file>Assets/neo_charger.png</file>
         <file>Assets/wave.png</file>
         <file>Views/BasePage.qml</file>
         <file>Views/BluetoothPage.qml</file>
+        <file>Views/ConnectingPage.qml</file>
+        <file>Views/MainPage.qml</file>
     </qresource>
 </RCC>

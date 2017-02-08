@@ -3,21 +3,22 @@ import QtQuick.Controls 2.0
 
 Flickable {
     property alias contents: placeholder.children
-    property alias header: placeholderHeader
+    property alias header: placeholderHeader.children
+    property alias text: placeholderHeader.text
 
     ScrollBar.vertical: ScrollBar { }
     focus: true
     anchors.fill: parent
 
     Rectangle {
-        id: top
+        id: topRect
 
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
         height: 70
 
-        color: "#00A37D"
+        color: base.colorPrimary
 
         Text {
             id: placeholderHeader
@@ -37,14 +38,14 @@ Flickable {
     Item {
         id: placeholder
 
-        anchors.top: top.bottom
-        anchors.bottom: bottom.top
+        anchors.top: topRect.bottom
+        anchors.bottom: bottomRect.top
         anchors.left: parent.left
         anchors.right: parent.right
     }
 
     Image {
-        anchors.bottom: bottom.top
+        anchors.bottom: bottomRect.top
         anchors.left: parent.left
         anchors.right: parent.right
         z: -100
@@ -54,13 +55,13 @@ Flickable {
     }
 
     Rectangle {
-        id: bottom
+        id: bottomRect
 
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         height: 35
 
-        color: "#00A37D"
+        color: base.colorPrimary
     }
 }
