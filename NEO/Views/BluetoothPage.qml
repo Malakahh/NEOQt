@@ -139,10 +139,9 @@ BasePage {
         Image {
             anchors.top: selectDevice.bottom
             anchors.horizontalCenter: selectDevice.horizontalCenter
+            anchors.bottom: infoBtn.top
 
-            width: 250
-            height: 375
-
+            fillMode: Image.PreserveAspectFit
             source: "../Assets/neo_charger.png"
         }
 
