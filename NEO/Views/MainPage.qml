@@ -31,6 +31,7 @@ BasePage {
                 running: false
                 onTriggered: {
                     base.hidePages()
+                    pagePassword.visible = true
                 }
             }
         }

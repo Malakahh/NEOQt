@@ -30,6 +30,7 @@ ApplicationWindow {
 
     Views.BluetoothPage {
         id: pageBT
+        visible: false
     }
 
     Views.ConnectingPage {
@@ -40,6 +41,15 @@ ApplicationWindow {
     Views.MainPage {
         id: pageMain
         visible: false
+    }
+
+    Views.PasswordPage {
+        id: pagePassword
+        visible: false
+    }
+
+    Views.ServicePage {
+        id: pageService
     }
 
 

@@ -5,11 +5,11 @@ Button {
     id: btn
 
     property int radius: 15
-    property string leftImageSrc: ""
-    property string rightImageSrc: ""
+    property alias leftImg: imgLeft
+    property alias rightImg: imgRight
 
-    implicitWidth: 250
-    implicitHeight: 75
+    implicitWidth: 200
+    implicitHeight: 60
 
     contentItem: Item {
         anchors.fill: parent
@@ -21,8 +21,8 @@ Button {
             anchors.leftMargin: 15
             anchors.verticalCenter: parent.verticalCenter
 
-            width: 64
-            height: 64
+            width: 16
+            height: 32
 
             source: btn.leftImageSrc
         }
@@ -52,7 +52,7 @@ Button {
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
             minimumPixelSize: 10
-            font.pixelSize: 50
+            font.pixelSize: 25
         }
 
         Image {
@@ -62,8 +62,8 @@ Button {
             anchors.rightMargin: 15
             anchors.verticalCenter: parent.verticalCenter
 
-            width: 64
-            height: 64
+            width: 16
+            height: 32
 
             source: btn.rightImageSrc
         }
