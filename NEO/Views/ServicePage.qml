@@ -227,44 +227,50 @@ BasePage {
             color: base.colorSecondary
         }
 
-        NEOControls.Button {
-            id: btnLogCounters
-            anchors.bottom: btnLog.top
-            anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: "Log Counters"
-            rightImg.source: "../Assets/arrow_right.png"
-        }
-
-        NEOControls.Button {
-            id: btnLog
-            anchors.bottom: btnProgram.top
-            anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: "Read Log"
-            rightImg.source: "../Assets/arrow_right.png"
-        }
-
-        NEOControls.Button {
-            id: btnProgram
-            anchors.bottom: btnBack.top
-            anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: "Program"
-            rightImg.source: "../Assets/arrow_right.png"
-        }
-
-        NEOControls.Button {
-            id: btnBack
+        Item {
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
 
-            text: "Back"
-            leftImg.source: "../Assets/arrow_left.png"
+            NEOControls.Button {
+                id: btnLogCounters
+                anchors.bottom: btnLog.top
+                anchors.bottomMargin: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: "Log Counters"
+                rightImg.source: "../Assets/arrow_right.png"
+            }
+
+            NEOControls.Button {
+                id: btnLog
+                anchors.bottom: btnProgram.top
+                anchors.bottomMargin: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: "Read Log"
+                rightImg.source: "../Assets/arrow_right.png"
+            }
+
+            NEOControls.Button {
+                id: btnProgram
+                anchors.bottom: btnBack.top
+                anchors.bottomMargin: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: "Program"
+                rightImg.source: "../Assets/arrow_right.png"
+            }
+
+            NEOControls.Button {
+                id: btnBack
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: "Back"
+                leftImg.source: "../Assets/arrow_left.png"
+            }
         }
     }
 }

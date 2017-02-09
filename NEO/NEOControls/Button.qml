@@ -9,7 +9,7 @@ Button {
     property alias rightImg: imgRight
 
     implicitWidth: 200
-    implicitHeight: 60
+    implicitHeight: 44
 
     contentItem: Item {
         anchors.fill: parent
@@ -21,8 +21,8 @@ Button {
             anchors.leftMargin: 15
             anchors.verticalCenter: parent.verticalCenter
 
-            width: 16
-            height: 32
+            width: 8
+            height: 16
 
             source: btn.leftImageSrc
         }
@@ -52,7 +52,7 @@ Button {
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
             minimumPixelSize: 10
-            font.pixelSize: 25
+            font.pixelSize: 20
         }
 
         Image {
@@ -62,8 +62,8 @@ Button {
             anchors.rightMargin: 15
             anchors.verticalCenter: parent.verticalCenter
 
-            width: 16
-            height: 32
+            width: 8
+            height: 16
 
             source: btn.rightImageSrc
         }
