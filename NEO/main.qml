@@ -22,6 +22,7 @@ ApplicationWindow {
         pageMain.hide()
         pagePassword.hide()
         pageService.hide()
+        pageLogCounters.hide()
     }
 
     style: ApplicationWindowStyle {
@@ -54,21 +55,8 @@ ApplicationWindow {
         visible: false
     }
 
-//    Views.BBluetooth {
-//        id: viewBLE
-//        anchors.fill: parent
-//        visible: true
-//    }
-
-//    Views.BUserPage {
-//        id: viewUser
-//        anchors.fill: parent
-//        visible: false
-//    }
-
-//    Views.BServicePage {
-//        id: viewService
-//        anchors.fill: parent
-//        visible: false
-//    }
+    Views.LogCountersPage {
+        id: pageLogCounters
+        visible: false
+    }
 }

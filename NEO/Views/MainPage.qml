@@ -6,6 +6,7 @@ BasePage {
     onVisibleChanged: {
         if (visible) {
             chargerModel.startUpdateTimer()
+            batteryIcon.start()
         }
     }
 

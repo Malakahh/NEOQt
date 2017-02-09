@@ -112,6 +112,11 @@ BasePage {
 
                 text: "Log Counters"
                 rightImg.source: "../Assets/arrow_right.png"
+
+                onClicked: {
+                    base.hidePages()
+                    pageLogCounters.show()
+                }
             }
 
             NEOControls.Button {
