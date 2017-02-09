@@ -17,11 +17,11 @@ ApplicationWindow {
     property string colorSecondary: "#FF258267"
 
     function hidePages() {
-        pageBT.visible = false
-        pageConnecting.visible = false
-        pageMain.visible = false
-        pagePassword.visible = false
-        pageService.visible = false
+        pageBT.hide()
+        pageConnecting.hide()
+        pageMain.hide()
+        pagePassword.hide()
+        pageService.hide()
     }
 
     style: ApplicationWindowStyle {
@@ -53,7 +53,6 @@ ApplicationWindow {
         id: pageService
         visible: false
     }
-
 
 //    Views.BBluetooth {
 //        id: viewBLE

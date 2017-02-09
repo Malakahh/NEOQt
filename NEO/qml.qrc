@@ -27,5 +27,6 @@
         <file>Views/PasswordPage.qml</file>
         <file>NEOControls/TextField.qml</file>
         <file>Views/ServicePage.qml</file>
+        <file>NEOControls/DataRow.qml</file>
     </qresource>
 </RCC>

@@ -6,7 +6,7 @@ BasePage {
         target: bleController
         onConnectionEstablished: {
             base.hidePages()
-            pageMain.visible = true
+            pageMain.show()
         }
     }
 

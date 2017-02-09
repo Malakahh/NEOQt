@@ -56,7 +56,7 @@ BasePage {
                 if (pwInput.text == "1234")
                 {
                     base.hidePages()
-                    pageService.visible = true
+                    pageService.show()
                 }
             }
         }
@@ -70,6 +70,11 @@ BasePage {
 
             leftImg.source: "../Assets/arrow_left.png"
             text: "Cancel"
+
+            onClicked: {
+                base.hidePages()
+                pageMain.show()
+            }
         }
     }
 }

@@ -69,7 +69,7 @@ BasePage {
                     onClicked: {
                         bleController.connect(index)
                         base.hidePages()
-                        pageConnecting.visible = true
+                        pageConnecting.show()
                         dropdownPopup.close()
                     }
                 }

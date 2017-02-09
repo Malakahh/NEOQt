@@ -3,8 +3,7 @@ import "../NEOControls" as NEOControls
 
 BasePage {
     onVisibleChanged: {
-        if (visible)
-        {
+        if (visible) {
             chargerModel.startUpdateTimer()
         }
     }
@@ -16,277 +15,88 @@ BasePage {
 
         anchors.fill: parent
 
-        property int maxTextSize: 20
-        property int rowHeight: 40
-
-        Rectangle {
-            id: splitter1
+        NEOControls.DataRow {
+            id: dataRowVoltage
 
             anchors.top: parent.top
             anchors.topMargin: 20
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
 
-            color: base.colorSecondary
-        }
+            showTopSplitter: true
+            splitterColor: base.colorSecondary
+            textColor: base.colorSecondary
 
-        Item {
-            id: txtVoltage
-
-            anchors.top: splitter1.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: anchors.leftMargin
-            height: container.rowHeight
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: "Voltage:"
-                color: base.colorSecondary
-            }
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: {
-                    return (chargerModel.chargeVoltage / 1000).toFixed(1) + "V"
-                }
-
-                color: base.colorSecondary
+            textLeft: "Voltage:"
+            textRight: {
+                return (chargerModel.chargeVoltage / 1000).toFixed(1) + "V"
             }
         }
 
-        Rectangle {
-            id: splitter2
+        NEOControls.DataRow {
+            id: dataRowCurrent
 
-            anchors.top: txtVoltage.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
+            anchors.top: dataRowVoltage.bottom
+            anchors.topMargin: -1
 
-            color: base.colorSecondary
-        }
+            showTopSplitter: true
+            splitterColor: base.colorSecondary
+            textColor: base.colorSecondary
 
-        Item {
-            id: txtCurrent
-
-            anchors.top: splitter2.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: anchors.leftMargin
-            height: container.rowHeight
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: "Current:"
-                color: base.colorSecondary
-            }
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: {
-                    return (chargerModel.chargeCurrent / 1000).toFixed(1) + "A"
-                }
-
-                color: base.colorSecondary
+            textLeft: "Current:"
+            textRight: {
+                return (chargerModel.chargeCurrent / 1000).toFixed(1) + "A"
             }
         }
 
-        Rectangle {
-            id: splitter3
+        NEOControls.DataRow {
+            id: dataRowProgStep
 
-            anchors.top: txtCurrent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
+            anchors.top: dataRowCurrent.bottom
+            anchors.topMargin: -1
 
-            color: base.colorSecondary
-        }
+            showTopSplitter: true
+            splitterColor: base.colorSecondary
+            textColor: base.colorSecondary
 
-        Item {
-            id: txtProgStep
-
-            anchors.top: splitter3.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: anchors.leftMargin
-            height: container.rowHeight
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: "Step:"
-                color: base.colorSecondary
-            }
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: {
-                    return chargerModel.chargeProgramStep
-                }
-
-                color: base.colorSecondary
+            textLeft: "Step:"
+            textRight: {
+                return chargerModel.chargeProgramStep
             }
         }
 
-        Rectangle {
-            id: splitter4
+        NEOControls.DataRow {
+            id: dataRowAh
 
-            anchors.top: txtProgStep.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
+            anchors.top: dataRowProgStep.bottom
+            anchors.topMargin: -1
 
-            color: base.colorSecondary
+            showTopSplitter: true
+            splitterColor: base.colorSecondary
+            textColor: base.colorSecondary
+
+            textLeft: "Ah Previous Cycle:"
+            textRight: "0 Ah"
         }
 
-        Item {
-            id: txtAh
+        NEOControls.DataRow {
+            id: dataRowError
 
-            anchors.top: splitter4.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: anchors.leftMargin
-            height: container.rowHeight
+            anchors.top: dataRowAh.bottom
+            anchors.topMargin: -1
 
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
+            showTopSplitter: true
+            showBottomSplitter: true
+            splitterColor: base.colorSecondary
+            textColor: base.colorSecondary
 
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: "Ah Previous Cycle:"
-                color: base.colorSecondary
+            textLeft: "Error Status:"
+            textRight: {
+                if (chargerModel.LEDRed === 1) //LED_ON
+                    return "Misc error"
+                else if (chargerModel.LEDRed === 500) //LED_SLOW_BLINK
+                    return "Reverse polarity"
+                else
+                    return "No Error"
             }
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: "Ah"
-
-                color: base.colorSecondary
-            }
-        }
-
-        Rectangle {
-            id: splitter5
-
-            anchors.top: txtAh.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
-
-            color: base.colorSecondary
-        }
-
-        Item {
-            id: txtError
-
-            anchors.top: splitter5.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: anchors.leftMargin
-            height: container.rowHeight
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: "Error Status:"
-                color: base.colorSecondary
-            }
-
-            Text {
-                anchors.fill: parent
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: container.maxTextSize
-
-                text: {
-                    if (chargerModel.LEDRed === 1) //LED_ON
-                        return "Misc error"
-                    else if (chargerModel.LEDRed === 500) //LED_SLOW_BLINK
-                        return "Reverse polarity"
-                    else
-                        return "No Error"
-                }
-
-                color: base.colorSecondary
-            }
-        }
-
-        Rectangle {
-            id: splitter6
-
-            anchors.top: txtError.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
-
-            color: base.colorSecondary
         }
 
         Item {
@@ -332,6 +142,11 @@ BasePage {
 
                 text: "Back"
                 leftImg.source: "../Assets/arrow_left.png"
+
+                onClicked: {
+                    base.hidePages()
+                    pageMain.show()
+                }
             }
         }
     }

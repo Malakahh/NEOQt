@@ -2,9 +2,21 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 
 Flickable {
+    id: basePage
+
     property alias contents: placeholder.children
     property alias header: placeholderHeader.children
     property alias text: placeholderHeader.text
+
+    function show() {
+        basePage.visible = true
+        //basePage.enabled = true
+    }
+
+    function hide() {
+        basePage.visible = false
+        //basePage.enabled = false
+    }
 
     ScrollBar.vertical: ScrollBar { }
     focus: true

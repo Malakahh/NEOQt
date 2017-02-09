@@ -1,39 +1,40 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 import "../NEOControls" as NEOControls
 
 BasePage {
     onVisibleChanged: {
-        if (visible)
-        {
+        if (visible) {
             chargerModel.startUpdateTimer()
         }
     }
 
-    header: Image {
+    header: Button {
         anchors.fill: parent
-        source: "../Assets/logo.png"
-        fillMode: Image.PreserveAspectFit
 
-        MouseArea {
+        onPressed: {
+            powerchargeLogoLongClickTimer.start()
+        }
+
+        onReleased: {
+            powerchargeLogoLongClickTimer.stop()
+        }
+
+        Timer {
+            id: powerchargeLogoLongClickTimer
+            interval: 3000
+            repeat: false
+            running: false
+            onTriggered: {
+                base.hidePages()
+                pagePassword.show()
+            }
+        }
+
+        background: Image {
             anchors.fill: parent
-            onPressedChanged: {
-                if (pressed) {
-                    powerchargeLogoLongClickTimer.running = true
-                } else {
-                    powerchargeLogoLongClickTimer.running = false
-                }
-            }
-
-            Timer {
-                id: powerchargeLogoLongClickTimer
-                interval: 3000
-                repeat: false
-                running: false
-                onTriggered: {
-                    base.hidePages()
-                    pagePassword.visible = true
-                }
-            }
+            source: "../Assets/logo.png"
+            fillMode: Image.PreserveAspectFit
         }
     }
 
