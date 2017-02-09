@@ -23,6 +23,9 @@ ApplicationWindow {
         pagePassword.hide()
         pageService.hide()
         pageLogCounters.hide()
+        pageProgram.hide()
+        pageDealership.hide()
+        pageDealershipEdit.hide()
     }
 
     style: ApplicationWindowStyle {
@@ -63,5 +66,15 @@ ApplicationWindow {
 
     Views.ProgramPage {
         id: pageProgram
+        visible: false
+    }
+
+    Views.DealershipPage {
+        id: pageDealership
+    }
+
+    Views.DealershipEditPage {
+        id: pageDealershipEdit
+        visible: false
     }
 }

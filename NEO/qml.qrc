@@ -30,5 +30,7 @@
         <file>NEOControls/DataRow.qml</file>
         <file>Views/LogCountersPage.qml</file>
         <file>Views/ProgramPage.qml</file>
+        <file>Views/DealershipPage.qml</file>
+        <file>Views/DealershipEditPage.qml</file>
     </qresource>
 </RCC>

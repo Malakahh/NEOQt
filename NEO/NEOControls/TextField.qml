@@ -35,7 +35,7 @@ T.TextField {
         minimumPixelSize: 10
         font.pixelSize: control.font.pixelSize
 
-        color: base.colorPrimary
+        color: control.color
         horizontalAlignment: control.horizontalAlignment
         verticalAlignment: control.verticalAlignment
         visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)
