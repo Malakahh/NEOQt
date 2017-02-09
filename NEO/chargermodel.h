@@ -97,18 +97,18 @@ private:
     MessageHelper messageHelper;
     QTimer updateTimer;
 
-    unsigned int chargeVoltage;
-    unsigned int chargeCurrent;
-    char chargeProgramStep;
-    unsigned int LEDGreen;
-    unsigned int LEDYellow;
-    unsigned int LEDRed;
-    QString programName;
-    unsigned int logCounterCharges;
-    unsigned int logCounterErrors;
-    unsigned int logCounterDepthDischarges;
-    unsigned int programSize;
-    unsigned int logSize;
+    unsigned int chargeVoltage = 0;
+    unsigned int chargeCurrent = 0;
+    char chargeProgramStep = 0;
+    unsigned int LEDGreen = 0;
+    unsigned int LEDYellow = 0;
+    unsigned int LEDRed = 0;
+    QString programName = "";
+    unsigned int logCounterCharges = 0;
+    unsigned int logCounterErrors = 0;
+    unsigned int logCounterDepthDischarges = 0;
+    unsigned int programSize = 0;
+    unsigned int logSize = 0;
 };
 
 #endif // CHARGERMODEL_H
