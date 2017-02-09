@@ -5,6 +5,7 @@ Button {
     id: btn
 
     property int radius: 15
+    property int pixelSize: 0
     property alias leftImg: imgLeft
     property alias rightImg: imgRight
 
@@ -23,8 +24,6 @@ Button {
 
             width: 8
             height: 16
-
-            source: btn.leftImageSrc
         }
 
         Text {
@@ -52,7 +51,7 @@ Button {
             verticalAlignment: Text.AlignVCenter
             fontSizeMode: Text.Fit
             minimumPixelSize: 10
-            font.pixelSize: 20
+            font.pixelSize: (btn.pixelSize == 0 ? 20 : btn.pixelSize)
         }
 
         Image {
@@ -64,8 +63,6 @@ Button {
 
             width: 8
             height: 16
-
-            source: btn.rightImageSrc
         }
     }
 

@@ -20,6 +20,8 @@ ApplicationWindow {
         pageBT.visible = false
         pageConnecting.visible = false
         pageMain.visible = false
+        pagePassword.visible = false
+        pageService.visible = false
     }
 
     style: ApplicationWindowStyle {
@@ -30,7 +32,6 @@ ApplicationWindow {
 
     Views.BluetoothPage {
         id: pageBT
-        visible: false
     }
 
     Views.ConnectingPage {
@@ -50,6 +51,7 @@ ApplicationWindow {
 
     Views.ServicePage {
         id: pageService
+        visible: false
     }
 
 

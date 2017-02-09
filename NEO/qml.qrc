@@ -1,9 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Views/BBluetooth.qml</file>
-        <file>Views/BUserPage.qml</file>
-        <file>Views/BServicePage.qml</file>
         <file>NEOControls/FilePicker.qml</file>
         <file>NEOControls/Button.qml</file>
         <file>Assets/app_icon_large.png</file>

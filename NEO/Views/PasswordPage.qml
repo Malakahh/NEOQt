@@ -3,6 +3,12 @@ import QtQuick.Controls 2.1
 import "../NEOControls" as NEOControls
 
 BasePage {
+    onVisibleChanged: {
+        if (visible) {
+            chargerModel.startUpdateTimer()
+        }
+    }
+
     text: "Authorization Required"
 
     contents: Item {
@@ -50,6 +56,7 @@ BasePage {
                 if (pwInput.text == "1234")
                 {
                     base.hidePages()
+                    pageService.visible = true
                 }
             }
         }

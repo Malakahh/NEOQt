@@ -2,10 +2,22 @@ import QtQuick 2.0
 import "../NEOControls" as NEOControls
 
 BasePage {
+    onVisibleChanged: {
+        if (visible)
+        {
+            chargerModel.startUpdateTimer()
+        }
+    }
+
     text: "Service Menu"
 
     contents: Item {
+        id: container
+
         anchors.fill: parent
+
+        property int maxTextSize: 20
+        property int rowHeight: 40
 
         Rectangle {
             id: splitter1
@@ -19,7 +31,7 @@ BasePage {
             color: base.colorSecondary
         }
 
-        Row {
+        Item {
             id: txtVoltage
 
             anchors.top: splitter1.bottom
@@ -27,11 +39,16 @@ BasePage {
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: anchors.leftMargin
-            height: 40
+            height: container.rowHeight
 
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: "Voltage:"
                 color: base.colorSecondary
@@ -40,9 +57,14 @@ BasePage {
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: {
-                    return (chargerModel.chargeVoltage / 1000).toPrecision(2) + "V"
+                    return (chargerModel.chargeVoltage / 1000).toFixed(1) + "V"
                 }
 
                 color: base.colorSecondary
@@ -60,7 +82,7 @@ BasePage {
             color: base.colorSecondary
         }
 
-        Row {
+        Item {
             id: txtCurrent
 
             anchors.top: splitter2.bottom
@@ -68,11 +90,16 @@ BasePage {
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: anchors.leftMargin
-            height: 40
+            height: container.rowHeight
 
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: "Current:"
                 color: base.colorSecondary
@@ -81,9 +108,14 @@ BasePage {
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: {
-                    return (chargerModel.chargeCurrent / 1000).toPrecision(2) + "A"
+                    return (chargerModel.chargeCurrent / 1000).toFixed(1) + "A"
                 }
 
                 color: base.colorSecondary
@@ -101,7 +133,7 @@ BasePage {
             color: base.colorSecondary
         }
 
-        Row {
+        Item {
             id: txtProgStep
 
             anchors.top: splitter3.bottom
@@ -109,11 +141,16 @@ BasePage {
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: anchors.leftMargin
-            height: 40
+            height: container.rowHeight
 
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: "Step:"
                 color: base.colorSecondary
@@ -122,6 +159,11 @@ BasePage {
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: {
                     return chargerModel.chargeProgramStep
@@ -142,7 +184,7 @@ BasePage {
             color: base.colorSecondary
         }
 
-        Row {
+        Item {
             id: txtAh
 
             anchors.top: splitter4.bottom
@@ -150,11 +192,16 @@ BasePage {
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: anchors.leftMargin
-            height: 40
+            height: container.rowHeight
 
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: "Ah Previous Cycle:"
                 color: base.colorSecondary
@@ -163,6 +210,11 @@ BasePage {
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: "Ah"
 
@@ -181,7 +233,7 @@ BasePage {
             color: base.colorSecondary
         }
 
-        Row {
+        Item {
             id: txtError
 
             anchors.top: splitter5.bottom
@@ -189,11 +241,16 @@ BasePage {
             anchors.leftMargin: 20
             anchors.right: parent.right
             anchors.rightMargin: anchors.leftMargin
-            height: 40
+            height: container.rowHeight
 
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: "Error Status:"
                 color: base.colorSecondary
@@ -202,6 +259,11 @@ BasePage {
             Text {
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 10
+                font.pixelSize: container.maxTextSize
 
                 text: {
                     if (chargerModel.LEDRed === 1) //LED_ON

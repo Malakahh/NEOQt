@@ -258,7 +258,7 @@ BasePage {
             anchors.horizontalCenter: parent.horizontalCenter
 
             text: "i"
-            font.pixelSize: 50
+            pixelSize: 50
 
             width: 75
             height: 75

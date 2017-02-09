@@ -117,9 +117,14 @@ BasePage {
                     model: selectDevice.popup.visible ? selectDevice.delegateModel : null
                     currentIndex: selectDevice.highlightedIndex
 
+
                     ScrollIndicator.vertical: ScrollIndicator {
+
+
                         contentItem: Rectangle {
                             implicitWidth: 10
+
+                            visible: parent.size < 1.0
 
                             color: base.colorPrimary
                         }
@@ -151,7 +156,7 @@ BasePage {
             anchors.horizontalCenter: parent.horizontalCenter
 
             text: "i"
-            font.pixelSize: 50
+            pixelSize: 50
 
             width: 75
             height: 75
