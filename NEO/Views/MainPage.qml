@@ -251,7 +251,6 @@ BasePage {
             }
         }
 
-
         NEOControls.Button {
             id: infoBtn
 
@@ -265,6 +264,12 @@ BasePage {
             width: 75
             height: 75
             radius: 90
+
+            onClicked: {
+                pageDealership.returnTo = pageMain
+                base.hidePages()
+                pageDealership.show()
+            }
         }
     }
 }

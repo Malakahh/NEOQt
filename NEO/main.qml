@@ -36,7 +36,6 @@ ApplicationWindow {
 
     Views.BluetoothPage {
         id: pageBT
-        visible: false
     }
 
     Views.ConnectingPage {
@@ -71,6 +70,7 @@ ApplicationWindow {
 
     Views.DealershipPage {
         id: pageDealership
+        visible: false
     }
 
     Views.DealershipEditPage {
