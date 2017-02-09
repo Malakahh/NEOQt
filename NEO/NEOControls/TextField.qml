@@ -29,7 +29,11 @@ TextField {
         height: control.height - (control.topPadding + control.bottomPadding)
 
         text: control.placeholderText
-        font: control.font
+
+        fontSizeMode: Text.Fit
+        minimumPixelSize: 10
+        font.pixelSize: control.font.pixelSize
+
         color: base.colorPrimary
         horizontalAlignment: control.horizontalAlignment
         verticalAlignment: control.verticalAlignment
