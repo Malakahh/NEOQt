@@ -29,5 +29,6 @@
         <file>Views/ServicePage.qml</file>
         <file>NEOControls/DataRow.qml</file>
         <file>Views/LogCountersPage.qml</file>
+        <file>Views/ProgramPage.qml</file>
     </qresource>
 </RCC>

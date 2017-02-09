@@ -33,6 +33,7 @@ ApplicationWindow {
 
     Views.BluetoothPage {
         id: pageBT
+        visible: false
     }
 
     Views.ConnectingPage {
@@ -58,5 +59,9 @@ ApplicationWindow {
     Views.LogCountersPage {
         id: pageLogCounters
         visible: false
+    }
+
+    Views.ProgramPage {
+        id: pageProgram
     }
 }

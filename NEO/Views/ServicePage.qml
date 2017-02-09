@@ -137,6 +137,11 @@ BasePage {
 
                 text: "Program"
                 rightImg.source: "../Assets/arrow_right.png"
+
+                onClicked: {
+                    base.hidePages()
+                    pageProgram.show()
+                }
             }
 
             NEOControls.Button {

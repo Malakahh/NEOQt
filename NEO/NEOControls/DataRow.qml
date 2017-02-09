@@ -5,6 +5,7 @@ Item {
     property string textColor: "FF000000"
     property string textLeft: ""
     property string textRight: ""
+    property string textCenter: ""
     property int textHMargin: 20
     property int textMaxSize: 20
     property int textMinSize: 10
@@ -41,6 +42,25 @@ Item {
         font.pixelSize: parent.textMaxSize
 
         text: parent.textLeft
+        color: parent.textColor
+    }
+
+    Text {
+        id: c
+
+        anchors.fill: parent
+        anchors.topMargin: 1
+        anchors.bottomMargin: 1
+        anchors.leftMargin: parent.textHMargin
+        anchors.rightMargin: parent.textHMargin
+
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        fontSizeMode: Text.Fit
+        minimumPixelSize: parent.textMinSize
+        font.pixelSize: parent.textMaxSize
+
+        text: parent.textCenter
         color: parent.textColor
     }
 
