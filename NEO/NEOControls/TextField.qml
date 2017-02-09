@@ -1,8 +1,9 @@
 import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Controls.impl 2.1
+import QtQuick.Templates 2.1 as T
 
-TextField {
+T.TextField {
     id: control
 
     implicitWidth: Math.max(background ? background.implicitWidth : 0,
