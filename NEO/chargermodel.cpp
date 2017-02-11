@@ -536,9 +536,9 @@ void ChargerModel::writeProgramSizeInWords(QVariant size)
 
     std::vector<unsigned char> msg_a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
-        (s >> 8) & 0xFF,
+        static_cast<unsigned char>((s >> 8) & 0xFF),
         C_CMD_EE_DATA_LOW | WRITE_REG,
-        s & 0xFF
+        static_cast<unsigned char>(s & 0xFF)
     };
 
     std::vector<unsigned char> msg_b = {
@@ -569,9 +569,9 @@ void ChargerModel::writeProgram(QVariant p)
 
         std::vector<unsigned char> msg_a = {
             C_CMD_EE_DATA_HIGH | WRITE_REG,
-            program[i],
+            static_cast<unsigned char>(program[i]),
             C_CMD_EE_DATA_LOW | WRITE_REG,
-            program[i + 1]
+            static_cast<unsigned char>(program[i + 1])
         };
 
         std::vector<unsigned char> msg_b = {

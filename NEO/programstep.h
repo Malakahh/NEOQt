@@ -16,7 +16,7 @@ public:
 
 private:
     char data[ProgramStep::stepSizeInBytes];
-    unsigned int len;
+    unsigned int len = 0;
 
     bool isSet(char index);
     short generateWord_VoltageSetPoint();
