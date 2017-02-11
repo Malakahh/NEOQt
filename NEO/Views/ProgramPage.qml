@@ -4,6 +4,44 @@ import "../NEOControls" as NEOControls
 BasePage {
     text: "Charging Program"
 
+    Connections {
+        target: fileExplorer
+        onFilePicked: {
+            if (fileExplorer.returnTo === pageProgram) {
+                programParser.parse(fileName)
+
+                pageProgress.fileName = fileName
+                pageProgress.messageText = "Writing program..."
+                pageProgress.fileSize = programParser.wordCount * 2
+                pageProgress.value = 0
+
+                base.hidePages()
+                pageProgress.show()
+
+                chargerModel.writeProgramName(programParser.programName)
+                chargerModel.writeProgramSizeInWords(programParser.wordCount)
+                chargerModel.writeProgram(programParser.programData)
+            }
+        }
+    }
+
+    Connections {
+        target: chargerModel
+        onProgramByteWritten: {
+            if (fileExplorer.returnTo === pageProgram) {
+                pageProgress.value = pageProgress.value + 1
+
+                console.log("Program Write tick")
+
+                if (pageProgress.value == programParser.wordCount * 2)
+                {
+                    base.hidePages()
+                    pageProgram.show()
+                }
+            }
+        }
+    }
+
     onVisibleChanged: {
         if (visible) {
             chargerModel.stopUpdateTimer()
@@ -39,7 +77,11 @@ BasePage {
             text: "Write Program"
 
             onClicked: {
-                console.log("Click!")
+                fileExplorer.writeMode = false
+                fileExplorer.returnTo = pageProgram
+
+                base.hidePages()
+                fileExplorer.show()
             }
         }
 

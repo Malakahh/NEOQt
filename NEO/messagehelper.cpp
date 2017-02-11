@@ -2,7 +2,7 @@
 
 #define START_BYTE '|'
 #define CHECKSUM_LENGTH_BYTES 4
-#define TIMEOUT 20000
+#define TIMEOUT 2000
 
 MessageHelper::MessageHelper(QObject *parent) : QObject(parent)
 {

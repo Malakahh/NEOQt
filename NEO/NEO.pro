@@ -8,7 +8,9 @@ SOURCES += main.cpp \
     messagehelper.cpp \
     chargermodel.cpp \
     filebrowserdata.cpp \
-    filehelper.cpp
+    filehelper.cpp \
+    programparser.cpp \
+    programstep.cpp
 
 RESOURCES += qml.qrc
 
@@ -208,7 +210,9 @@ HEADERS += \
     chargermodel.h \
     callbackitem.h \
     filebrowserdata.h \
-    filehelper.h
+    filehelper.h \
+    programparser.h \
+    programstep.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 

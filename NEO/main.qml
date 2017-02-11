@@ -26,6 +26,8 @@ ApplicationWindow {
         pageProgram.hide()
         pageDealership.hide()
         pageDealershipEdit.hide()
+        fileExplorer.hide()
+        pageProgress.hide()
     }
 
     style: ApplicationWindowStyle {
@@ -75,6 +77,16 @@ ApplicationWindow {
 
     Views.DealershipEditPage {
         id: pageDealershipEdit
+        visible: false
+    }
+
+    Views.FileExplorer {
+        id: fileExplorer
+        visible: false
+    }
+
+    Views.ProgressPage {
+        id: pageProgress
         visible: false
     }
 }

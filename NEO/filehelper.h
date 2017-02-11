@@ -13,9 +13,6 @@ class FileHelper : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVariant data MEMBER data)
-    Q_PROPERTY(QVariant dataSize MEMBER dataSize)
-
 public:
     explicit FileHelper(QObject* parent = 0);
     FileHelper(FileHelper const&) = delete;
@@ -34,9 +31,6 @@ public:
 private:
     QDir dir;
     QFileInfoList files;
-
-    QVariant data;
-    QVariant dataSize;
 };
 
 #endif // FILEBROWSERMODEL_H

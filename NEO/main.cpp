@@ -8,6 +8,7 @@
 #include "blecontroller.h"
 #include "chargermodel.h"
 #include "filehelper.h"
+#include "programparser.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,11 +19,13 @@ int main(int argc, char *argv[])
     BLEController& bleController = BLEController::getInstance();
     ChargerModel chargerModel;
     FileHelper& fileHelper = FileHelper::getInstance();
+    ProgramParser programParser;
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);
     engine.rootContext()->setContextProperty("chargerModel", &chargerModel);
     engine.rootContext()->setContextProperty("fileHelper", &fileHelper);
+    engine.rootContext()->setContextProperty("programParser", &programParser);
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();

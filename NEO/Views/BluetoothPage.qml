@@ -117,10 +117,7 @@ BasePage {
                     model: selectDevice.popup.visible ? selectDevice.delegateModel : null
                     currentIndex: selectDevice.highlightedIndex
 
-
                     ScrollIndicator.vertical: ScrollIndicator {
-
-
                         contentItem: Rectangle {
                             implicitWidth: 10
 

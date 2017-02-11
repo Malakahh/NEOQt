@@ -119,6 +119,8 @@ BasePage {
                     frameWidth: 60
                     frameHeight: 60
 
+                    interpolate: false
+
                     width: 32
                     height: 32
 
@@ -209,6 +211,8 @@ BasePage {
                     frameWidth: 60
                     frameHeight: 60
 
+                    interpolate: false
+
                     width: 32
                     height: 32
 
@@ -234,6 +238,8 @@ BasePage {
 
                     frameWidth: 60
                     frameHeight: 60
+
+                    interpolate: false
 
                     width: 32
                     height: 32

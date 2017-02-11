@@ -6,6 +6,7 @@
 #include <QFileDialog>
 
 #include "messagehelper.h"
+#include "programparser.h"
 
 #define LED_OFF 0
 #define LED_ON 1
@@ -66,8 +67,8 @@ public:
 
 
     Q_INVOKABLE void writeProgramName(QString name);
-    Q_INVOKABLE void writeProgramSizeInWords(std::vector<unsigned char> size);
-    Q_INVOKABLE void writeProgram(std::vector<unsigned char> program);
+    Q_INVOKABLE void writeProgramSizeInWords(QVariant size);
+    Q_INVOKABLE void writeProgram(QVariant p);
     Q_INVOKABLE void clearLogCounters();
 
     Q_INVOKABLE void enterProgMode();
@@ -87,7 +88,7 @@ signals:
     void programSizeChanged();
     void logSizeChanged();
 
-    void programByteWritten(char byteWritten);
+    void programByteWritten();
 
 public slots:
     void onConnectionEstablished();

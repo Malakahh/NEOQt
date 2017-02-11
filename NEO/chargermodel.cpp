@@ -463,7 +463,7 @@ void ChargerModel::updateLogSize()
 
 
 void ChargerModel::writeProgramName(QString name)
-{
+{    
     std::vector<unsigned char> msg_1_2a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
         static_cast<unsigned char>(name[0].toLatin1()),
@@ -530,13 +530,15 @@ void ChargerModel::writeProgramName(QString name)
     messageHelper.enqueueQuery(msg_7_8b);
 }
 
-void ChargerModel::writeProgramSizeInWords(std::vector<unsigned char> size)
+void ChargerModel::writeProgramSizeInWords(QVariant size)
 {
+    int s = size.toInt();
+
     std::vector<unsigned char> msg_a = {
         C_CMD_EE_DATA_HIGH | WRITE_REG,
-        size[0],
-        C_CMD_EE_ADDR_LOW | WRITE_REG,
-        size[1]
+        (s >> 8) & 0xFF,
+        C_CMD_EE_DATA_LOW | WRITE_REG,
+        s & 0xFF
     };
 
     std::vector<unsigned char> msg_b = {
@@ -550,8 +552,15 @@ void ChargerModel::writeProgramSizeInWords(std::vector<unsigned char> size)
     messageHelper.enqueueQuery(msg_b);
 }
 
-void ChargerModel::writeProgram(std::vector<unsigned char> program)
+void ChargerModel::writeProgram(QVariant p)
 {
+    std::vector<char> program = p.value<std::vector<char>>();
+
+    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        emit this->programByteWritten();
+        emit this->programByteWritten();
+    };
+
     for (int i = 0; i < program.size(); i += 2)
     {
         int fullAddr = EE_PROGRAM_AREA + i / 2;
@@ -573,10 +582,7 @@ void ChargerModel::writeProgram(std::vector<unsigned char> program)
         };
 
         messageHelper.enqueueQuery(msg_a);
-        messageHelper.enqueueQuery(msg_b);
-
-        this->programByteWritten(program[i]);
-        this->programByteWritten(program[i + 1]);
+        messageHelper.enqueueQuery(msg_b, 0, f);
     }
 }
 

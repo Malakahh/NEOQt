@@ -55,6 +55,8 @@ void FileHelper::save(QString fileName, const char* data, const unsigned int len
     //ds << data;
 
     ds.writeRawData(data, len);
+
+    f.close();
 }
 
 void FileHelper::load(QString fileName, char*& data, unsigned int& len)
@@ -63,7 +65,13 @@ void FileHelper::load(QString fileName, char*& data, unsigned int& len)
     f.open(QIODevice::ReadOnly);
 
     QDataStream ds(&f);
-    ds.readBytes(data, len);
+
+    char d[f.size()];
+
+    len = ds.readRawData(d, f.size());
+    f.close();
+
+    data = d;
 }
 
 /*
