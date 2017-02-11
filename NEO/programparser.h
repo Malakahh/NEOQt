@@ -31,8 +31,7 @@ private:
     short wordCount;
     std::vector<char> programData;
 
-    char* loadedBytes;
-    unsigned int loadedBytesLength = 0;
+    std::vector<char> loadedBytes;
     std::vector<ProgramStep> steps;
 
     void parseProgramName();

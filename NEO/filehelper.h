@@ -22,7 +22,7 @@ public:
     Q_INVOKABLE QVariant getFiles();
 
     void save(QString fileName, const char* data, const unsigned int len);
-    void load(QString fileName, char*& data, unsigned int& len);
+    void load(QString fileName, std::vector<char>& data);
 
     //Q_INVOKABLE void test(QString fileName);
 

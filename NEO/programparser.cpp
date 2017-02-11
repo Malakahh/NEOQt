@@ -27,8 +27,12 @@ QVariant ProgramParser::getProgramData() const
 
 void ProgramParser::parse(QString fileName)
 {
+    this->programData.clear();
+    this->loadedBytes.clear();
+    this->steps.clear();
+
     FileHelper& fileHelper = FileHelper::getInstance();
-    fileHelper.load(fileName, this->loadedBytes, this->loadedBytesLength);
+    fileHelper.load(fileName, this->loadedBytes);
 
     this->parseProgramName();
     this->parseProgramSteps();
@@ -46,12 +50,12 @@ void ProgramParser::parseProgramName()
 
 void ProgramParser::parseProgramSteps()
 {
-    for (int i = META_DATA_SIZE; i < this->loadedBytesLength; i += ProgramStep::stepSizeInBytes)
+    for (int i = META_DATA_SIZE; i < this->loadedBytes.size(); i += ProgramStep::stepSizeInBytes)
     {
         char bytes[ProgramStep::stepSizeInBytes];
 
-        std::copy(this->loadedBytes + i,
-                  this->loadedBytes + i + ProgramStep::stepSizeInBytes,
+        std::copy(this->loadedBytes.begin() + i,
+                  this->loadedBytes.begin() + i + ProgramStep::stepSizeInBytes,
                   bytes);
 
         ProgramStep ps;
@@ -80,8 +84,6 @@ void ProgramParser::parseWordCount()
 
 void ProgramParser::convertProgram()
 {
-    this->programData.clear();
-
     for (int i = 0; i < steps.size(); i++)
     {
         short words[10];

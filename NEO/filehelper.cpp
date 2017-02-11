@@ -59,7 +59,7 @@ void FileHelper::save(QString fileName, const char* data, const unsigned int len
     f.close();
 }
 
-void FileHelper::load(QString fileName, char*& data, unsigned int& len)
+void FileHelper::load(QString fileName, std::vector<char>& data)
 {
     QFile f(this->dir.absolutePath() + "/" + fileName);
     f.open(QIODevice::ReadOnly);
@@ -68,10 +68,10 @@ void FileHelper::load(QString fileName, char*& data, unsigned int& len)
 
     char d[f.size()];
 
-    len = ds.readRawData(d, f.size());
+    ds.readRawData(d, f.size());
     f.close();
 
-    data = d;
+    data.assign(d, d + f.size());
 }
 
 /*
