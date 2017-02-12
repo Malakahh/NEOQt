@@ -28,7 +28,7 @@ public slots:
 
 private:
     char programName[8];
-    short wordCount;
+    short wordCount = 0;
     std::vector<char> programData;
 
     std::vector<char> loadedBytes;

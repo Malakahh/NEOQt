@@ -87,7 +87,7 @@ void ProgramParser::convertProgram()
     for (int i = 0; i < steps.size(); i++)
     {
         short words[10];
-        unsigned int len;
+        unsigned int len = 0;
 
         steps[i].convert(words, len);
 
