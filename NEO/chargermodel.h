@@ -7,6 +7,7 @@
 
 #include "messagehelper.h"
 #include "programparser.h"
+#include "logheader.h"
 
 #define LED_OFF 0
 #define LED_ON 1
@@ -64,7 +65,7 @@ public:
     //This is actually EEprom size, but to keep with conventions of the charger, it is named log size
     void updateLogSize();
 
-
+    void retrieveLogHeaderRecursively(int logStart, int eePromSize);
 
     Q_INVOKABLE void writeProgramName(QString name);
     Q_INVOKABLE void writeProgramSizeInWords(QVariant size);
@@ -110,6 +111,7 @@ private:
     unsigned int logCounterDepthDischarges = 0;
     unsigned int programSize = 0;
     unsigned int logSize = 0;
+    std::vector<LogHeader> logHeaders;
 };
 
 #endif // CHARGERMODEL_H

@@ -212,7 +212,8 @@ HEADERS += \
     filebrowserdata.h \
     filehelper.h \
     programparser.h \
-    programstep.h
+    programstep.h \
+    logheader.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 

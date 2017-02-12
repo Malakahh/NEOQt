@@ -450,7 +450,13 @@ void ChargerModel::updateLogSize()
     messageHelper.enqueueQuery(msg_b, 2, f);
 }
 
-
+void ChargerModel::retrieveLogHeaderRecursively(int logStart, int eePromSize)
+{
+    std::vector<unsigned char> msg_a = {
+        C_CMD_EE_ADDR_HIGH | WRITE_REG,
+        static_cast<unsigned char>()
+    }
+}
 
 
 
