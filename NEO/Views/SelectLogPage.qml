@@ -42,7 +42,7 @@ BasePage {
                 pageProgress.value = pageProgress.value + 1
 
                 if (pageProgress.value == selectedHeader.size * 2) {
-                    fileHelper.save(fileExplorer.selectedFile, chargerModel.log)
+                    fileHelper.saveLog(fileExplorer.selectedFile, chargerModel.log)
 
                     base.hidePages()
                     returnTo.show()

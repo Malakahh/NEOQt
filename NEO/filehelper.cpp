@@ -7,8 +7,10 @@ FileHelper::FileHelper(QObject* parent) : QObject(parent)
     #endif
     
     #ifdef Q_OS_IOS
-        this->dir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
+        this->userStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
     #endif
+
+    this->dataStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DataLocation).last() + "/powercharge");
 }
 
 FileHelper& FileHelper::getInstance()
@@ -22,7 +24,7 @@ QVariant FileHelper::getFiles()
 {
     QList<QObject*> list;
 
-    this->files = this->dir.entryInfoList(QDir::Files);
+    this->files = this->userStorageDir.entryInfoList(QDir::Files);
 
     for (QFileInfo& info : this->files)
     {
@@ -33,7 +35,34 @@ QVariant FileHelper::getFiles()
     return QVariant::fromValue(list);
 }
 
-void FileHelper::save(QString fileName, QVariant data)
+
+void FileHelper::save(QString path, std::vector<char> data)
+{
+    QFile f(path);
+    f.open(QIODevice::WriteOnly);
+
+    QDataStream ds(&f);
+    ds.writeRawData(data.data(), data.size());
+
+    f.flush();
+    f.close();
+}
+
+void FileHelper::load(QString path, std::vector<char>& data)
+{
+    QFile f(path);
+    f.open(QIODevice::ReadOnly);
+
+    char d[f.size()];
+
+    QDataStream ds(&f);
+    ds.readRawData(d, f.size());
+    f.close();
+
+    data.assign(d, d + f.size());
+}
+
+void FileHelper::saveLog(QString fileName, QVariant data)
 {
     if (fileName == "")
     {
@@ -48,32 +77,16 @@ void FileHelper::save(QString fileName, QVariant data)
         fileName.append(".csv");
     }
 
-    QString path = this->dir.absolutePath() + "/" + fileName;
+    QString path = this->userStorageDir.absolutePath() + "/" + fileName;
 
-    QFile f(path);
-    f.open(QIODevice::WriteOnly);
-
-    QDataStream ds(&f);
-    //ds << data;
-
-    ds.writeRawData(d.data(), d.size());
-
-    f.close();
+    this->save(path, d);
 }
 
-void FileHelper::load(QString fileName, std::vector<char>& data)
+void FileHelper::loadProgram(QString fileName, std::vector<char>& data)
 {
-    QFile f(this->dir.absolutePath() + "/" + fileName);
-    f.open(QIODevice::ReadOnly);
+    QString path = this->userStorageDir.absolutePath() + "/" + fileName;
 
-    QDataStream ds(&f);
-
-    char d[f.size()];
-
-    ds.readRawData(d, f.size());
-    f.close();
-
-    data.assign(d, d + f.size());
+    this->load(path, data);
 }
 
 std::vector<char> FileHelper::logToCSV(std::vector<char> log)

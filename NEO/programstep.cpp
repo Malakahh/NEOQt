@@ -40,12 +40,8 @@ ProgramStep::ProgramStep()
 
 bool ProgramStep::createProgramStep(char *data, unsigned int len, ProgramStep &step)
 {
-    qDebug() << "vbl: " << (int)data[VOLTAGE_BYTE_LOW] << " cbl: " << (int)data[CURRENT_BYTE_LOW];
-
     if (data[VOLTAGE_BYTE_LOW] == static_cast<char>(0xFF) || data[CURRENT_BYTE_LOW] == static_cast<char>(0xFF))
         return false;
-
-    qDebug() << "wat " << (int)static_cast<char>(0xFF);
 
     std::copy(data,
               data + len,

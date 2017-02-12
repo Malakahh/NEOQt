@@ -21,15 +21,21 @@ public:
 
     Q_INVOKABLE QVariant getFiles();
 
-    Q_INVOKABLE void save(QString fileName, QVariant data);
-    void load(QString fileName, std::vector<char>& data);
+    void save(QString path, std::vector<char> data);
+    void load(QString path, std::vector<char>& data);
+
+    Q_INVOKABLE void saveLog(QString fileName, QVariant data);
+    void loadProgram(QString fileName, std::vector<char>& data);
+
+
 
     //Q_INVOKABLE void test(QString fileName);
 
     void operator=(FileHelper const&) = delete;
 
 private:
-    QDir dir;
+    QDir userStorageDir;
+    QDir dataStorageDir;
     QFileInfoList files;
 
     std::vector<char> logToCSV(std::vector<char> log);
