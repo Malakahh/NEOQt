@@ -33,5 +33,6 @@
         <file>Views/DealershipEditPage.qml</file>
         <file>Views/FileExplorer.qml</file>
         <file>Views/ProgressPage.qml</file>
+        <file>Views/SelectLogPage.qml</file>
     </qresource>
 </RCC>

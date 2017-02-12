@@ -28,6 +28,7 @@ ApplicationWindow {
         pageDealershipEdit.hide()
         fileExplorer.hide()
         pageProgress.hide()
+        pageSelectLog.hide()
     }
 
     style: ApplicationWindowStyle {
@@ -87,6 +88,11 @@ ApplicationWindow {
 
     Views.ProgressPage {
         id: pageProgress
+        visible: false
+    }
+
+    Views.SelectLogPage {
+        id: pageSelectLog
         visible: false
     }
 }

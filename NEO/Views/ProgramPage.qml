@@ -33,8 +33,7 @@ BasePage {
 
                 console.log("Program Write tick")
 
-                if (pageProgress.value == programParser.wordCount * 2)
-                {
+                if (pageProgress.value == programParser.wordCount * 2) {
                     base.hidePages()
                     pageProgram.show()
                 }

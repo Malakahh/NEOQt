@@ -33,17 +33,19 @@ QVariant FileHelper::getFiles()
     return QVariant::fromValue(list);
 }
 
-void FileHelper::save(QString fileName, const char* data, const unsigned int len)
+void FileHelper::save(QString fileName, QVariant data)
 {
     if (fileName == "")
     {
         return;
     }
 
+    std::vector<char> d = this->logToCSV(data.value<std::vector<char>>());
+
     QStringList fileNameSplit = fileName.split('.');
     if (fileNameSplit.size() < 2 || fileNameSplit.last() != "")
     {
-        fileName.append(".txt");
+        fileName.append(".csv");
     }
 
     QString path = this->dir.absolutePath() + "/" + fileName;
@@ -54,7 +56,7 @@ void FileHelper::save(QString fileName, const char* data, const unsigned int len
     QDataStream ds(&f);
     //ds << data;
 
-    ds.writeRawData(data, len);
+    ds.writeRawData(d.data(), d.size());
 
     f.close();
 }
@@ -72,6 +74,11 @@ void FileHelper::load(QString fileName, std::vector<char>& data)
     f.close();
 
     data.assign(d, d + f.size());
+}
+
+std::vector<char> FileHelper::logToCSV(std::vector<char> log)
+{
+    return log;
 }
 
 /*

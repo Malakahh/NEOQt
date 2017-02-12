@@ -127,6 +127,12 @@ BasePage {
 
                 text: "Read Log"
                 rightImg.source: "../Assets/arrow_right.png"
+
+                onClicked: {
+                    pageSelectLog.returnTo = pageService
+                    base.hidePages()
+                    pageSelectLog.show()
+                }
             }
 
             NEOControls.Button {

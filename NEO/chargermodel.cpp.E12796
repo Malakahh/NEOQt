@@ -464,8 +464,6 @@ QVariant ChargerModel::getLogHeaders()
 
 void ChargerModel::retrieveLogHeaderRecursively(int logStart, int eePromSize)
 {
-    qDebug() << "eePromSize: " << eePromSize;
-
     std::vector<unsigned char> msg_a = {
         C_CMD_EE_ADDR_HIGH | WRITE_REG,
         static_cast<unsigned char>((logStart >> 8) & 0xFF),

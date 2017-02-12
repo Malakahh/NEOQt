@@ -60,12 +60,19 @@ public:
     unsigned int getLogCounterDepthDischarges() const;
     Q_INVOKABLE void updateLogCounterDepthDischarges();
 
-    void updateProgramSize();
+    Q_INVOKABLE void updateProgramSize();
 
     //This is actually EEprom size, but to keep with conventions of the charger, it is named log size
-    void updateLogSize();
+    Q_INVOKABLE void updateLogSize();
 
+    Q_PROPERTY(QVariant logHeaders READ getLogHeaders NOTIFY logHeadersChanged)
+    QVariant getLogHeaders();
     void retrieveLogHeaderRecursively(int logStart, int eePromSize);
+    Q_INVOKABLE void updateLogHeaders();
+
+    Q_PROPERTY(QVariant log READ getLog)
+    QVariant getLog() const;
+    Q_INVOKABLE void updateLog(int logHeaderIndex);
 
     Q_INVOKABLE void writeProgramName(QString name);
     Q_INVOKABLE void writeProgramSizeInWords(QVariant size);
@@ -88,8 +95,10 @@ signals:
     void logCounterDepthDischargesChanged();
     void programSizeChanged();
     void logSizeChanged();
+    void logHeadersChanged();
 
     void programByteWritten();
+    void logByteRead();
 
 public slots:
     void onConnectionEstablished();
@@ -112,6 +121,7 @@ private:
     unsigned int programSize = 0;
     unsigned int logSize = 0;
     std::vector<LogHeader> logHeaders;
+    std::vector<char> log;
 };
 
 #endif // CHARGERMODEL_H

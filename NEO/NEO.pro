@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     filebrowserdata.cpp \
     filehelper.cpp \
     programparser.cpp \
-    programstep.cpp
+    programstep.cpp \
+    logheader.cpp
 
 RESOURCES += qml.qrc
 

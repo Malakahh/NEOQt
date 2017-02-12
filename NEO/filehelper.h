@@ -21,7 +21,7 @@ public:
 
     Q_INVOKABLE QVariant getFiles();
 
-    void save(QString fileName, const char* data, const unsigned int len);
+    Q_INVOKABLE void save(QString fileName, QVariant data);
     void load(QString fileName, std::vector<char>& data);
 
     //Q_INVOKABLE void test(QString fileName);
@@ -31,6 +31,8 @@ public:
 private:
     QDir dir;
     QFileInfoList files;
+
+    std::vector<char> logToCSV(std::vector<char> log);
 };
 
 #endif // FILEBROWSERMODEL_H
