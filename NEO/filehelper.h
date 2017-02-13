@@ -27,6 +27,8 @@ public:
     Q_INVOKABLE void saveLog(QString fileName, QVariant data);
     void loadProgram(QString fileName, std::vector<char>& data);
 
+    void saveDataFile(std::vector<char> data);
+    void loadDataFile(std::vector<char>& data);
 
 
     //Q_INVOKABLE void test(QString fileName);

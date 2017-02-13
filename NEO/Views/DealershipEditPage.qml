@@ -95,6 +95,18 @@ BasePage {
             text: "Save Information"
 
             onClicked: {
+                if (inputName.text != "") {
+                    storageModel.dealershipName = inputName.text
+                }
+
+                if (inputPhone.text != "") {
+                    storageModel.dealershipPhone = inputPhone.text
+                }
+
+                if (inputWebsite.text != "") {
+                    storageModel.dealershipWebsite = inputWebsite.text
+                }
+
                 base.hidePages()
                 pageDealership.show()
             }

@@ -21,7 +21,7 @@ BasePage {
             splitterColor: base.colorSecondary
             textColor: base.colorSecondary
 
-            textLeft: "ExampleDealership A/S"
+            textLeft: storageModel.dealershipName
         }
 
         NEOControls.DataRow {
@@ -34,7 +34,7 @@ BasePage {
             splitterColor: base.colorSecondary
             textColor: base.colorSecondary
 
-            textLeft: "+45 11 22 33 44"
+            textLeft: storageModel.dealershipPhone
         }
 
         NEOControls.DataRow {
@@ -48,7 +48,7 @@ BasePage {
             splitterColor: base.colorSecondary
             textColor: base.colorSecondary
 
-            textLeft: "www.example.com"
+            textLeft: storageModel.dealershipWebsite
         }
 
         NEOControls.Button {

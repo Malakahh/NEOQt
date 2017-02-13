@@ -3,14 +3,16 @@
 FileHelper::FileHelper(QObject* parent) : QObject(parent)
 {
     #ifdef Q_OS_ANDROID
-        this->dir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
+        this->userStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
     #endif
     
     #ifdef Q_OS_IOS
         this->userStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
     #endif
 
-    this->dataStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DataLocation).last() + "/powercharge");
+    QString dataPath = QStandardPaths::standardLocations(QStandardPaths::DataLocation).last() + "/powercharge";
+    this->dataStorageDir.mkpath(dataPath);
+    this->dataStorageDir.setCurrent(dataPath);
 }
 
 FileHelper& FileHelper::getInstance()
@@ -85,6 +87,20 @@ void FileHelper::saveLog(QString fileName, QVariant data)
 void FileHelper::loadProgram(QString fileName, std::vector<char>& data)
 {
     QString path = this->userStorageDir.absolutePath() + "/" + fileName;
+
+    this->load(path, data);
+}
+
+void FileHelper::saveDataFile(std::vector<char> data)
+{
+    QString path = this->dataStorageDir.absolutePath() + "/data.dat";
+
+    this->save(path, data);
+}
+
+void FileHelper::loadDataFile(std::vector<char>& data)
+{
+    QString path = this->dataStorageDir.absolutePath() + "/data.dat";
 
     this->load(path, data);
 }
