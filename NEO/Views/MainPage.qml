@@ -6,7 +6,19 @@ BasePage {
     onVisibleChanged: {
         if (visible) {
             chargerModel.startUpdateTimer()
+            firstDataPoll.start()
+            ledGreen.start()
+            ledYellow.start()
+            ledRed.start()
             batteryIcon.start()
+        }
+    }
+
+    Timer {
+        id: firstDataPoll
+        repeat: false
+        onTriggered: {
+            chargerModel.updateLEDStatus()
         }
     }
 
@@ -94,6 +106,8 @@ BasePage {
                 spacing: 20
 
                 AnimatedSprite {
+                    id: ledGreen
+
                     source: "../Assets/diode_green.png"
                     frameCount: {
                         if (chargerModel.LEDGreen === 0 || chargerModel.LEDGreen === 1)
@@ -140,6 +154,8 @@ BasePage {
                 spacing: 20
 
                 AnimatedSprite {
+                    id: ledYellow
+
                     source: "../Assets/diode_yellow.png"
                     frameCount: {
                         if (chargerModel.LEDYellow === 0 || chargerModel.LEDYellow === 1)
@@ -186,6 +202,8 @@ BasePage {
                 spacing: 20
 
                 AnimatedSprite {
+                    id: ledRed
+
                     source: "../Assets/diode_red.png"
                     frameCount: {
                         if (chargerModel.LEDRed === 0 || chargerModel.LEDRed === 1)
@@ -232,6 +250,8 @@ BasePage {
                 spacing: 20
 
                 AnimatedSprite {
+                    id: ledBlue
+
                     source: "../Assets/diode_blue.png"
                     frameCount: 1
                     frameRate: 1
