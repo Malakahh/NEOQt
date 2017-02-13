@@ -47,9 +47,16 @@ void BLEController::addDevice(const QBluetoothDeviceInfo &device)
 {
     if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration) //Filter for BLE devices
     {
-        qDebug() << "Discovered BLE device - name: " << device.name() << " Address: " << device.address().toString();
-        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
+        StorageModel& sm = StorageModel::getInstance();
+        qDebug() << "found device: " <<device.name() << " stored: " << sm.getBLEDeviceName();
 
+        if (device.name() == sm.getBLEDeviceName())
+        {
+            this->connect(device);
+            return;
+        }
+
+        this->devices.push_back(new BluetoothDeviceDataObject(device, this));
         emit this->onDevicesChanged();
     }
 }
@@ -58,10 +65,17 @@ void BLEController::connect(int index)
 {
     QBluetoothDeviceInfo device = this->devices.at(index)->btDeviceInfo;
 
+    this->connect(device);
+}
+
+void BLEController::connect(const QBluetoothDeviceInfo& device)
+{
     if (this->leController != nullptr)
     {
         delete this->leController;
     }
+
+    StorageModel::getInstance().setBLEDeviceName(device.name());
 
     //this->leController = new QLowEnergyController(device.address(), this);
     this->leController = QLowEnergyController::createCentral(device, this);
@@ -99,6 +113,7 @@ QVariant BLEController::getDevices() const
 void BLEController::onConnected()
 {
     qDebug() << "Device connected!";
+
     this->leController->discoverServices();
 }
 

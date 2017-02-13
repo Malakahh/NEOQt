@@ -5,9 +5,11 @@
 #include <QDebug>
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 #include <QtBluetooth/QLowEnergyController>
-#include "bluetoothdevicedataobject.h"
 #include <vector>
+
+#include "bluetoothdevicedataobject.h"
 #include "messagehelper.h"
+#include "storagemodel.h"
 
 class BLEController : public QObject
 {
@@ -26,6 +28,7 @@ public:
 
     Q_INVOKABLE void setupBLE();
     Q_INVOKABLE void connect(int index);
+    void connect(const QBluetoothDeviceInfo& device);
 
     QVariant getDevices() const;
     void writeCharacteristic(QByteArray msg);

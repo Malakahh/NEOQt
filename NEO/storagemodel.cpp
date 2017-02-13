@@ -7,6 +7,25 @@ StorageModel::StorageModel(QObject *parent) : QObject(parent)
     this->loadData();
 }
 
+StorageModel& StorageModel::getInstance()
+{
+    static StorageModel instance;
+
+    return instance;
+}
+
+QString StorageModel::getBLEDeviceName()
+{
+    return this->bleDeviceName;
+}
+
+void StorageModel::setBLEDeviceName(QString name)
+{
+    this->bleDeviceName = name;
+    emit this->bleDeviceNameChanged();
+    this->saveData();
+}
+
 QString StorageModel::getDealershipName()
 {
     return this->dealershipName;
@@ -57,7 +76,8 @@ void StorageModel::setAhPrev(QVariant Ah)
 
 void StorageModel::saveData()
 {
-    QString str(this->dealershipName + SEPARATOR +
+    QString str(this->bleDeviceName + SEPARATOR +
+                this->dealershipName + SEPARATOR +
                 this->dealershipPhone + SEPARATOR +
                 this->dealershipWebsite + SEPARATOR +
                 this->AhPrev);
@@ -82,13 +102,16 @@ void StorageModel::loadData()
 
     QString str = QString::fromLocal8Bit(data.data(), data.size());
 
-    QStringList list = str.split(SEPARATOR, QString::SkipEmptyParts);
+    QStringList list = str.split(SEPARATOR);
 
-    if (list.size() > 0)
+    qDebug() << "listSize: " << list.size();
+
+    if (list.size() > 4)
     {
-        this->dealershipName = list[0];
-        this->dealershipPhone = list[1];
-        this->dealershipWebsite = list[2];
-        this->AhPrev = list[3].toInt();
+        this->bleDeviceName = list[0];
+        this->dealershipName = list[1];
+        this->dealershipPhone = list[2];
+        this->dealershipWebsite = list[3];
+        this->AhPrev = list[4].toInt();
     }
 }

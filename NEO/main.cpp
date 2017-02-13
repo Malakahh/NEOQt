@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     ChargerModel chargerModel;
     FileHelper& fileHelper = FileHelper::getInstance();
     ProgramParser programParser;
-    StorageModel storageModel;
+    StorageModel& storageModel = StorageModel::getInstance();
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);

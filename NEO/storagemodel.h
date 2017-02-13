@@ -8,6 +8,7 @@ class StorageModel : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString bleDeviceName READ getBLEDeviceName WRITE setBLEDeviceName NOTIFY bleDeviceNameChanged)
     Q_PROPERTY(QString dealershipName READ getDealershipName WRITE setDealershipName NOTIFY dealershipNameChanged)
     Q_PROPERTY(QString dealershipPhone READ getDealershipPhone WRITE setDealershipPhone NOTIFY dealershipPhoneChanged)
     Q_PROPERTY(QString dealershipWebsite READ getDealershipWebsite WRITE setDealershipWebsite NOTIFY dealershipWebsiteChanged)
@@ -15,6 +16,12 @@ class StorageModel : public QObject
     
 public:
     explicit StorageModel(QObject *parent = 0);
+    StorageModel(StorageModel const&) = delete;
+
+    static StorageModel& getInstance();
+
+    Q_INVOKABLE QString getBLEDeviceName();
+    Q_INVOKABLE void setBLEDeviceName(QString name);
 
     Q_INVOKABLE QString getDealershipName();
     Q_INVOKABLE void setDealershipName(QString name);
@@ -29,6 +36,7 @@ public:
     Q_INVOKABLE void setAhPrev(QVariant Ah);
 
 signals:
+    void bleDeviceNameChanged();
     void dealershipNameChanged();
     void dealershipPhoneChanged();
     void dealershipWebsiteChanged();
@@ -37,6 +45,7 @@ signals:
 public slots:
 
 private:
+    QString bleDeviceName;
     QString dealershipName;
     QString dealershipPhone;
     QString dealershipWebsite;
