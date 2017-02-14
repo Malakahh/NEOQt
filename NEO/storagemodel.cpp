@@ -67,9 +67,9 @@ QVariant StorageModel::getAhPrev()
     return QVariant(this->AhPrev);
 }
 
-void StorageModel::setAhPrev(QVariant Ah)
+void StorageModel::setAhPrev(int Ah)
 {
-    this->AhPrev = Ah.toInt();
+    this->AhPrev = Ah;
     emit this->AhPrevChanged();
     this->saveData();
 }

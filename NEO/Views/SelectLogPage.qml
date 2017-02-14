@@ -8,11 +8,13 @@ BasePage {
     property int selectedIndex: -1
     property var selectedHeader
     property var returnTo
+    property string file: ""
 
     Connections {
         target: fileExplorer
         onFilePicked: {
             if (fileExplorer.returnTo === pageSelectLog) {
+                file = fileName
                 pageProgress.fileName = "Log " + selectedIndex
                 pageProgress.messageText = "Reading log file..."
                 pageProgress.fileSize = selectedHeader.size * 2
@@ -42,7 +44,7 @@ BasePage {
                 pageProgress.value = pageProgress.value + 1
 
                 if (pageProgress.value == selectedHeader.size * 2) {
-                    fileHelper.saveLog(fileExplorer.selectedFile, chargerModel.log)
+                    fileHelper.saveLog(file)
 
                     base.hidePages()
                     returnTo.show()
@@ -97,7 +99,7 @@ BasePage {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
 
-                    text: "Log " + index
+                    text: "Log " + index + " " + model.modelData.wrap
                     color: base.colorPrimary
 
                     fontSizeMode: Text.Fit

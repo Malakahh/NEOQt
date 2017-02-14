@@ -8,6 +8,7 @@
 #include <QDataStream>
 
 #include "filebrowserdata.h"
+#include "chargermodel.h"
 
 class FileHelper : public QObject
 {
@@ -24,7 +25,7 @@ public:
     void save(QString path, std::vector<char> data);
     void load(QString path, std::vector<char>& data);
 
-    Q_INVOKABLE void saveLog(QString fileName, QVariant data);
+    Q_INVOKABLE void saveLog(QString fileName);
     void loadProgram(QString fileName, std::vector<char>& data);
 
     void saveDataFile(std::vector<char> data);
@@ -39,8 +40,6 @@ private:
     QDir userStorageDir;
     QDir dataStorageDir;
     QFileInfoList files;
-
-    std::vector<char> logToCSV(std::vector<char> log);
 };
 
 #endif // FILEBROWSERMODEL_H

@@ -47,6 +47,14 @@ ChargerModel::ChargerModel(QObject* parent) : QObject(parent)
                      SLOT(timeoutResponse()));
 }
 
+ChargerModel& ChargerModel::getInstance()
+{
+    static ChargerModel instance;
+
+    return instance;
+}
+
+
 void ChargerModel::startUpdateTimer()
 {
     if (!this->updateTimer.isActive())
@@ -462,10 +470,8 @@ QVariant ChargerModel::getLogHeaders()
     return QVariant::fromValue(list);
 }
 
-void ChargerModel::retrieveLogHeaderRecursively(int logStart, int eePromSize)
+void ChargerModel::retrieveLogHeaderRecursively(int logStart)
 {
-    qDebug() << "eePromSize: " << eePromSize;
-
     std::vector<unsigned char> msg_a = {
         C_CMD_EE_ADDR_HIGH | WRITE_REG,
         static_cast<unsigned char>((logStart >> 8) & 0xFF),
@@ -478,20 +484,35 @@ void ChargerModel::retrieveLogHeaderRecursively(int logStart, int eePromSize)
         C_CMD_EE_DATA_LOW | READ_REG
     };
 
-    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+    std::function<void (const std::vector<char>)> f = [this, logStart](const std::vector<char> response) {
         LogHeader header;
-        header.size = ((response[0] << 8) & 0xFF) | (response[1] & 0xFF);
+        header.size = (response[0] << 8) | response[1];
         header.address = logStart;
 
-        this->logHeaders.push_back(header);
-
-        if (header.address + header.size + 1 < eePromSize)
+        if (header.size == 0)
         {
-            retrieveLogHeaderRecursively(header.address + header.size + 1, eePromSize);
+            return;
+        }
+
+        //DEBUG
+        if (header.address + header.size + 1 > this->logSize)
+        {
+            header.wrap = "wrap";
+        }
+
+        this->logHeaders.push_back(header);
+        emit this->logHeadersChanged();
+
+        if (header.address + header.size + 1 > this->logSize)
+        {
+            qDebug() << "WRAP";
+            int diff = this->logSize - header.address - header.size;
+            int logFileStart = EE_PROGRAM_AREA + this->programSize + 1;
+            retrieveLogHeaderRecursively(logFileStart + diff);
         }
         else
         {
-            emit this->logHeadersChanged();
+            retrieveLogHeaderRecursively(header.address + header.size + 1);
         }
     };
 
@@ -505,6 +526,8 @@ void ChargerModel::updateLogHeaders()
 
     int logFileStart = EE_PROGRAM_AREA + this->programSize;
 
+    qDebug() << "logFileStart: " << logFileStart;
+
     std::vector<unsigned char> msg_initialOffset_a = {
         C_CMD_EE_ADDR_HIGH | WRITE_REG,
         static_cast<unsigned char>(((logFileStart + 1) >> 8) & 0xFF),
@@ -517,22 +540,47 @@ void ChargerModel::updateLogHeaders()
         C_CMD_EE_DATA_LOW | READ_REG
     };
 
-    std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+    std::function<void (const std::vector<char>)> f = [this, logFileStart](const std::vector<char> response) {
         int offset = (response[0] << 8) | response[1];
 
-        this->retrieveLogHeaderRecursively(logFileStart + offset, this->logSize);
+        qDebug() << "Initial offset: " << offset;
+
+        this->retrieveLogHeaderRecursively(logFileStart + offset);
     };
 
     messageHelper.enqueueQuery(msg_initialOffset_a);
     messageHelper.enqueueQuery(msg_initialOffset_b, 2, f);
 }
 
-QVariant ChargerModel::getLog() const
+std::vector<char> ChargerModel::parseLog() const
 {
-    QVariant var;
-    var.setValue(this->log);
+    std::vector<LogDataPoint> datapoints;
 
-    return var;
+    QString dataStr = LogDataPoint::headerString() + "\n";
+
+    for (int i = 0; i < this->log.size(); i += 6)
+    {
+        LogDataPoint dp;
+        dp.voltage = (((this->log[i] & 0x01) << 8) | this->log[i + 1]) * 100;
+        dp.temp = this->log[i] >> 1;
+        dp.current = (this->log[i + 3]) * 100;
+        dp.step = this->log[i + 2];
+        dp.time = (this->log[i + 4] << 8) | this->log[i + 5];
+
+        dataStr += dp.toString() + "\n";
+
+        datapoints.push_back(dp);
+    }
+
+    StorageModel::getInstance().setAhPrev(LogDataPoint::calcAh(datapoints));
+
+    std::vector<char> csv;
+    for (auto itr = dataStr.begin(); itr < dataStr.end(); itr++)
+    {
+        csv.push_back((*itr).toLatin1());
+    }
+
+    return csv;
 }
 
 void ChargerModel::updateLog(int logHeaderIndex)
@@ -542,13 +590,20 @@ void ChargerModel::updateLog(int logHeaderIndex)
     LogHeader& header = this->logHeaders.at(logHeaderIndex);
     int logEnd = header.address + header.size;
 
-    for (int i = header.address; i < logEnd; i++)
+    for (int i = header.address + 1; i <= logEnd; i++)
     {
+        int wrap = 0;
+
+        if (i > this->logSize)
+        {
+            wrap = this->logSize - (EE_PROGRAM_AREA + this->programSize + 2);
+        }
+
         std::vector<unsigned char> msg_a = {
             C_CMD_EE_ADDR_HIGH | WRITE_REG,
-            static_cast<unsigned char>(((i + 1) >> 8) & 0xFF),
+            static_cast<unsigned char>(((i + wrap) >> 8) & 0xFF),
             C_CMD_EE_ADDR_LOW | WRITE_REG,
-            static_cast<unsigned char>((i + 1) & 0xFF)
+            static_cast<unsigned char>((i + wrap) & 0xFF)
         };
 
         std::vector<unsigned char> msg_b = {
@@ -556,7 +611,7 @@ void ChargerModel::updateLog(int logHeaderIndex)
             C_CMD_EE_DATA_LOW | READ_REG
         };
 
-        std::function<void (const std::vector<char>)> f = [&](const std::vector<char> response) {
+        std::function<void (const std::vector<char>)> f = [this](const std::vector<char> response) {
             this->log.push_back(response[0]);
             this->log.push_back(response[1]);
 

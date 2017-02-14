@@ -8,6 +8,8 @@
 #include "messagehelper.h"
 #include "programparser.h"
 #include "logheader.h"
+#include "logdatapoint.h"
+#include "storagemodel.h"
 
 #define LED_OFF 0
 #define LED_ON 1
@@ -20,6 +22,9 @@ class ChargerModel : public QObject
 
 public:
     explicit ChargerModel(QObject* parent = 0);
+    ChargerModel(ChargerModel const&) = delete;
+
+    static ChargerModel& getInstance();
 
     Q_INVOKABLE void startUpdateTimer();
     Q_INVOKABLE void stopUpdateTimer();
@@ -67,11 +72,10 @@ public:
 
     Q_PROPERTY(QVariant logHeaders READ getLogHeaders NOTIFY logHeadersChanged)
     QVariant getLogHeaders();
-    void retrieveLogHeaderRecursively(int logStart, int eePromSize);
+    void retrieveLogHeaderRecursively(int logStart);
     Q_INVOKABLE void updateLogHeaders();
 
-    Q_PROPERTY(QVariant log READ getLog)
-    QVariant getLog() const;
+    std::vector<char> parseLog() const;
     Q_INVOKABLE void updateLog(int logHeaderIndex);
 
     Q_INVOKABLE void writeProgramName(QString name);

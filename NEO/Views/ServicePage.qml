@@ -74,7 +74,7 @@ BasePage {
             textColor: base.colorSecondary
 
             textLeft: "Ah Previous Cycle:"
-            textRight: "0 Ah"
+            textRight: storageModel.AhPrev + "Ah"
         }
 
         NEOControls.DataRow {

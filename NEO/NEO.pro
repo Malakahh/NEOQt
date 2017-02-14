@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     programparser.cpp \
     programstep.cpp \
     logheader.cpp \
-    storagemodel.cpp
+    storagemodel.cpp \
+    logdatapoint.cpp
 
 RESOURCES += qml.qrc
 
@@ -216,7 +217,8 @@ HEADERS += \
     programparser.h \
     programstep.h \
     logheader.h \
-    storagemodel.h
+    storagemodel.h \
+    logdatapoint.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 

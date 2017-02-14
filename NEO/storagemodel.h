@@ -12,7 +12,7 @@ class StorageModel : public QObject
     Q_PROPERTY(QString dealershipName READ getDealershipName WRITE setDealershipName NOTIFY dealershipNameChanged)
     Q_PROPERTY(QString dealershipPhone READ getDealershipPhone WRITE setDealershipPhone NOTIFY dealershipPhoneChanged)
     Q_PROPERTY(QString dealershipWebsite READ getDealershipWebsite WRITE setDealershipWebsite NOTIFY dealershipWebsiteChanged)
-    Q_PROPERTY(QVariant AhPrev READ getAhPrev WRITE setAhPrev NOTIFY AhPrevChanged)
+    Q_PROPERTY(QVariant AhPrev READ getAhPrev NOTIFY AhPrevChanged)
     
 public:
     explicit StorageModel(QObject *parent = 0);
@@ -33,7 +33,7 @@ public:
     Q_INVOKABLE void setDealershipWebsite(QString website);
 
     Q_INVOKABLE QVariant getAhPrev();
-    Q_INVOKABLE void setAhPrev(QVariant Ah);
+    void setAhPrev(int Ah);
 
 signals:
     void bleDeviceNameChanged();

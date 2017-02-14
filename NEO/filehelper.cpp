@@ -3,16 +3,16 @@
 FileHelper::FileHelper(QObject* parent) : QObject(parent)
 {
     #ifdef Q_OS_ANDROID
-        this->userStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
+        this->userStorageDir.setPath(QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).last());
     #endif
     
     #ifdef Q_OS_IOS
-        this->userStorageDir.setCurrent(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
+        this->userStorageDir.setPath(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
     #endif
 
     QString dataPath = QStandardPaths::standardLocations(QStandardPaths::DataLocation).last() + "/powercharge";
     this->dataStorageDir.mkpath(dataPath);
-    this->dataStorageDir.setCurrent(dataPath);
+    this->dataStorageDir.setPath(dataPath);
 }
 
 FileHelper& FileHelper::getInstance()
@@ -64,24 +64,24 @@ void FileHelper::load(QString path, std::vector<char>& data)
     data.assign(d, d + f.size());
 }
 
-void FileHelper::saveLog(QString fileName, QVariant data)
+void FileHelper::saveLog(QString fileName)
 {
     if (fileName == "")
     {
         return;
     }
 
-    std::vector<char> d = this->logToCSV(data.value<std::vector<char>>());
+    std::vector<char> log = ChargerModel::getInstance().parseLog();
 
     QStringList fileNameSplit = fileName.split('.');
-    if (fileNameSplit.size() < 2 || fileNameSplit.last() != "")
+    if (fileNameSplit.size() < 2 || fileNameSplit.last() == "")
     {
         fileName.append(".csv");
     }
 
     QString path = this->userStorageDir.absolutePath() + "/" + fileName;
 
-    this->save(path, d);
+    this->save(path, log);
 }
 
 void FileHelper::loadProgram(QString fileName, std::vector<char>& data)
@@ -103,11 +103,6 @@ void FileHelper::loadDataFile(std::vector<char>& data)
     QString path = this->dataStorageDir.absolutePath() + "/data.dat";
 
     this->load(path, data);
-}
-
-std::vector<char> FileHelper::logToCSV(std::vector<char> log)
-{
-    return log;
 }
 
 /*

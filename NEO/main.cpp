@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     BLEController& bleController = BLEController::getInstance();
-    ChargerModel chargerModel;
+    ChargerModel& chargerModel = ChargerModel::getInstance();
     FileHelper& fileHelper = FileHelper::getInstance();
     ProgramParser programParser;
     StorageModel& storageModel = StorageModel::getInstance();

@@ -119,13 +119,14 @@ BasePage {
             text: "OK"
 
             onClicked: {
-                if (selectedFile != "") {
-                    fileExplorer.filePicked(selectedFile)
-                    selectedFile = ""
-                }
-                else if (fileInput.text != "") {
+                if (fileExplorer.writeMode && fileInput.text != "") {
                     fileExplorer.filePicked(fileInput.text)
                     fileInput.text = ""
+                    selectedFile = ""
+                }
+                else if (!fileExplorer.writeMode && selectedFile != "") {
+                    fileExplorer.filePicked(selectedFile)
+                    selectedFile = ""
                 }
             }
         }

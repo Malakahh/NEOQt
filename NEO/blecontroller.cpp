@@ -1,5 +1,8 @@
 #include "blecontroller.h"
 
+#include "messagehelper.h"
+#include "storagemodel.h"
+
 #define NEO_SERVICE_UUID QBluetoothUuid(static_cast<const QUuid>("f4f232be-5a53-11e6-8b77-86f30ca893d3"))
 #define READER_CHARACTERISTIC_UUID QBluetoothUuid(static_cast<const QUuid>("1d4b745a-5a54-11e6-8b77-86f30ca893d3"))
 #define WRITER_CHARACTERISTIC_UUID QBluetoothUuid(static_cast<const QUuid>("e25328b0-5a54-11e6-8b77-86f30ca893d3"))

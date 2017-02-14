@@ -9,6 +9,7 @@ LogHeader::LogHeader(const LogHeader& header)
 {
     this->address = header.address;
     this->size = header.size;
+    this->wrap = header.wrap;
 }
 
 QVariant LogHeader::getSize() const

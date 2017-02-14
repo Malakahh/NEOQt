@@ -8,8 +8,7 @@
 #include <vector>
 
 #include "bluetoothdevicedataobject.h"
-#include "messagehelper.h"
-#include "storagemodel.h"
+
 
 class BLEController : public QObject
 {
