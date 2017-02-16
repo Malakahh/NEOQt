@@ -54,6 +54,18 @@ BasePage {
     contents: Item {
         anchors.fill: parent
 
+        Text {
+            color: base.colorPrimary
+
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.right: parent.right
+            height: 20
+
+            text: "Version 0.2a"
+        }
+
         AnimatedSprite {
             id: batteryIcon
             source: "../Assets/battery.png"
