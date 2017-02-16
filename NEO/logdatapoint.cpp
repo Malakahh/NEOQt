@@ -2,8 +2,8 @@
 
 #include <sstream>
 
-#define SEC_TO_HOUR(s) (s * 3600)
-#define MILI_A_TO_A(mA) (mA / 1000)
+#define SEC_TO_HOUR 1 / 3600
+#define MILI_A_TO_A 0.001
 
 //#define SEC_TO_HOUR 3600
 //#define MILI_A_TO_A 000.1
@@ -40,7 +40,7 @@ int LogDataPoint::calcAh(std::vector<LogDataPoint> datapoints)
 
     for (auto itr = datapoints.begin(); itr < datapoints.end() - 1; itr++)
     {
-        Ah += MILI_A_TO_A(itr->current + (itr + 1)->current) / 2 * SEC_TO_HOUR((itr + 1)->time - itr->time);
+        Ah += MILI_A_TO_A * (itr->current + (itr + 1)->current) / 2 * SEC_TO_HOUR * ((itr + 1)->time - itr->time);
     }
 
     return Ah;

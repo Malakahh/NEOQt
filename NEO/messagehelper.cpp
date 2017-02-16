@@ -36,8 +36,6 @@ void MessageHelper::writeMessage(std::vector<unsigned char>& cmd)
     crc = std::for_each(cmd.begin(), cmd.end(), crc);
     int32_t checksum = crc();
 
-    qDebug() << "checksum: " << checksum;
-
     for (int i = 0; i < CHECKSUM_LENGTH_BYTES; i++)
     {
         msg[2 + i] = (checksum >> (CHECKSUM_LENGTH_BYTES - 1 - i) * 8);
@@ -53,26 +51,20 @@ void MessageHelper::writeMessage(std::vector<unsigned char>& cmd)
 
 void MessageHelper::onCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& data)
 {
-    for (auto itr = data.begin(); itr < data.end(); itr++)
-    {
-        qDebug() << std::hex << (unsigned char)*itr;
-    }
-    
-    qDebug() << "Data written: " << data;
+//    for (auto itr = data.begin(); itr < data.end(); itr++)
+//    {
+//        qDebug() << std::hex << (unsigned char)*itr;
+//    }
 }
 
 void MessageHelper::onCharacteristicRead(const QLowEnergyCharacteristic& characteristic, const QByteArray& data)
 {
-    qDebug() << "read";
-
     std::lock_guard<std::mutex>(this->queueGuard);
     if (BLEController::getInstance().isUUIDReader(characteristic.uuid()) && !callbacks.empty())
     {
         for (const char& byte : data)
         {
             readBuffer.push(byte);
-
-            qDebug() << std::hex << (int)byte;
         }
 
         obtainResponse();

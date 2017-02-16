@@ -45,6 +45,7 @@ BasePage {
 
                 if (pageProgress.value == selectedHeader.size * 2) {
                     fileHelper.saveLog(file)
+                    chargerModel.enterNormalMode()
 
                     base.hidePages()
                     returnTo.show()
@@ -99,7 +100,7 @@ BasePage {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
 
-                    text: "Log " + index + " " + model.modelData.wrap
+                    text: "Log " + index
                     color: base.colorPrimary
 
                     fontSizeMode: Text.Fit

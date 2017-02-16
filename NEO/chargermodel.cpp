@@ -472,6 +472,8 @@ QVariant ChargerModel::getLogHeaders()
 
 void ChargerModel::retrieveLogHeaderRecursively(int logStart)
 {
+    qDebug() << "logStart: " << logStart;
+
     std::vector<unsigned char> msg_a = {
         C_CMD_EE_ADDR_HIGH | WRITE_REG,
         static_cast<unsigned char>((logStart >> 8) & 0xFF),
@@ -485,30 +487,31 @@ void ChargerModel::retrieveLogHeaderRecursively(int logStart)
     };
 
     std::function<void (const std::vector<char>)> f = [this, logStart](const std::vector<char> response) {
+        static int initialLogStart = -1;
+
         LogHeader header;
         header.size = (response[0] << 8) | response[1];
         header.address = logStart;
 
-        if (header.size == 0)
+        if (header.size == 0 || initialLogStart == logStart)
         {
+            initialLogStart = -1;
             return;
         }
 
-        //DEBUG
-        if (header.address + header.size + 1 > this->logSize)
+        if (initialLogStart < 0)
         {
-            header.wrap = "wrap";
+            initialLogStart = logStart;
         }
 
         this->logHeaders.push_back(header);
         emit this->logHeadersChanged();
 
-        if (header.address + header.size + 1 > this->logSize)
+        if (header.address + header.size >= this->logSize - 1)
         {
-            qDebug() << "WRAP";
-            int diff = this->logSize - header.address - header.size;
-            int logFileStart = EE_PROGRAM_AREA + this->programSize + 1;
-            retrieveLogHeaderRecursively(logFileStart + diff);
+            int logFileStart = EE_PROGRAM_AREA + this->programSize + 2;
+            int diff = header.address + header.size - this->logSize;
+            retrieveLogHeaderRecursively(logFileStart + diff + 1);
         }
         else
         {
@@ -589,21 +592,20 @@ void ChargerModel::updateLog(int logHeaderIndex)
 
     LogHeader& header = this->logHeaders.at(logHeaderIndex);
     int logEnd = header.address + header.size;
+    int wrapOffset = 0;
 
     for (int i = header.address + 1; i <= logEnd; i++)
     {
-        int wrap = 0;
-
-        if (i > this->logSize)
+        if (wrapOffset == 0 && i > this->logSize - 1)
         {
-            wrap = this->logSize - (EE_PROGRAM_AREA + this->programSize + 2);
+            wrapOffset = EE_PROGRAM_AREA + this->programSize + 2 - this->logSize;
         }
 
         std::vector<unsigned char> msg_a = {
             C_CMD_EE_ADDR_HIGH | WRITE_REG,
-            static_cast<unsigned char>(((i + wrap) >> 8) & 0xFF),
+            static_cast<unsigned char>(((i + wrapOffset) >> 8) & 0xFF),
             C_CMD_EE_ADDR_LOW | WRITE_REG,
-            static_cast<unsigned char>((i + wrap) & 0xFF)
+            static_cast<unsigned char>((i + wrapOffset) & 0xFF)
         };
 
         std::vector<unsigned char> msg_b = {

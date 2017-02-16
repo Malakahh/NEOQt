@@ -9,7 +9,6 @@ class LogHeader : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QVariant size READ getSize)
-    Q_PROPERTY(QString wrap MEMBER wrap)
 
 public:
     explicit LogHeader(QObject *parent = 0);
@@ -19,7 +18,6 @@ public:
 
     int size = 0;
     int address = 0;
-    QString wrap = "";
 
 signals:
 
