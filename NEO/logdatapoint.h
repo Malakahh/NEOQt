@@ -2,6 +2,7 @@
 #define LOGDATAPOINT_H
 
 #include <qstring.h>
+#include <vector>
 
 class LogDataPoint
 {
