@@ -33,7 +33,7 @@ public:
     Q_INVOKABLE void setDealershipWebsite(QString website);
 
     Q_INVOKABLE QVariant getAhPrev();
-    void setAhPrev(int Ah);
+    void setAhPrev(double Ah);
 
 signals:
     void bleDeviceNameChanged();
@@ -49,7 +49,7 @@ private:
     QString dealershipName;
     QString dealershipPhone;
     QString dealershipWebsite;
-    int AhPrev = 0;
+    double AhPrev = 0;
 
     void saveData();
     void loadData();

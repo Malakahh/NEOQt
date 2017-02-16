@@ -67,7 +67,7 @@ QVariant StorageModel::getAhPrev()
     return QVariant(this->AhPrev);
 }
 
-void StorageModel::setAhPrev(int Ah)
+void StorageModel::setAhPrev(double Ah)
 {
     this->AhPrev = Ah;
     emit this->AhPrevChanged();
@@ -80,7 +80,7 @@ void StorageModel::saveData()
                 this->dealershipName + SEPARATOR +
                 this->dealershipPhone + SEPARATOR +
                 this->dealershipWebsite + SEPARATOR +
-                this->AhPrev);
+                QString::number(this->AhPrev));
 
     std::vector<char> data;
 
@@ -112,6 +112,6 @@ void StorageModel::loadData()
         this->dealershipName = list[1];
         this->dealershipPhone = list[2];
         this->dealershipWebsite = list[3];
-        this->AhPrev = list[4].toInt();
+        this->AhPrev = list[4].toDouble();
     }
 }

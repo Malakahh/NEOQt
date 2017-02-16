@@ -1,6 +1,7 @@
 #include "logdatapoint.h"
 
 #include <sstream>
+#include <QDebug>
 
 #define SEC_TO_HOUR 1 / 3600
 #define MILI_A_TO_A 0.001
@@ -34,13 +35,14 @@ QString LogDataPoint::toString()
     return QString::fromStdString(ss.str());
 }
 
-int LogDataPoint::calcAh(std::vector<LogDataPoint> datapoints)
+double LogDataPoint::calcAh(std::vector<LogDataPoint> datapoints)
 {
-    int Ah = 0;
+    double Ah = 0;
 
     for (auto itr = datapoints.begin(); itr < datapoints.end() - 1; itr++)
     {
         Ah += MILI_A_TO_A * (itr->current + (itr + 1)->current) / 2 * SEC_TO_HOUR * ((itr + 1)->time - itr->time);
+        qDebug() << "tempA: " << Ah;
     }
 
     return Ah;

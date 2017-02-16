@@ -575,7 +575,9 @@ std::vector<char> ChargerModel::parseLog() const
         datapoints.push_back(dp);
     }
 
-    StorageModel::getInstance().setAhPrev(LogDataPoint::calcAh(datapoints));
+    double Ah = LogDataPoint::calcAh(datapoints);
+    qDebug() << "Ah: " << Ah;
+    StorageModel::getInstance().setAhPrev(Ah);
 
     std::vector<char> csv;
     for (auto itr = dataStr.begin(); itr < dataStr.end(); itr++)

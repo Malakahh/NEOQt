@@ -17,7 +17,7 @@ public:
 
     QString toString();
 
-    static int calcAh(std::vector<LogDataPoint> datapoints);
+    static double calcAh(std::vector<LogDataPoint> datapoints);
     static QString headerString();
 };
 
