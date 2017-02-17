@@ -58,20 +58,6 @@ BasePage {
                 minimumPixelSize: 10
                 font.pixelSize: 25
 
-                text: (progressBar.position * 100).toFixed(0) + "%"
-                color: "#FFFFFFFF"
-            }
-
-            Text {
-                anchors.fill: parent
-                anchors.rightMargin: 20
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                fontSizeMode: Text.Fit
-                minimumPixelSize: 10
-                font.pixelSize: 25
-
                 text: pageProgress.value + "/" + pageProgress.fileSize + "b"
                 color: "#FFFFFFFF"
             }

@@ -54,14 +54,12 @@ BasePage {
                 source: "../Assets/arrow_down.png"
             }
 
-            delegate: Rectangle {
+            delegate: Item {
                 parent: listview
                 anchors.left: parent.left
                 anchors.right: parent.right
 
                 height: 75
-
-                color: base.colorControlBackground
 
                 MouseArea {
                     anchors.fill: parent
@@ -116,6 +114,12 @@ BasePage {
                     implicitHeight: parent.implicitHeight
                     model: selectDevice.popup.visible ? selectDevice.delegateModel : null
                     currentIndex: selectDevice.highlightedIndex
+
+                    Rectangle {
+                        z: -1
+                        anchors.fill: parent
+                        color: base.colorControlBackground
+                    }
 
                     ScrollIndicator.vertical: ScrollIndicator {
                         contentItem: Rectangle {

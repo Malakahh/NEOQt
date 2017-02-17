@@ -17,6 +17,9 @@ BasePage {
         ListView {
             id: list
 
+            currentIndex: -1
+            highlightMoveDuration: 0
+
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -34,20 +37,33 @@ BasePage {
                     return 25
             }
 
+            Rectangle {
+                anchors.fill: parent
+                z: -1
+                color: base.colorControlBackground
+            }
+
             focus: true
             clip: true
             model: fileHelper.getFiles()
 
-            delegate: Rectangle {
+            highlight: Rectangle {
                 height: 75
                 width: parent.width
 
-                color: base.colorControlBackground
+                color: base.colorPrimary
+            }
+
+            delegate: Item {
+                height: 75
+                width: parent.width
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
+                        list.currentIndex = index
+
                         if (fileExplorer.writeMode) {
                             fileInput.text = model.modelData.fileName
                         }
@@ -58,13 +74,21 @@ BasePage {
                 }
 
                 Text {
+                    id: test
+
                     anchors.fill: parent
                     anchors.leftMargin: 30
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
 
                     text: model.modelData.fileName
-                    color: base.colorPrimary
+                    color:  {
+                        if (list.currentIndex == index)
+                            return "#FFFFFF"
+                        else
+                            return base.colorPrimary
+                    }
+
 
                     fontSizeMode: Text.Fit
                     minimumPixelSize: 10

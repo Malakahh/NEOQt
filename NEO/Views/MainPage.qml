@@ -63,7 +63,7 @@ BasePage {
             anchors.right: parent.right
             height: 20
 
-            text: "Version 0.2a"
+            text: "Version 0.2b"
         }
 
         AnimatedSprite {
@@ -87,6 +87,8 @@ BasePage {
                 else if (chargerModel.LEDYellow === 500 || chargerModel.LEDYellow === 0)
                     return 0
             }
+
+            interpolate: false
 
             frameWidth: 416
             frameHeight: 200
