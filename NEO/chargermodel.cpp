@@ -544,7 +544,7 @@ void ChargerModel::updateLogHeaders()
     };
 
     std::function<void (const std::vector<char>)> f = [this, logFileStart](const std::vector<char> response) {
-        int offset = (response[0] << 8) | response[1];
+        int offset = (static_cast<unsigned char>(response[0]) << 8) | static_cast<unsigned char>(response[1]);
 
         qDebug() << "Initial offset: " << offset;
 
@@ -564,11 +564,11 @@ std::vector<char> ChargerModel::parseLog() const
     for (int i = 0; i < this->log.size(); i += 6)
     {
         LogDataPoint dp;
-        dp.voltage = (((this->log[i] & 0x01) << 8) | this->log[i + 1]) * 100;
-        dp.temp = this->log[i] >> 1;
-        dp.current = (this->log[i + 3]) * 100;
-        dp.step = this->log[i + 2];
-        dp.time = (this->log[i + 4] << 8) | this->log[i + 5];
+        dp.voltage = (((static_cast<unsigned char>(this->log[i]) & 0x01) << 8) | static_cast<unsigned char>(this->log[i + 1])) * 100;
+        dp.temp = static_cast<unsigned char>(this->log[i]) >> 1;
+        dp.current = static_cast<unsigned char>(this->log[i + 3]) * 100;
+        dp.step = static_cast<unsigned char>(this->log[i + 2]);
+        dp.time = (static_cast<unsigned char>(this->log[i + 4]) << 8) | static_cast<unsigned char>(this->log[i + 5]);
 
         dataStr += dp.toString() + "\n";
 

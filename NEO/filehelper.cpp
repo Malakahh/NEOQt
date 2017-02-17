@@ -10,7 +10,7 @@ FileHelper::FileHelper(QObject* parent) : QObject(parent)
         this->userStorageDir.setPath(QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).last());
     #endif
 
-    QString dataPath = QStandardPaths::standardLocations(QStandardPaths::DataLocation).last() + "/powercharge";
+    QString dataPath = QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).last() + "/powercharge";
     this->dataStorageDir.mkpath(dataPath);
     this->dataStorageDir.setPath(dataPath);
 }
