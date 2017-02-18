@@ -43,7 +43,7 @@ void BLEController::setupBLE()
                      this,
                      SLOT(addDevice(const QBluetoothDeviceInfo&)));
 
-    this->deviceDiscoveryAgent->start();
+    this->deviceDiscoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 }
 
 void BLEController::addDevice(const QBluetoothDeviceInfo &device)
@@ -122,6 +122,8 @@ void BLEController::onConnected()
 
 void BLEController::onServiceDiscovered(const QBluetoothUuid &gatt)
 {
+    qDebug() << "Whaaat" << gatt.toString();
+
     if (gatt == NEO_SERVICE_UUID)
     {
         qDebug() << "NEO service discovered";
@@ -144,6 +146,9 @@ bool BLEController::isUUIDReader(QBluetoothUuid uuid)
 
 void BLEController::onStateChanged(QLowEnergyService::ServiceState newState)
 {
+    qDebug() << "test";
+    qDebug() << "newState: " << newState;
+
     if (newState == QLowEnergyService::ServiceDiscovered)
     {
         this->writer = this->service->characteristic(WRITER_CHARACTERISTIC_UUID);
