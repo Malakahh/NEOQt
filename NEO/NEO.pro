@@ -225,4 +225,13 @@ HEADERS += \
 DISTFILES += \
     Libs/qt-crc32-master/.gitignore \
     Libs/qt-crc32-master/LICENSE \
-    Libs/qt-crc32-master/README.md
+    Libs/qt-crc32-master/README.md \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
