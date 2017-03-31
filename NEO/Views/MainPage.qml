@@ -63,7 +63,7 @@ BasePage {
             anchors.right: parent.right
             height: 20
 
-            text: "Version 0.2b"
+            text: "Version 0.3b"
         }
 
         AnimatedSprite {

@@ -27,6 +27,14 @@ public:
     void enqueueQuery(std::vector<unsigned char>& query);
     void hookSignals();
 
+    template<typename T> void clearQueue(std::queue<T>& q)
+    {
+        std::queue<T> empty;
+        std::swap(q, empty);
+    }
+
+    std::queue<std::unique_ptr<CallbackItem>> callbacks;
+
 public slots:
     void onCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& data);
     void onCharacteristicRead(const QLowEnergyCharacteristic& characteristic, const QByteArray& data);
@@ -36,13 +44,6 @@ private:
     std::queue<unsigned char> readBuffer;
 
     mutable std::mutex queueGuard;
-    std::queue<std::unique_ptr<CallbackItem>> callbacks;
-
-    template<typename T> void clearQueue(std::queue<T>& q)
-    {
-        std::queue<T> empty;
-        std::swap(q, empty);
-    }
 
     bool running = false;
     void runNextCommand();

@@ -9,6 +9,8 @@ BasePage {
     property string messageText: ""
     property alias fileSize: progressBar.to
     property alias value: progressBar.value
+    property alias btnCancelVisible: btnCancel.visible
+    property var onCancel
 
     contents: Item {
         anchors.fill: parent
@@ -114,6 +116,27 @@ BasePage {
             font.pixelSize: 15
 
             text: pageProgress.messageText
+        }
+
+        NEOControls.Button {
+            id: btnCancel
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
+
+            leftImg.source: "../Assets/arrow_left.png"
+            text: "Cancel"
+
+            visible: false
+
+            onClicked: {
+                if (onCancel)
+                    onCancel();
+
+                base.hidePages()
+                returnTo.show()
+            }
         }
     }
 }

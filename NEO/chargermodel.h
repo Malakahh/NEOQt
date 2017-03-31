@@ -77,6 +77,7 @@ public:
 
     std::vector<char> parseLog() const;
     Q_INVOKABLE void updateLog(int logHeaderIndex);
+    Q_INVOKABLE void cancelLog();
 
     Q_INVOKABLE void writeProgramName(QString name);
     Q_INVOKABLE void writeProgramSizeInWords(QVariant size);

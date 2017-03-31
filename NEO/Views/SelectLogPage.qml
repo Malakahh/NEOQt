@@ -19,6 +19,10 @@ BasePage {
                 pageProgress.messageText = "Reading log file..."
                 pageProgress.fileSize = selectedHeader.size * 2
                 pageProgress.value = 0
+                pageProgress.btnCancelVisible = true
+                pageProgress.onCancel = function() {
+
+                }
 
                 base.hidePages()
                 pageProgress.show()
@@ -69,6 +73,9 @@ BasePage {
         ListView {
             id: list
 
+            currentIndex: -1
+            highlightMoveDuration: 0
+
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -79,16 +86,32 @@ BasePage {
             clip: true
             model: chargerModel.logHeaders
 
-            delegate: Rectangle {
+            onModelChanged: {
+                currentIndex = selectedIndex
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                z: -1
+                color: base.colorControlBackground
+            }
+
+            highlight: Rectangle {
                 height: 75
                 width: parent.width
+                color: base.colorPrimary
+            }
 
-                color: base.colorControlBackground
+            delegate: Item {
+                height: 75
+                width: parent.width
 
                 MouseArea {
                     anchors.fill: parent
 
                     onClicked: {
+                        list.currentIndex = index
+
                         selectedIndex = index
                         selectedHeader = model.modelData
                     }
@@ -100,8 +123,13 @@ BasePage {
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
 
-                    text: "Log " + index
-                    color: base.colorPrimary
+                    text: "Log " + (index + 1)
+                    color: {
+                        if (list.currentIndex == index)
+                            return "#FFFFFF"
+                        else
+                            return base.colorPrimary
+                    }
 
                     fontSizeMode: Text.Fit
                     minimumPixelSize: 10
@@ -115,7 +143,12 @@ BasePage {
                     verticalAlignment: Text.AlignVCenter
 
                     text: (model.modelData.size * 2) + "b"
-                    color: base.colorPrimary
+                    color: {
+                        if (list.currentIndex == index)
+                            return "#FFFFFF"
+                        else
+                            return base.colorPrimary
+                    }
 
                     fontSizeMode: Text.Fit
                     minimumPixelSize: 10
@@ -132,17 +165,6 @@ BasePage {
                     color: base.colorPrimary
                 }
             }
-        }
-
-        Rectangle {
-            id: splitter
-
-            anchors.top: list.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 1
-
-            color: base.colorPrimary
         }
 
         NEOControls.Button {

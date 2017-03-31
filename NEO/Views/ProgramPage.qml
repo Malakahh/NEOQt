@@ -14,6 +14,7 @@ BasePage {
                 pageProgress.messageText = "Writing program..."
                 pageProgress.fileSize = programParser.wordCount * 2
                 pageProgress.value = 0
+                pageProgress.btnCancelVisible = false
 
                 base.hidePages()
                 pageProgress.show()

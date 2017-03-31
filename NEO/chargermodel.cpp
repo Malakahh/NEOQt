@@ -242,7 +242,8 @@ QString ChargerModel::getProgramName() const
 
 void ChargerModel::updateProgramName()
 {
-    programName.clear();
+    //programName.clear();
+    programName = "";
 
     //Read ee_program_name_1_2
     std::vector<unsigned char> msg_1_2a = {
@@ -628,8 +629,11 @@ void ChargerModel::updateLog(int logHeaderIndex)
     }
 }
 
-
-
+void ChargerModel::cancelLog()
+{
+    messageHelper.clearQueue(messageHelper.callbacks);
+    this->log.clear();
+}
 
 
 

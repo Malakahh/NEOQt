@@ -82,7 +82,7 @@ BasePage {
                     verticalAlignment: Text.AlignVCenter
 
                     text: model.modelData.fileName
-                    color:  {
+                    color: {
                         if (list.currentIndex == index)
                             return "#FFFFFF"
                         else
