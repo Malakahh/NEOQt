@@ -14,8 +14,8 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    //QGuiApplication app(argc, argv);
-    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
+    //QApplication app(argc, argv);
 
     BLEController& bleController = BLEController::getInstance();
     ChargerModel& chargerModel = ChargerModel::getInstance();

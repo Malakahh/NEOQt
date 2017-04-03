@@ -496,6 +496,7 @@ void ChargerModel::retrieveLogHeaderRecursively(int logStart)
 
         if (header.size == 0 || initialLogStart == logStart)
         {
+            qDebug() << "No logs found";
             initialLogStart = -1;
             return;
         }

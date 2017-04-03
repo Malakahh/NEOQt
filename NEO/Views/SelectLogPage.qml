@@ -21,7 +21,7 @@ BasePage {
                 pageProgress.value = 0
                 pageProgress.btnCancelVisible = true
                 pageProgress.onCancel = function() {
-
+                    console.log("Cancel!!")
                 }
 
                 base.hidePages()
@@ -56,6 +56,10 @@ BasePage {
                 }
             }
         }
+
+        onLogHeadersChanged: {
+            console.log("LogHeadersChanged")
+        }
     }
 
     onVisibleChanged: {
@@ -87,6 +91,7 @@ BasePage {
             model: chargerModel.logHeaders
 
             onModelChanged: {
+                console.log("Model changed")
                 currentIndex = selectedIndex
             }
 

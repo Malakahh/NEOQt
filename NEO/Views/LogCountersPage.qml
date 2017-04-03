@@ -8,10 +8,19 @@ BasePage {
         if (visible) {
             chargerModel.stopUpdateTimer()
 
+            waitText.visible = true
+
             chargerModel.enterProgMode()
             chargerModel.updateLogCounterCharges()
             chargerModel.updateLogCounterErrors()
             chargerModel.updateLogCounterDepthDischarges()
+        }
+    }
+
+    Connections {
+        target: chargerModel
+        onLogCounterDepthDischargesChanged: {
+            waitText.visible = false
         }
     }
 
@@ -61,6 +70,46 @@ BasePage {
             textRight: chargerModel.logCounterDepthDischarges
         }
 
+        Text {
+            id: waitText
+
+            anchors.top: dataRowDepthDischarges.bottom
+            anchors.topMargin: 30
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            color: base.colorPrimary
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 10
+            font.pixelSize: 25
+
+            text: "Please Wait"
+        }
+
+        Text {
+            visible: waitText.visible
+
+            anchors.top: waitText.bottom
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            color: base.colorPrimary
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 10
+            font.pixelSize: 15
+
+            text: "Reading log counters..."
+        }
+
         NEOControls.Button {
             id: btnReset
             anchors.bottom: btnBack.top
@@ -74,6 +123,8 @@ BasePage {
                 chargerModel.updateLogCounterCharges()
                 chargerModel.updateLogCounterErrors()
                 chargerModel.updateLogCounterDepthDischarges()
+
+                waitText.visible = true
             }
         }
 

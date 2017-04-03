@@ -40,11 +40,17 @@ BasePage {
                 }
             }
         }
+
+        onProgramNameChanged: {
+            waitText.visible = false
+        }
     }
 
     onVisibleChanged: {
         if (visible) {
             chargerModel.stopUpdateTimer()
+
+            waitText.visible = true
 
             chargerModel.enterProgMode()
             chargerModel.updateProgramName()
@@ -66,6 +72,46 @@ BasePage {
             textColor: base.colorSecondary
 
             textCenter: chargerModel.programName
+        }
+
+        Text {
+            id: waitText
+
+            anchors.top: dataRowProgramName.bottom
+            anchors.topMargin: 30
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            color: base.colorPrimary
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 10
+            font.pixelSize: 25
+
+            text: "Please Wait"
+        }
+
+        Text {
+            visible: waitText.visible
+
+            anchors.top: waitText.bottom
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            color: base.colorPrimary
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 10
+            font.pixelSize: 15
+
+            text: "Reading program name..."
         }
 
         NEOControls.Button {
