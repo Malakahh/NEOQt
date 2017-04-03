@@ -21,7 +21,11 @@ BasePage {
                 pageProgress.value = 0
                 pageProgress.btnCancelVisible = true
                 pageProgress.onCancel = function() {
-                    console.log("Cancel!!")
+                    chargerModel.cancelLog()
+                    chargerModel.enterNormalMode()
+
+                    base.hidePages()
+                    returnTo.show()
                 }
 
                 base.hidePages()

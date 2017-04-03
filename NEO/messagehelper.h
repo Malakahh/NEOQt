@@ -33,7 +33,11 @@ public:
         std::swap(q, empty);
     }
 
+    mutable std::mutex queueGuard;
     std::queue<std::unique_ptr<CallbackItem>> callbacks;
+
+    std::queue<unsigned char> readBuffer;
+    bool running = false;
 
 public slots:
     void onCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& data);
@@ -41,11 +45,6 @@ public slots:
     void timeoutResponse();
 
 private:
-    std::queue<unsigned char> readBuffer;
-
-    mutable std::mutex queueGuard;
-
-    bool running = false;
     void runNextCommand();
 
     void obtainResponse();

@@ -133,9 +133,6 @@ BasePage {
             onClicked: {
                 if (onCancel)
                     onCancel();
-
-                base.hidePages()
-                returnTo.show()
             }
         }
     }

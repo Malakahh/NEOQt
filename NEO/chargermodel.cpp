@@ -632,8 +632,12 @@ void ChargerModel::updateLog(int logHeaderIndex)
 
 void ChargerModel::cancelLog()
 {
+    std::lock_guard<std::mutex>(messageHelper.queueGuard);
+    qDebug() << "Cancel log";
     messageHelper.clearQueue(messageHelper.callbacks);
+    messageHelper.clearQueue(messageHelper.readBuffer);
     this->log.clear();
+    messageHelper.running = false;
 }
 
 

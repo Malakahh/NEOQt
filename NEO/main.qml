@@ -31,6 +31,14 @@ ApplicationWindow {
         pageSelectLog.hide()
     }
 
+//    Rectangle {
+//        focus: true
+//        Keys.onBackPressed: {
+//            console.log("BACK PRESSED")
+//            app.exit()
+//        }
+//    }
+
     style: ApplicationWindowStyle {
         background: Rectangle {
             color: "#FFFFFF"

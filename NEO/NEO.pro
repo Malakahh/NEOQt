@@ -1,4 +1,4 @@
-QT += qml quick bluetooth widgets
+QT += qml quick bluetooth widgets androidextras
 
 CONFIG += c++11
 
@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     programstep.cpp \
     logheader.cpp \
     storagemodel.cpp \
-    logdatapoint.cpp
+    logdatapoint.cpp \
+    apphelper.cpp
 
 RESOURCES += qml.qrc
 
@@ -218,7 +219,8 @@ HEADERS += \
     programstep.h \
     logheader.h \
     storagemodel.h \
-    logdatapoint.h
+    logdatapoint.h \
+    apphelper.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
 
