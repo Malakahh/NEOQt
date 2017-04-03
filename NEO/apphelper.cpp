@@ -1,7 +1,9 @@
 #include "apphelper.h"
 
+#ifdef Q_OS_ANDROID
 #include <QtAndroidExtras/QAndroidJniObject>
 #include <QDebug>
+#endif
 
 AppHelper::AppHelper(QObject *parent) : QObject(parent)
 {
