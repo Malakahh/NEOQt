@@ -32,7 +32,7 @@ void ProgramParser::parse(QString fileName)
     this->steps.clear();
 
     FileHelper& fileHelper = FileHelper::getInstance();
-    fileHelper.load(fileName, this->loadedBytes);
+    fileHelper.loadProgram(fileName, this->loadedBytes);
 
     this->parseProgramName();
     this->parseProgramSteps();
