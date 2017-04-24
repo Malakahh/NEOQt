@@ -176,4 +176,9 @@ void BLEController::onStateChanged(QLowEnergyService::ServiceState newState)
         qDebug() << "Connection Established";
         emit this->connectionEstablished();
     }
+    else if (newState == QLowEnergyService::InvalidService)
+    {
+        qDebug() << "Connection lost";
+        emit this->connectionLost();
+    }
 }

@@ -31,6 +31,14 @@ ApplicationWindow {
         pageSelectLog.hide()
     }
 
+    Connections {
+        target: bleController
+        onConnectionLost: {
+            hidePages()
+            pageDisconnect.show()
+        }
+    }
+
 //    Rectangle {
 //        focus: true
 //        Keys.onBackPressed: {
@@ -101,6 +109,11 @@ ApplicationWindow {
 
     Views.SelectLogPage {
         id: pageSelectLog
+        visible: false
+    }
+
+    Views.DisconnectPage {
+        id: pageDisconnect
         visible: false
     }
 }
