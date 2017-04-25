@@ -10,6 +10,7 @@
 #include "filehelper.h"
 #include "programparser.h"
 #include "storagemodel.h"
+#include "blehelper.h"
 
 #include "apphelper.h"
 
@@ -19,7 +20,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     //QApplication app(argc, argv);
 
-    BLEController& bleController = BLEController::getInstance();
+    //BLEController& bleController = BLEController::getInstance();
+    BLEController bleController;
+    BLEHelper::getInstance().bleController = &bleController;
+
     ChargerModel& chargerModel = ChargerModel::getInstance();
     FileHelper& fileHelper = FileHelper::getInstance();
     ProgramParser programParser;

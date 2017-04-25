@@ -12,7 +12,7 @@
 #include <functional>
 #include <iostream>
 
-#include "blecontroller.h"
+#include "blehelper.h"
 #include "callbackitem.h"
 
 class MessageHelper : public QObject

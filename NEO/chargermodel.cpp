@@ -36,7 +36,7 @@
 
 ChargerModel::ChargerModel(QObject* parent) : QObject(parent)
 {
-    QObject::connect(&BLEController::getInstance(),
+    QObject::connect(BLEHelper::getInstance().bleController,
                      SIGNAL(connectionEstablished()),
                      this,
                      SLOT(onConnectionEstablished()));

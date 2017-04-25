@@ -14,12 +14,12 @@ MessageHelper::MessageHelper(QObject *parent) : QObject(parent)
 
 void MessageHelper::hookSignals()
 {
-    QObject::connect(BLEController::getInstance().service,
+    QObject::connect(BLEHelper::getInstance().bleController->service,
                      SIGNAL(characteristicWritten(const QLowEnergyCharacteristic&, const QByteArray&)),
                      this,
                      SLOT(onCharacteristicWritten(const QLowEnergyCharacteristic&, const QByteArray&)));
 
-    QObject::connect(BLEController::getInstance().service,
+    QObject::connect(BLEHelper::getInstance().bleController->service,
                      SIGNAL(characteristicChanged(const QLowEnergyCharacteristic&, const QByteArray&)),
                      this,
                      SLOT(onCharacteristicRead(const QLowEnergyCharacteristic&, const QByteArray&)));
@@ -46,7 +46,7 @@ void MessageHelper::writeMessage(std::vector<unsigned char>& cmd)
         msg[2 + CHECKSUM_LENGTH_BYTES + i] = cmd[i];
     }
 
-    BLEController::getInstance().writeCharacteristic(QByteArray(msg, cmd.size() + 2 + CHECKSUM_LENGTH_BYTES));
+    BLEHelper::getInstance().bleController->writeCharacteristic(QByteArray(msg, cmd.size() + 2 + CHECKSUM_LENGTH_BYTES));
 }
 
 void MessageHelper::onCharacteristicWritten(const QLowEnergyCharacteristic& characteristic, const QByteArray& data)
@@ -60,7 +60,7 @@ void MessageHelper::onCharacteristicWritten(const QLowEnergyCharacteristic& char
 void MessageHelper::onCharacteristicRead(const QLowEnergyCharacteristic& characteristic, const QByteArray& data)
 {
     std::lock_guard<std::mutex>(this->queueGuard);
-    if (BLEController::getInstance().isUUIDReader(characteristic.uuid()) && !callbacks.empty())
+    if (BLEHelper::getInstance().bleController->isUUIDReader(characteristic.uuid()) && !callbacks.empty())
     {
         for (const char& byte : data)
         {

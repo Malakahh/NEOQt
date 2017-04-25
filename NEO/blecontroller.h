@@ -9,7 +9,6 @@
 
 #include "bluetoothdevicedataobject.h"
 
-
 class BLEController : public QObject
 {
     Q_OBJECT
@@ -18,10 +17,10 @@ class BLEController : public QObject
 
 public:
     explicit BLEController(QObject *parent = 0);
-    BLEController(BLEController const&) = delete;
+//    BLEController(BLEController const&) = delete;
     ~BLEController();
 
-    static BLEController& getInstance();
+    //static BLEController& getInstance();
 
     QLowEnergyService* service;
 
@@ -33,7 +32,7 @@ public:
     void writeCharacteristic(QByteArray msg);
     bool isUUIDReader(QBluetoothUuid uuid);
 
-    void operator=(BLEController const&) = delete;
+//    void operator=(BLEController const&) = delete;
 
 signals:
     void onDevicesChanged();
@@ -43,10 +42,13 @@ signals:
 public slots:
     void addDevice(const QBluetoothDeviceInfo& device);
     void onConnected();
-    void onServiceDiscovered(const QBluetoothUuid& gatt);
+    void onServiceDiscovered(QBluetoothUuid gatt);
+    void onDisconnected();
     void onStateChanged(QLowEnergyService::ServiceState newState);
 
 private:
+    static BLEController* instance;
+
     QBluetoothDeviceDiscoveryAgent* deviceDiscoveryAgent;
     QLowEnergyController* leController;
 

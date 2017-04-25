@@ -3,25 +3,28 @@
 #include "messagehelper.h"
 #include "storagemodel.h"
 
-#define NEO_SERVICE_UUID QBluetoothUuid(static_cast<const QUuid>("f4f232be-5a53-11e6-8b77-86f30ca893d3"))
-#define READER_CHARACTERISTIC_UUID QBluetoothUuid(static_cast<const QUuid>("1d4b745a-5a54-11e6-8b77-86f30ca893d3"))
-#define WRITER_CHARACTERISTIC_UUID QBluetoothUuid(static_cast<const QUuid>("e25328b0-5a54-11e6-8b77-86f30ca893d3"))
+#define NEO_SERVICE_UUID QBluetoothUuid(QUuid("f4f232be-5a53-11e6-8b77-86f30ca893d3"))
+#define READER_CHARACTERISTIC_UUID QBluetoothUuid(QUuid("1d4b745a-5a54-11e6-8b77-86f30ca893d3"))
+#define WRITER_CHARACTERISTIC_UUID QBluetoothUuid(QUuid("e25328b0-5a54-11e6-8b77-86f30ca893d3"))
 
-BLEController::BLEController(QObject *parent) : QObject(parent) {}
-
-BLEController& BLEController::getInstance()
+BLEController::BLEController(QObject *parent) : QObject(parent)
 {
-    static BLEController instance;
-
-    return instance;
+    BLEController::instance = this;
 }
+
+//BLEController& BLEController::getInstance()
+//{
+//    return *instance;
+//}
+
+BLEController* BLEController::instance = 0;
 
 BLEController::~BLEController()
 {
-    delete this->deviceDiscoveryAgent;
+//    delete this->deviceDiscoveryAgent;
 
-    this->leController->disconnectFromDevice();
-    delete this->leController;
+//    this->leController->disconnectFromDevice();
+//    delete this->leController;
 
     for (auto itr = this->devices.begin(); itr < this->devices.end(); ++itr)
     {
@@ -31,11 +34,6 @@ BLEController::~BLEController()
 
 void BLEController::setupBLE()
 {
-    if (this->deviceDiscoveryAgent != nullptr)
-    {
-        delete this->deviceDiscoveryAgent;
-    }
-
     this->deviceDiscoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
 
     QObject::connect(this->deviceDiscoveryAgent,
@@ -51,7 +49,7 @@ void BLEController::addDevice(const QBluetoothDeviceInfo &device)
     if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration) //Filter for BLE devices
     {
         StorageModel& sm = StorageModel::getInstance();
-        qDebug() << "found device: " <<device.name() << " stored: " << sm.getBLEDeviceName();
+        qDebug() << "found device: " << device.name() << " stored: " << sm.getBLEDeviceName();
 
         if (device.name() == sm.getBLEDeviceName())
         {
@@ -73,11 +71,6 @@ void BLEController::connect(int index)
 
 void BLEController::connect(const QBluetoothDeviceInfo& device)
 {
-    if (this->leController != nullptr)
-    {
-        delete this->leController;
-    }
-
     StorageModel::getInstance().setBLEDeviceName(device.name());
 
     //this->leController = new QLowEnergyController(device.address(), this);
@@ -93,7 +86,18 @@ void BLEController::connect(const QBluetoothDeviceInfo& device)
                      this,
                      SLOT(onServiceDiscovered(QBluetoothUuid)));
 
+    QObject::connect(this->leController,
+                     SIGNAL(disconnected()),
+                     this,
+                     SLOT(onDisconnected()));
+
     this->leController->connectToDevice();
+}
+
+void BLEController::onDisconnected()
+{
+    qDebug() << "Connection lost";
+    emit this->connectionLost();
 }
 
 void BLEController::writeCharacteristic(QByteArray msg)
@@ -120,7 +124,7 @@ void BLEController::onConnected()
     this->leController->discoverServices();
 }
 
-void BLEController::onServiceDiscovered(const QBluetoothUuid &gatt)
+void BLEController::onServiceDiscovered(QBluetoothUuid gatt)
 {
     qDebug() << "Whaaat" << gatt.toString();
 
@@ -128,7 +132,7 @@ void BLEController::onServiceDiscovered(const QBluetoothUuid &gatt)
     {
         qDebug() << "NEO service discovered";
 
-        this->service = this->leController->createServiceObject(gatt);
+        this->service = this->leController->createServiceObject(gatt, this);
 
         QObject::connect(this->service,
                          SIGNAL(stateChanged(QLowEnergyService::ServiceState)),
@@ -175,10 +179,5 @@ void BLEController::onStateChanged(QLowEnergyService::ServiceState newState)
 
         qDebug() << "Connection Established";
         emit this->connectionEstablished();
-    }
-    else if (newState == QLowEnergyService::InvalidService)
-    {
-        qDebug() << "Connection lost";
-        emit this->connectionLost();
     }
 }

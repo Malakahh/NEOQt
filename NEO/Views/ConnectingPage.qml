@@ -24,7 +24,7 @@ BasePage {
             width: 100
             height: 100
 
-            running: image.status === Image.Loading
+            running: true
         }
 
         Text {
