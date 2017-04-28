@@ -64,6 +64,10 @@ BasePage {
         onLogHeadersChanged: {
             console.log("LogHeadersChanged")
         }
+
+        onLogHeadersFinished: {
+            waitText.visible = false
+        }
     }
 
     onVisibleChanged: {
@@ -72,6 +76,8 @@ BasePage {
 
             chargerModel.enterProgMode()
             chargerModel.updateProgramSize()
+
+            waitText.visible = true
 
             base.backPressedCallback = goToPreviousPage
         }
@@ -95,7 +101,7 @@ BasePage {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            anchors.bottom: btnOk.top
+            anchors.bottom: waitText.top
             anchors.bottomMargin: 25
 
             focus: true
@@ -181,6 +187,48 @@ BasePage {
                     color: base.colorPrimary
                 }
             }
+        }
+
+        Text {
+            id: waitText
+
+            anchors.bottom: waitTextSub.top
+            anchors.bottomMargin: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            color: base.colorPrimary
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 10
+            font.pixelSize: 25
+
+            text: "Please Wait"
+        }
+
+        Text {
+            id: waitTextSub
+
+            visible: waitText.visible
+
+            anchors.bottom: btnOk.top
+            anchors.bottomMargin: 30
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            color: base.colorPrimary
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 10
+            font.pixelSize: 15
+
+            text: "Fetching logs..."
         }
 
         NEOControls.Button {

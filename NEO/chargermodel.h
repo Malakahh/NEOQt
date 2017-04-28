@@ -101,6 +101,7 @@ signals:
     void programSizeChanged();
     void logSizeChanged();
     void logHeadersChanged();
+    void logHeadersFinished();
 
     void programByteWritten();
     void logByteRead();

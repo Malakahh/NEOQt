@@ -498,6 +498,7 @@ void ChargerModel::retrieveLogHeaderRecursively(int logStart)
         {
             qDebug() << "No logs found";
             initialLogStart = -1;
+            emit this->logHeadersFinished();
             return;
         }
 
