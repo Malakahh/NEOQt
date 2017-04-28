@@ -5,10 +5,16 @@ BasePage {
     onVisibleChanged: {
         if (visible) {
             chargerModel.startUpdateTimer()
+            base.backPressedCallback = goToPreviousPage
         }
     }
 
     text: "Service Menu"
+
+    function goToPreviousPage() {
+        base.hidePages()
+        pageMain.show()
+    }
 
     contents: Item {
         id: container
@@ -160,8 +166,7 @@ BasePage {
                 leftImg.source: "../Assets/arrow_left.png"
 
                 onClicked: {
-                    base.hidePages()
-                    pageMain.show()
+                    goToPreviousPage()
                 }
             }
         }

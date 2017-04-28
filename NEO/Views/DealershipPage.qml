@@ -8,6 +8,17 @@ BasePage {
 
     property var returnTo
 
+    function goToPreviousPage() {
+        base.hidePages()
+        returnTo.show()
+    }
+
+    onVisibleChanged: {
+        if (visible) {
+            base.backPressedCallback = goToPreviousPage
+        }
+    }
+
     contents: Item {
         anchors.fill: parent
 
@@ -75,8 +86,7 @@ BasePage {
             leftImg.source: "../Assets/arrow_left.png"
 
             onClicked: {
-                base.hidePages()
-                returnTo.show()
+                goToPreviousPage()
             }
         }
     }

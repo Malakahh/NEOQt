@@ -11,6 +11,20 @@ BasePage {
 
     signal filePicked(var fileName)
 
+    function goToPreviousPage() {
+        selectedFile = ""
+        fileInput.text = ""
+
+        base.hidePages()
+        returnTo.show()
+    }
+
+    onVisibleChanged: {
+        if (visible) {
+            base.backPressedCallback = goToPreviousPage
+        }
+    }
+
     contents: Item {
         anchors.fill: parent
 
@@ -166,11 +180,12 @@ BasePage {
             text: "Cancel"
 
             onClicked: {
-                selectedFile = ""
-                fileInput.text = ""
+//                selectedFile = ""
+//                fileInput.text = ""
 
-                base.hidePages()
-                returnTo.show()
+//                base.hidePages()
+//                returnTo.show()
+                goToPreviousPage()
             }
         }
     }

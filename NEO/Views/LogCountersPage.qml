@@ -14,7 +14,15 @@ BasePage {
             chargerModel.updateLogCounterCharges()
             chargerModel.updateLogCounterErrors()
             chargerModel.updateLogCounterDepthDischarges()
+
+            base.backPressedCallback = goToPreviousPage
         }
+    }
+
+    function goToPreviousPage() {
+        chargerModel.enterNormalMode()
+        base.hidePages()
+        pageService.show()
     }
 
     Connections {
@@ -138,9 +146,7 @@ BasePage {
             leftImg.source: "../Assets/arrow_left.png"
 
             onClicked: {
-                chargerModel.enterNormalMode()
-                base.hidePages()
-                pageService.show()
+                goToPreviousPage()
             }
         }
     }

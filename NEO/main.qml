@@ -16,9 +16,25 @@ ApplicationWindow {
     property string colorPrimary: "#FF00A37D"
     property string colorSecondary: "#FF258267"
 
+    property var backPressedCallback
+
+    Rectangle {
+        id: backpressedHandler
+        focus: true
+        Keys.onBackPressed: {
+            if (backPressedCallback) {
+                console.log("BACK PRESSED - backPressedCallback")
+                backPressedCallback()
+            } else {
+                console.log("BACK PRESSED - quit")
+                Qt.quit()
+            }
+        }
+    }
+
     function hidePages() {
         pageBT.hide()
-        pageConnecting.hide()
+        pageConnect.hide()
         pageMain.hide()
         pagePassword.hide()
         pageService.hide()
@@ -39,14 +55,6 @@ ApplicationWindow {
         }
     }
 
-//    Rectangle {
-//        focus: true
-//        Keys.onBackPressed: {
-//            console.log("BACK PRESSED")
-//            app.exit()
-//        }
-//    }
-
     style: ApplicationWindowStyle {
         background: Rectangle {
             color: "#FFFFFF"
@@ -58,7 +66,7 @@ ApplicationWindow {
     }
 
     Views.ConnectingPage {
-        id: pageConnecting
+        id: pageConnect
         visible: false
     }
 

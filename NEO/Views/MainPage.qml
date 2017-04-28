@@ -11,6 +11,8 @@ BasePage {
             ledYellow.start()
             ledRed.start()
             batteryIcon.start()
+
+            base.backPressedCallback = false
         }
     }
 
@@ -63,7 +65,7 @@ BasePage {
             anchors.right: parent.right
             height: 20
 
-            text: "Version 0.3.3b"
+            text: "Version 0.4b"
         }
 
         AnimatedSprite {

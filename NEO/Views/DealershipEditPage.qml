@@ -4,6 +4,27 @@ import "../NEOControls" as NEOControls
 BasePage {
     text: "Dealership Information"
 
+    function goToPreviousPage() {
+        console.log("motherfucking click")
+        base.hidePages()
+        pageDealership.show()
+    }
+
+    Connections {
+        target: Qt.inputMethod
+        onVisibleChanged: {
+            if (!Qt.inputMethod.visible) {
+                backpressedHandler.focus = true
+            }
+        }
+    }
+
+    onVisibleChanged: {
+        if (visible) {
+            base.backPressedCallback = goToPreviousPage
+        }
+    }
+
     contents: Item {
         anchors.fill: parent
 
@@ -122,8 +143,7 @@ BasePage {
             leftImg.source: "../Assets/arrow_left.png"
 
             onClicked: {
-                base.hidePages()
-                pageDealership.show()
+                goToPreviousPage()
             }
         }
     }

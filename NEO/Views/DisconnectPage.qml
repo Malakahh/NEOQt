@@ -2,6 +2,13 @@ import QtQuick 2.0
 
 BasePage {
     text: "Connection lost"
+
+    onVisibleChanged: {
+        if (visible) {
+            base.backPressedCallback = {}
+        }
+    }
+
     contents: Item {
         anchors.fill: parent
 

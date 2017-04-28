@@ -72,7 +72,15 @@ BasePage {
 
             chargerModel.enterProgMode()
             chargerModel.updateProgramSize()
+
+            base.backPressedCallback = goToPreviousPage
         }
+    }
+
+    function goToPreviousPage() {
+        chargerModel.enterNormalMode()
+        base.hidePages()
+        returnTo.show()
     }
 
     contents: Item {
@@ -95,7 +103,6 @@ BasePage {
             model: chargerModel.logHeaders
 
             onModelChanged: {
-                console.log("Model changed")
                 currentIndex = selectedIndex
             }
 
@@ -209,9 +216,7 @@ BasePage {
             text: "Cancel"
 
             onClicked: {
-                chargerModel.enterNormalMode()
-                base.hidePages()
-                returnTo.show()
+                goToPreviousPage()
             }
         }
     }

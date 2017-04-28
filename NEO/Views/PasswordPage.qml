@@ -6,7 +6,14 @@ BasePage {
     onVisibleChanged: {
         if (visible) {
             chargerModel.startUpdateTimer()
+
+            base.backPressedCallback = goToPreviousPage
         }
+    }
+
+    function goToPreviousPage() {
+        base.hidePages()
+        pageMain.show()
     }
 
     text: "Authorization Required"
@@ -72,8 +79,7 @@ BasePage {
             text: "Cancel"
 
             onClicked: {
-                base.hidePages()
-                pageMain.show()
+                goToPreviousPage()
             }
         }
     }

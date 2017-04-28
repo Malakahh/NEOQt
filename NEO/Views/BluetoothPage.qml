@@ -7,6 +7,19 @@ BasePage {
         bleController.setupBLE()
     }
 
+    onVisibleChanged: {
+        if (visible) {
+            base.backPressedCallback = false
+        }
+    }
+
+    function connect(i) {
+        bleController.connect(i)
+        base.hidePages()
+        pageConnect.show()
+        dropdownPopup.close()
+    }
+
     text: "Select NEO Charger"
     contents: Item {
         id: content
@@ -65,10 +78,7 @@ BasePage {
                     anchors.fill: parent
 
                     onClicked: {
-                        bleController.connect(index)
-                        base.hidePages()
-                        pageConnecting.show()
-                        dropdownPopup.close()
+                        connect(index)
                     }
                 }
 

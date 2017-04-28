@@ -15,6 +15,7 @@ BasePage {
                 pageProgress.fileSize = programParser.wordCount * 2
                 pageProgress.value = 0
                 pageProgress.btnCancelVisible = false
+                pageProgress.onCancel = false
 
                 base.hidePages()
                 pageProgress.show()
@@ -54,7 +55,15 @@ BasePage {
 
             chargerModel.enterProgMode()
             chargerModel.updateProgramName()
+
+            base.backPressedCallback = goToPreviousPage
         }
+    }
+
+    function goToPreviousPage() {
+        chargerModel.enterNormalMode()
+        base.hidePages()
+        pageService.show()
     }
 
     contents: Item {

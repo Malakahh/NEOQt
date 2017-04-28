@@ -12,6 +12,17 @@ BasePage {
     property alias btnCancelVisible: btnCancel.visible
     property var onCancel
 
+    function goToPreviousPage() {
+        if (onCancel)
+            onCancel();
+    }
+
+    onVisibleChanged: {
+        if (visible) {
+            base.backPressedCallback = goToPreviousPage
+        }
+    }
+
     contents: Item {
         anchors.fill: parent
 
@@ -131,8 +142,7 @@ BasePage {
             visible: false
 
             onClicked: {
-                if (onCancel)
-                    onCancel();
+                goToPreviousPage()
             }
         }
     }

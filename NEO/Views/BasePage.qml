@@ -8,6 +8,10 @@ Flickable {
     property alias header: placeholderHeader.children
     property alias text: placeholderHeader.text
 
+    onVisibleChanged: {
+        backpressedHandler.focus = true
+    }
+
     function show() {
         basePage.visible = true
         //basePage.enabled = true
@@ -19,7 +23,7 @@ Flickable {
     }
 
     ScrollBar.vertical: ScrollBar { }
-    focus: true
+    //focus: true
     anchors.fill: parent
 
     Rectangle {

@@ -12,8 +12,6 @@
 #include "storagemodel.h"
 #include "blehelper.h"
 
-#include "apphelper.h"
-
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -28,7 +26,6 @@ int main(int argc, char *argv[])
     FileHelper& fileHelper = FileHelper::getInstance();
     ProgramParser programParser;
     StorageModel& storageModel = StorageModel::getInstance();
-    AppHelper ah;
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("bleController", &bleController);
@@ -36,7 +33,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("fileHelper", &fileHelper);
     engine.rootContext()->setContextProperty("programParser", &programParser);
     engine.rootContext()->setContextProperty("storageModel", &storageModel);
-    engine.rootContext()->setContextProperty("app", &ah);
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();

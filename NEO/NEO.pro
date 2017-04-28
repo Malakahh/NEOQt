@@ -14,7 +14,6 @@ SOURCES += main.cpp \
     logheader.cpp \
     storagemodel.cpp \
     logdatapoint.cpp \
-    apphelper.cpp \
     blehelper.cpp
 
 RESOURCES += qml.qrc
@@ -221,7 +220,6 @@ HEADERS += \
     logheader.h \
     storagemodel.h \
     logdatapoint.h \
-    apphelper.h \
     blehelper.h
 
 #unix|win32: LIBS += -lQt5Bluetooth
