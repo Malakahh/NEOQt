@@ -4,8 +4,10 @@ BasePage {
     text: "Connection lost"
 
     onVisibleChanged: {
+        console.log("test")
         if (visible) {
-            base.backPressedCallback = {}
+            console.log("test2")
+            base.backPressedCallback = false
         }
     }
 
