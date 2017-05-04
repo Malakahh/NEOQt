@@ -59,7 +59,13 @@ BasePage {
 
             focus: true
             clip: true
-            model: fileHelper.getFiles()
+            model: {
+                if (fileExplorer.writeMode) {
+                    return fileHelper.getFiles("csv")
+                } else {
+                    return fileHelper.getFiles("gbc")
+                }
+            }
 
             highlight: Rectangle {
                 height: 75

@@ -24,7 +24,7 @@ FileHelper& FileHelper::getInstance()
     return instance;
 }
 
-QVariant FileHelper::getFiles()
+QVariant FileHelper::getFiles(QString extensionFilter)
 {
     QList<QObject*> list;
 
@@ -33,7 +33,10 @@ QVariant FileHelper::getFiles()
     for (QFileInfo& info : this->files)
     {
         qDebug() << info.fileName();
-        list.append(new FileBrowserData(info.fileName()));
+        if (extensionFilter == "" || info.suffix().toLower() == extensionFilter.toLower())
+        {
+            list.append(new FileBrowserData(info.fileName()));
+        }
     }
 
     return QVariant::fromValue(list);

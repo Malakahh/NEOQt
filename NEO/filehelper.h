@@ -20,7 +20,7 @@ public:
 
     static FileHelper& getInstance();
 
-    Q_INVOKABLE QVariant getFiles();
+    Q_INVOKABLE QVariant getFiles(QString extensionFilter);
 
     void save(QString path, std::vector<char> data);
     void load(QString path, std::vector<char>& data);
