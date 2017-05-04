@@ -78,11 +78,7 @@ void FileHelper::saveLog(QString fileName)
 
     std::vector<char> log = ChargerModel::getInstance().parseLog();
 
-    QStringList fileNameSplit = fileName.split('.');
-    if (fileNameSplit.size() < 2 || fileNameSplit.last() == "")
-    {
-        fileName.append(".csv");
-    }
+    fileName.append(".csv");
 
     QString path = this->userStorageDir.absolutePath() + "/" + fileName;
 
