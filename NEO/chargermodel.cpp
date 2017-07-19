@@ -562,7 +562,7 @@ std::vector<char> ChargerModel::parseLog() const
 {
     std::vector<LogDataPoint> datapoints;
 
-    QString dataStr = LogDataPoint::headerString() + "\n";
+    QString dataStr = LogDataPoint::headerString() + "\r\n";
 
     for (int i = 0; i < this->log.size(); i += 6)
     {
@@ -573,7 +573,7 @@ std::vector<char> ChargerModel::parseLog() const
         dp.step = static_cast<unsigned char>(this->log[i + 2]);
         dp.time = (static_cast<unsigned char>(this->log[i + 4]) << 8) | static_cast<unsigned char>(this->log[i + 5]);
 
-        dataStr += dp.toString() + "\n";
+        dataStr += dp.toString() + "\r\n";
 
         datapoints.push_back(dp);
     }
