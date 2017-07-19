@@ -71,7 +71,7 @@ BasePage {
                 minimumPixelSize: 10
                 font.pixelSize: 25
 
-                text: pageProgress.value + "/" + pageProgress.fileSize + "b"
+                text: pageProgress.value + "/" + pageProgress.fileSize
                 color: "#FFFFFFFF"
             }
         }
@@ -88,7 +88,7 @@ BasePage {
             textColor: base.colorSecondary
 
             textLeft: pageProgress.fileName
-            textRight: pageProgress.fileSize + "b"
+            textRight: pageProgress.fileSize
         }
 
         Text {

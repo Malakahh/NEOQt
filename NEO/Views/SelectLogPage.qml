@@ -164,7 +164,7 @@ BasePage {
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
 
-                    text: (model.modelData.size * 2) + "b"
+                    text: (model.modelData.size * 2)
                     color: {
                         if (list.currentIndex == index)
                             return "#FFFFFF"
