@@ -20,7 +20,7 @@
 #define C_CHARGE_CURR_MEAS_HIGH 0x15
 #define C_CHARGE_PSTEP_NUMBER 0x18
 #define C_LED_MODE 0x1E
-//#define C_LOG_CLEAR_CONTROL 0x21
+#define C_LOG_CLEAR_CONTROL 0x21
 
 //eeprom layout
 #define EE_LOG_CNT_CHARG 0x1A
@@ -766,6 +766,14 @@ void ChargerModel::writeProgram(QVariant p)
         messageHelper.enqueueQuery(msg_a);
         messageHelper.enqueueQuery(msg_b, 0, f);
     }
+
+    //Reset log properly
+    std::vector<unsigned char> msg = {
+        C_LOG_CLEAR_CONTROL | WRITE_REG,
+        0x80
+    };
+
+    messageHelper.enqueueQuery(msg);
 }
 
 void ChargerModel::clearLogCounters()
