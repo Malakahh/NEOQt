@@ -5,7 +5,6 @@ BasePage {
     text: "Dealership Information"
 
     function goToPreviousPage() {
-        console.log("motherfucking click")
         base.hidePages()
         pageDealership.show()
     }

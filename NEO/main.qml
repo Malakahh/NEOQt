@@ -21,8 +21,14 @@ ApplicationWindow {
     Rectangle {
         id: backpressedHandler
         focus: true
+
+        property bool cancel: false
+
         Keys.onBackPressed: {
-            if (backPressedCallback) {
+            if (cancel) {
+                console.log("BACK PRESSED - cancelled")
+                cancel = false
+            } else if (backPressedCallback) {
                 console.log("BACK PRESSED - backPressedCallback")
                 backPressedCallback()
             } else {

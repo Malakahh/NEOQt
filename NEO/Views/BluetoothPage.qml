@@ -118,6 +118,10 @@ BasePage {
                 margins: 0
                 padding: 0
 
+                onClosed: {
+                    backpressedHandler.focus = true
+                }
+
                 contentItem: ListView {
                     id: listview
                     clip: true
