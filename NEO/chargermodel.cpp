@@ -491,7 +491,7 @@ void ChargerModel::retrieveLogHeaderRecursively(int logStart)
         static int initialLogStart = -1;
 
         LogHeader header;
-        header.size = (static_cast<unsigned char>(response[0] << 8)) | static_cast<unsigned char>(response[1]);
+        header.size = (static_cast<unsigned char>(response[0]) << 8) | static_cast<unsigned char>(response[1]);
         header.address = logStart;
 
         if (header.size == 0 || initialLogStart == logStart)
