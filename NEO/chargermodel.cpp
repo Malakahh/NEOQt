@@ -571,7 +571,7 @@ std::vector<char> ChargerModel::parseLog() const
         dp.temp = static_cast<unsigned char>(this->log[i]) >> 1;
         dp.current = static_cast<unsigned char>(this->log[i + 3]) * 100;
         dp.step = static_cast<unsigned char>(this->log[i + 2]) & 0x7F;
-        dp.time = (static_cast<unsigned char>(this->log[i + 2] >> 6) << 14) | (static_cast<unsigned char>(this->log[i + 4]) << 8) | static_cast<unsigned char>(this->log[i + 5]);
+        dp.time = (static_cast<unsigned char>(this->log[i + 2] >> 6) << 16) | (static_cast<unsigned char>(this->log[i + 4]) << 8) | static_cast<unsigned char>(this->log[i + 5]);
 
         dataStr += dp.toString() + "\r\n";
 
