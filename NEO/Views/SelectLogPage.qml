@@ -15,7 +15,7 @@ BasePage {
         onFilePicked: {
             if (fileExplorer.returnTo === pageSelectLog) {
                 file = fileName
-                pageProgress.fileName = "Log " + selectedIndex
+                pageProgress.fileName = "Log " + (selectedIndex + 1)
                 pageProgress.messageText = "Reading log file..."
                 pageProgress.fileSize = selectedHeader.size * 2
                 pageProgress.value = 0
